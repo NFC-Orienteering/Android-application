@@ -28,3 +28,4 @@ proguard/
 # Eclipse Files
 .project
 .classpath
+.settings
