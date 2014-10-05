@@ -1,0 +1,133 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.nfcorienteering.TrackInfo" >
+
+    <Button
+        android:id="@+id/selectOtherButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/selectOther_button"
+        android:onClick="readOtherTag"
+        android:width="145dp" />
+
+    <Button
+        android:id="@+id/selectThisButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/selectOtherButton"
+        android:layout_alignParentRight="true"
+        android:text="@string/selectThis_button"
+        android:onClick="startOrienteeringActivity"
+        android:width="145dp" />
+
+    <TextView
+        android:id="@+id/eventNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/eventName_text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/trackDifficultyLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/trackLengthLabel"
+        android:layout_below="@+id/trackLengthLabel"
+        android:layout_marginTop="16dp"
+        android:text="@string/trackDifficulty_label"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/trackLengthLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/selectOtherButton"
+        android:layout_below="@+id/eventNameText"
+        android:layout_marginTop="30dp"
+        android:text="@string/trackLength_label"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/availabilityFromLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trackDifficultyLabel"
+        android:layout_marginTop="16dp"
+        android:text="@string/availabilityFrom_label"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/availabilityToLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/availabilityFromLabel"
+        android:layout_below="@+id/availabilityFromLabel"
+        android:layout_marginTop="16dp"
+        android:text="@string/availabilityTo_label"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/availableToText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/availabilityToLabel"
+        android:layout_alignBottom="@+id/availabilityToLabel"
+        android:layout_alignLeft="@+id/availableFromText"
+        android:text="@string/availabilityTo_text" />
+
+    <TextView
+        android:id="@+id/availableFromText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/availabilityToLabel"
+        android:layout_centerHorizontal="true"
+        android:text="@string/availabilityFrom_text" />
+
+    <TextView
+        android:id="@+id/trackDifficultyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/availabilityFromLabel"
+        android:layout_alignLeft="@+id/availableFromText"
+        android:text="@string/trackDifficulty_text" />
+
+    <TextView
+        android:id="@+id/trackLengthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/trackDifficultyLabel"
+        android:layout_alignLeft="@+id/trackDifficultyText"
+        android:text="@string/trackLength_text" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/selectOtherButton"
+        android:layout_alignLeft="@+id/selectOtherButton"
+        android:layout_alignRight="@+id/selectThisButton"
+        android:layout_below="@+id/availabilityToLabel"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="25dp"
+        android:orientation="vertical" >
+        
+        <ImageView
+	      android:id="@+id/mapImage"
+	      android:contentDescription="@string/imageDescription"
+	      android:layout_width="fill_parent"
+	      android:layout_height="fill_parent" 
+	      android:scaleType="center"/>
+        
+
+    </LinearLayout>
+
+</RelativeLayout>
