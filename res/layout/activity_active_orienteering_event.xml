@@ -9,8 +9,22 @@
     tools:context="com.example.nfcorienteering.ActiveOrienteeringEvent" >
 
     <TextView
+        android:id="@+id/activeEventText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="68dp"
+        android:text="@string/activeEvent_text" />
+
+    <Button
+        android:id="@+id/activeEventNextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/activeEventText"
+        android:layout_marginBottom="84dp"
+        android:onClick="trackFinished"
+        android:text="@string/next" />
 
 </RelativeLayout>

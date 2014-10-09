@@ -30,5 +30,19 @@
     <string name="eventName_text">Event name</string>
     <string name="imageDescription">Image of the map could not be found</string>
     <string name="title_activity_active_orienteering_event">Active Event</string>
-
+    <string name="activeEvent_text">Action bar should be added here later on.</string>
+    <string name="next">Next</string>
+    <string name="title_activity_track_results">Track Results</string>
+    <string name="results_text">Track results</string>
+    <string name="total_text">Total</string>
+    <string name="noUpload_button">Don\'t upload results</string>
+    <string name="upload_button">Upload results</string>
+    <string name="uploadInfo_text">If you want to have your track results being shown in the final results of the event,
+        choose Upload results.</string>
+    <string name="title_activity_upload_results">Upload your results</string>
+    
+    <string name="uploadResults_button">Upload Results</string>
+    <string name="uploadResultsInfo_text">Give your nickname to be shown in the final results</string>
+	<string name="menu_settings">Menu</string>
+	<string name="menu_quit">Quit</string>
 </resources>

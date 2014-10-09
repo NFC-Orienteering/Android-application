@@ -1,8 +1,8 @@
 package com.example.nfcorienteering;
 
+import java.util.Vector;
+
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint.Style;
@@ -10,74 +10,53 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 
-public class ActiveOrienteeringEvent extends Activity {
+public class TrackResults extends Activity {
 
-	Button nextButton;
-	final Context context = this;
-	
+	Button uploadButton, noUploadButton;
+	Vector <TextView> resultList = new Vector<TextView>();
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_active_orienteering_event);
-
-		nextButton = (Button)findViewById(R.id.activeEventNextButton);
-
+		setContentView(R.layout.activity_track_results);
+		
+		uploadButton = (Button)findViewById(R.id.uploadButton);
+		noUploadButton = (Button)findViewById(R.id.noUploadButton);
+		
+		setResultTable();
 		
 	}
 
-	public boolean onCreateOptionsMenu(Menu menu){
-		getMenuInflater().inflate(R.menu.main, menu);
-		
-		return true;
-	}
-	
-	public boolean onOptionsItemSelected(MenuItem item){
-		boolean ret;
-		if(item.getItemId() == R.id.menu_settings)
-		{
-			showResultDialog();
-			ret = true;
-		}
-		if(item.getItemId() == R.id.menu_quit) {
-			Intent intent = new Intent(this, MainActivity.class);
-			startActivity(intent);
-			return true;
-		}
-		else {
-			ret = super.onOptionsItemSelected(item);
-		}
-		return ret;
+
+	public void uploadResults(View v) {
+		Intent intent = new Intent(this, UploadResults.class);
+		startActivity(intent);
 	}
 	
-	public void showResultDialog() {
+	public void backToStartMenu(View v) {
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+	}
+	
+	public void setResultTable(){
 		
-		final Dialog dialog = new Dialog(context);
-		dialog.setContentView(R.layout.result_dialog);
-		dialog.setTitle("Standings");
-		
-		Button dialogButton = (Button) dialog.findViewById(R.id.dialogOk_button);
-		dialogButton.setOnClickListener(new OnClickListener() {
-			
-			public void onClick(View v) {
-				dialog.dismiss();
-			}
-		});
-		
-		//SET THE TABLE OF RESULTS
 		int controlPointCount = 6;
 		
-	    TableLayout tableLayout = (TableLayout)dialog.findViewById(R.id.eventResultTable);
+		
+
+	    TableLayout tableLayout = (TableLayout)findViewById(R.id.resultTable);
+	
+	    
 	    TableLayout.LayoutParams params = new TableLayout.LayoutParams(TableLayout.
 	    		LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
 	    
@@ -86,11 +65,11 @@ public class ActiveOrienteeringEvent extends Activity {
 	    ShapeDrawable border = new ShapeDrawable(new RectShape());
 		border.getPaint().setStyle(Style.STROKE);
 		border.getPaint().setColor(Color.GREEN);
+		
 	    
 	    
 	    for(int i = 0; i < controlPointCount; i++) {
 	    	TableRow tableRow = new TableRow(this);
-
 	    	TextView rowNumber = new TextView(this);
 			TextView controlPointNumber = new TextView(this);
 			TextView controlPointTime = new TextView(this);
@@ -119,17 +98,36 @@ public class ActiveOrienteeringEvent extends Activity {
 			
 			
 			tableLayout.addView(tableRow);
+			
+			
 	    
 	    }
-	    dialog.show();
-	
-	
+	    TableRow tableRow = new TableRow(this);
+
+		
+		TextView total = new TextView(this);
+		TextView controlPointsGot = new TextView(this);
+		TextView totalTime = new TextView(this);
+		
+		total.setText("Total");
+		controlPointsGot.setText("6 / 6");
+		totalTime.setText("01:12:56");
+		
+		total.setPadding(5, 5, 5, 5);
+		controlPointsGot.setPadding(5, 5, 5, 5);
+		totalTime.setPadding(5, 5, 5, 5);
+		
+		total.setTextColor(Color.BLACK);
+		total.setGravity(Gravity.CENTER);
+		controlPointsGot.setTextColor(Color.BLACK);
+		controlPointsGot.setGravity(Gravity.CENTER);
+		totalTime.setTextColor(Color.BLACK);
+		totalTime.setGravity(Gravity.CENTER);
+
+		tableRow.addView(total);
+		tableRow.addView(controlPointsGot);
+		tableRow.addView(totalTime);
+		tableLayout.addView(tableRow);
 	}
-		
-		
-	public void trackFinished(View v){
-		
-		Intent intent = new Intent(this, TrackResults.class);
-		startActivity(intent);
-	}
+	
 }
