@@ -1,6 +1,8 @@
-package com.example.nfcorienteering;
+package org.uta.nfcorienteering.activity;
 
 import java.util.Vector;
+
+import com.example.nfcorienteering.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,7 +21,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 
-public class TrackResults extends Activity {
+public class TrackResultsActivity extends Activity {
 
 	Button uploadButton, noUploadButton;
 	Vector <TextView> resultList = new Vector<TextView>();
@@ -39,7 +41,7 @@ public class TrackResults extends Activity {
 
 
 	public void uploadResults(View v) {
-		Intent intent = new Intent(this, UploadResults.class);
+		Intent intent = new Intent(this, UploadResultsActivity.class);
 		startActivity(intent);
 	}
 	

@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="org.uta.nfcorienteering.activity.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,38 +23,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ReadTrackTag"
+            android:name="org.uta.nfcorienteering.activity.ReadTrackTagActivity"
             android:label="@string/title_activity_read_track_tag"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName="org.uta.nfcorienteering.activity.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.nfcorienteering.MainActivity" />
         </activity>
-        <activity
-            android:name=".TrackInfo"
+        <activity            android:name="org.uta.nfcorienteering.activity.TrackInfoActivity"
             android:label="@string/title_activity_track_info"
-            android:parentActivityName=".ReadTrackTag" >
+            android:parentActivityName="aorg.uta.nfcorienteering.activity.ReadTrackTagActivityadTrackTagActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.nfcorienteering.ReadTrackTag" />
         </activity>
         <activity
-            android:name=".ActiveOrienteeringEvent"
-            android:theme="@style/Theme.AppCompat.Light"
-            android:label="@string/title_activity_active_orienteering_event"
-            android:parentActivityName=".TrackInfo" >
+            android:name="org.uta.nfcorienteering.activity.ActiveOrienteeringEventActivity"
+            android:label="@string/title_activity_active_orienteering_event" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.nfcorienteering.TrackInfo" />
         </activity>
         <activity
-            android:name=".TrackResults"
+            android:name="org.uta.nfcorienteering.activity.TrackResultsActivity"
             android:label="@string/title_activity_track_results" >
         </activity>
         <activity
-            android:name=".UploadResults"
+            android:name="org.uta.nfcorienteering.activity.UploadResultsActivity"
             android:label="@string/title_activity_upload_results"
-            android:parentActivityName=".TrackResults" >
+            android:parentActivityName="org.uta.nfcorienteering.activity.TrackResultsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.nfcorienteering.TrackResults" />
