@@ -7,7 +7,7 @@ public class OrienteeringEvent {
 	private String map;
 	private int trackAmount = 0;
 	private Track selectedTrack = null;
-	private Record record;
+	private OrienteeringRecord record;
 
 	public int getEventNumber() {
 		return eventNumber;
@@ -50,18 +50,18 @@ public class OrienteeringEvent {
 	}
 
 	public Track getSelectedTrack() {
-		return selectedTrack;
+		return selectedTrack;	
 	}
 
 	public void setSelectedTrack(Track selectedTrack) {
 		this.selectedTrack = selectedTrack;
 	}
 
-	public Record getRecord() {
+	public OrienteeringRecord getRecord() {
 		return record;
 	}
 
-	public void setRecord(Record record) {
+	public void setRecord(OrienteeringRecord record) {
 		this.record = record;
 	}
 

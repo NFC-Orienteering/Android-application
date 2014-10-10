@@ -2,7 +2,7 @@ package org.uta.nfcorienteering.event;
 
 import java.util.ArrayList;
 
-public class Record {
+public class OrienteeringRecord {
 	private String username = "";
 	private ArrayList<Punch> punches = null;
 	
