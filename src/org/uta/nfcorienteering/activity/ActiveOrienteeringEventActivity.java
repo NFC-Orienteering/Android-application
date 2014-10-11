@@ -1,4 +1,6 @@
-package com.example.nfcorienteering;
+package org.uta.nfcorienteering.activity;
+
+import com.example.nfcorienteering.R;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -20,7 +22,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 
-public class ActiveOrienteeringEvent extends Activity {
+public class ActiveOrienteeringEventActivity extends Activity {
 
 	Button nextButton;
 	final Context context = this;
@@ -129,7 +131,7 @@ public class ActiveOrienteeringEvent extends Activity {
 		
 	public void trackFinished(View v){
 		
-		Intent intent = new Intent(this, TrackResults.class);
+		Intent intent = new Intent(this, TrackResultsActivity.class);
 		startActivity(intent);
 	}
 }

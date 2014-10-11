@@ -1,4 +1,6 @@
-package com.example.nfcorienteering;
+package org.uta.nfcorienteering.activity;
+
+import com.example.nfcorienteering.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,7 +25,7 @@ public class MainActivity extends Activity {
 	//On-Click method for StartEventButton. This launches the ReadTrackTag -activity.
 	public void selectTrackNFC(View v){
 	
-		Intent intent = new Intent(this, ReadTrackTag.class);
+		Intent intent = new Intent(this, ReadTrackTagActivity.class);
 		startActivity(intent);
 		
 	}

@@ -1,4 +1,6 @@
-package com.example.nfcorienteering;
+package org.uta.nfcorienteering.activity;
+
+import com.example.nfcorienteering.R;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-public class UploadResults extends Activity {
+public class UploadResultsActivity extends Activity {
 
 	EditText nicknameTextField;
 	Button uploadResultsButton;

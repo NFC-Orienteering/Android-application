@@ -1,4 +1,6 @@
-package com.example.nfcorienteering;
+package org.uta.nfcorienteering.activity;
+
+import com.example.nfcorienteering.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-public class TrackInfo extends Activity {
+public class TrackInfoActivity extends Activity {
 
 	//Declare the used UI -components.
 	TextView eventName;
@@ -66,7 +68,7 @@ public class TrackInfo extends Activity {
 	//OnClick-method for selectThisTrack -button. This launches the ActiveOrienteeringEvent-activity.
 	public void startOrienteeringActivity(View v) {
 		
-		Intent intent = new Intent(this, ActiveOrienteeringEvent.class);
+		Intent intent = new Intent(this, ActiveOrienteeringEventActivity.class);
 		startActivity(intent);
 	}
 	
@@ -74,7 +76,7 @@ public class TrackInfo extends Activity {
 	//although the back-button of the phone does the same thing also.
 	public void readOtherTag(View v) {
 		
-		Intent intent = new Intent(this, ReadTrackTag.class);
+		Intent intent = new Intent(this, ReadTrackTagActivity.class);
 		startActivity(intent);
 	}
 

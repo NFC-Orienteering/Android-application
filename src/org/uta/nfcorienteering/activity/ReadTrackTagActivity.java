@@ -1,4 +1,6 @@
-package com.example.nfcorienteering;
+package org.uta.nfcorienteering.activity;
+
+import com.example.nfcorienteering.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class ReadTrackTag extends Activity {
+public class ReadTrackTagActivity extends Activity {
 
 	Button nextButton;
 	
@@ -31,7 +33,7 @@ public class ReadTrackTag extends Activity {
 
 	public void showTrackInfo(View v){
 		
-		Intent intent = new Intent(this, TrackInfo.class);
+		Intent intent = new Intent(this, TrackInfoActivity.class);
 		startActivity(intent);
 		
 		
