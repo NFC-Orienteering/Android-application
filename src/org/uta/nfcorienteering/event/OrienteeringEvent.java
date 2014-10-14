@@ -1,20 +1,19 @@
 package org.uta.nfcorienteering.event;
 
 public class OrienteeringEvent {
-	private int eventNumber = 0;
+	private int eventID = 0;
 	private String eventName = "";
 	private String startingTime = "";
-	private String map;
 	private int trackAmount = 0;
 	private Track selectedTrack = null;
 	private OrienteeringRecord record;
 
-	public int getEventNumber() {
-		return eventNumber;
+	public int getEventID() {
+		return eventID;
 	}
 
-	public void setEventNumber(int eventNumber) {
-		this.eventNumber = eventNumber;
+	public void setEventID(int eventID) {
+		this.eventID = eventID;
 	}
 
 	public String getEventName() {
@@ -23,14 +22,6 @@ public class OrienteeringEvent {
 
 	public void setEventName(String eventName) {
 		this.eventName = eventName;
-	}
-
-	public String getMap() {
-		return map;
-	}
-
-	public void setMap(String map) {
-		this.map = map;
 	}
 
 	public String getStartingTime() {
@@ -50,7 +41,7 @@ public class OrienteeringEvent {
 	}
 
 	public Track getSelectedTrack() {
-		return selectedTrack;	
+		return selectedTrack;
 	}
 
 	public void setSelectedTrack(Track selectedTrack) {

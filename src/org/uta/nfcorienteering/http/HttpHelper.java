@@ -9,7 +9,7 @@ public class HttpHelper {
 		String url = UrlGenerator.trackUrl(eventNumber, trackNumber);
 		String response = HttpRequest.tryHttpGet(url);
 		
-		OrienteeringEvent event = JsonResolver.resloveTrack(response);
+		OrienteeringEvent event = JsonResolver.resloveExampleJson(response);
 		return event;
 	}
 	

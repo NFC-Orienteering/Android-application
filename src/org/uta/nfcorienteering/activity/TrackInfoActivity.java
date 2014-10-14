@@ -1,7 +1,7 @@
 package org.uta.nfcorienteering.activity;
 
-import com.example.nfcorienteering.R;
 
+import org.uta.nfcorienteering.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
