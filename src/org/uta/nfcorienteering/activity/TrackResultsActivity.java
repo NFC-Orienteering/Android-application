@@ -2,8 +2,8 @@ package org.uta.nfcorienteering.activity;
 
 import java.util.Vector;
 
-import com.example.nfcorienteering.R;
 
+import org.uta.nfcorienteering.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;

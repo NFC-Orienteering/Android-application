@@ -6,6 +6,9 @@ public class Track {
 	private int trackNumber = 0;
 	private String trackName = "";
 	private ArrayList<Checkpoint> checkpoints = null;
+	private String MapUrl = "";
+	private String description = "";
+	
 	
 	public int getTrackNumber() {
 		return trackNumber;
@@ -24,5 +27,17 @@ public class Track {
 	}
 	public void setCheckpoints(ArrayList<Checkpoint> checkpoints) {
 		this.checkpoints = checkpoints;
+	}
+	public String getMapUrl() {
+		return MapUrl;
+	}
+	public void setMapUrl(String mapUrl) {
+		MapUrl = mapUrl;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
