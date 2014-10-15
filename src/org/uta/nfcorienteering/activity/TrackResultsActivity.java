@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -23,7 +24,7 @@ import android.widget.TextView;
 
 public class TrackResultsActivity extends Activity {
 
-	Button uploadButton, noUploadButton;
+	ImageButton uploadButton, noUploadButton;
 	Vector <TextView> resultList = new Vector<TextView>();
 
 	
@@ -32,8 +33,8 @@ public class TrackResultsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_track_results);
 		
-		uploadButton = (Button)findViewById(R.id.uploadButton);
-		noUploadButton = (Button)findViewById(R.id.noUploadButton);
+		uploadButton = (ImageButton)findViewById(R.id.uploadButton);
+		noUploadButton = (ImageButton)findViewById(R.id.noUploadButton);
 		
 		setResultTable();
 		

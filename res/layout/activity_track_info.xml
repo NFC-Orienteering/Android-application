@@ -8,25 +8,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="org.uta.nfcorienteering.activity.TrackInfoActivity" >
 
-    <Button
+    <ImageButton
         android:id="@+id/selectOtherButton"
+        android:contentDescription="@string/imageDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="@string/selectOther_button"
-        android:onClick="readOtherTag"
-        android:width="145dp" />
+		android:background="@drawable/select_other_track_selector"
+        android:onClick="readOtherTag" />
 
-    <Button
+    <ImageButton
         android:id="@+id/selectThisButton"
+        android:contentDescription="@string/imageDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/selectOtherButton"
         android:layout_alignParentRight="true"
-        android:text="@string/selectThis_button"
-        android:onClick="startOrienteeringActivity"
-        android:width="145dp" />
+        android:background="@drawable/select_this_track_selector"
+        android:onClick="startOrienteeringActivity" />
 
     <TextView
         android:id="@+id/eventNameText"

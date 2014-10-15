@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -9,41 +9,56 @@
     tools:ignore="MergeRootFrame" >
 
     <TextView
+        android:id="@+id/TextView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="@string/welcome_text"
         android:paddingBottom="25dp"
         android:paddingTop="10dp"
+        android:text="@string/welcome_text"
         android:textSize="8pt" />
-    
+
     <TextView
+        android:id="@+id/TextView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/TextView1"
         android:gravity="center"
-        android:text="@string/info_text"
         android:paddingBottom="25dp"
+        android:text="@string/info_text"
         android:textSize="7pt" />
 
     <TextView
+        android:id="@+id/TextView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/TextView2"
         android:gravity="left"
         android:paddingBottom="10dp"
         android:paddingLeft="15dp"
         android:text="@string/instructions1_text" />
 
     <TextView
+        android:id="@+id/TextView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/TextView3"
         android:gravity="left|center"
         android:paddingBottom="10dp"
         android:paddingLeft="15dp"
         android:text="@string/instructions2_text" />
 
     <TextView
+        android:id="@+id/TextView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/TextView4"
         android:gravity="left|center"
         android:paddingBottom="10dp"
         android:paddingLeft="15dp"
@@ -51,21 +66,27 @@
         android:text="@string/instructions3_text" />
 
     <TextView
+        android:id="@+id/TextView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/TextView5"
         android:gravity="left"
         android:paddingBottom="25dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:text="@string/instructions4_text" />
 
-    <Button
+    <ImageButton
         android:id="@+id/start_button"
-        android:layout_width="match_parent"
+        android:contentDescription="@string/imageDescription"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/TextView6"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/startevent_selector"
         android:gravity="center"
-        android:paddingTop="15dp"
         android:onClick="selectTrackNFC"
-        android:text="@string/startButton_text" />
+         />
 
-</LinearLayout>
+</RelativeLayout>

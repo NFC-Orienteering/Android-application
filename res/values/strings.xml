@@ -45,4 +45,5 @@
     <string name="uploadResultsInfo_text">Give your nickname to be shown in the final results</string>
 	<string name="menu_settings">Menu</string>
 	<string name="menu_quit">Quit</string>
+	<string name="hide_compass">Hide Compass</string>
 </resources>

@@ -17,33 +17,34 @@
         android:text="@string/results_text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
+    <ImageButton
         android:id="@+id/noUploadButton"
+        android:contentDescription="@string/imageDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/dont_upload_selector"
         android:layout_alignParentBottom="true"
-        android:onClick="backToStartMenu"
-        android:text="@string/noUpload_button" />
-
-    <Button
+        android:onClick="backToStartMenu" />
+    
+        <ImageButton
         android:id="@+id/uploadButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/noUploadButton"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/noUploadButton"
-        android:onClick="uploadResults"
-        android:text="@string/upload_button" />
+        android:layout_alignRight="@+id/uploadInfoText"
+        android:layout_alignTop="@+id/noUploadButton"
+        android:background="@drawable/upload_results_selector"
+        android:contentDescription="@string/imageDescription"
+        android:onClick="uploadResults" />
 
-            <RelativeLayout
+       <RelativeLayout
                 android:id="@+id/RelativeLayout1"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_above="@+id/uploadInfoText"
                 android:layout_below="@+id/trackLengthText"
-                android:paddingTop="50dp"
                 android:layout_gravity="center"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:paddingTop="50dp" >
 
                 <TableLayout
                     android:id="@+id/resultTable"
@@ -54,16 +55,7 @@
             </RelativeLayout>
 
     
-    <!--  <TableLayout
-        android:id="@+id/resultTable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/resultsText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp" >
 
-
-    </TableLayout>-->
 
 
 
@@ -97,5 +89,7 @@
         android:layout_toLeftOf="@+id/trackLengthText"
         android:text="@string/eventName_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
 
 </RelativeLayout>

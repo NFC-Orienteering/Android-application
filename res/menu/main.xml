@@ -3,9 +3,15 @@
     
     <item android:id="@+id/menu_settings"
 		  android:title="@string/menu_settings"
-		  android:orderInCategory="100"
+		  android:orderInCategory="2"
+		  
 		   />
+    <item android:id="@+id/hide_compass"
+          android:title="@string/hide_compass"
+          android:showAsAction="always"
+          android:orderInCategory="1" />
+    
 	<item android:id="@+id/menu_quit"
 	      android:title="@string/menu_quit"
-	      android:orderInCategory="101" />
+	      android:orderInCategory="3" />
 </menu>

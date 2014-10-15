@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,8 +16,8 @@ public class TrackInfoActivity extends Activity {
 
 	//Declare the used UI -components.
 	TextView eventName;
-	Button selectOtherTrack;
-	Button selectThisTrack;
+	ImageButton selectOtherTrack;
+	ImageButton selectThisTrack;
 	
 	TextView trackLength;
 	TextView trackDifficulty;
@@ -36,8 +37,8 @@ public class TrackInfoActivity extends Activity {
 		setContentView(R.layout.activity_track_info);
 		
 		//set the buttons.
-		selectOtherTrack = (Button)findViewById(R.id.selectOtherButton);
-		selectThisTrack = (Button)findViewById(R.id.selectThisButton);
+		selectOtherTrack = (ImageButton)findViewById(R.id.selectOtherButton);
+		selectThisTrack = (ImageButton)findViewById(R.id.selectThisButton);
 		
 		eventName = (TextView)findViewById(R.id.eventNameText);
 		/* The event name should be set up here as the information has been received from web server.

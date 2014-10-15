@@ -32,6 +32,7 @@ public class ActiveOrienteeringEventActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_active_orienteering_event);
+		
 
 		nextButton = (Button)findViewById(R.id.activeEventNextButton);
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <style name="ActionBarTheme"
+           parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:actionBarStyle">@style/ActionBarStyle</item>          
+    </style>
+    
+    <style name="ActionBarStyle"
+           parent="@android:style/Widget.Holo.Light.ActionBar" >    
+        <item name="android:background">#19FF19</item> 
+         	
+    </style>
+    
+
+</resources>
