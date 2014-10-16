@@ -34,16 +34,15 @@
         <activity
             android:name="org.uta.nfcorienteering.activity.ReadTrackTagActivity"
             android:label="@string/title_activity_read_track_tag"
-            android:theme="@style/AppTheme"
-            android:parentActivityName="org.uta.nfcorienteering.activity.MainActivity" >
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.nfcorienteering.MainActivity" />
         </activity>
-        <activity            android:name="org.uta.nfcorienteering.activity.TrackInfoActivity"
+        <activity
+            android:name="org.uta.nfcorienteering.activity.TrackInfoActivity"
             android:label="@string/title_activity_track_info"
-            android:theme="@style/AppTheme"
-            android:parentActivityName="aorg.uta.nfcorienteering.activity.ReadTrackTagActivityadTrackTagActivity" >
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.nfcorienteering.ReadTrackTag" />
@@ -62,8 +61,7 @@
         <activity
             android:name="org.uta.nfcorienteering.activity.UploadResultsActivity"
             android:label="@string/title_activity_upload_results"
-            android:theme="@style/AppTheme"
-            android:parentActivityName="org.uta.nfcorienteering.activity.TrackResultsActivity" >
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.nfcorienteering.TrackResults" />
