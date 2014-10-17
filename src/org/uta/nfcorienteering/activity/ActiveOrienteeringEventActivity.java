@@ -22,7 +22,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 
-public class ActiveOrienteeringEventActivity extends Activity {
+public class ActiveOrienteeringEventActivity extends BaseNfcActivity {
 
 	Button nextButton;
 	final Context context = this;
@@ -33,7 +33,6 @@ public class ActiveOrienteeringEventActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_active_orienteering_event);
 		
-
 		nextButton = (Button)findViewById(R.id.activeEventNextButton);
 
 		
@@ -134,5 +133,11 @@ public class ActiveOrienteeringEventActivity extends Activity {
 		
 		Intent intent = new Intent(this, TrackResultsActivity.class);
 		startActivity(intent);
+	}
+
+	@Override
+	public void postNfcRead(String result) {
+		// TODO Auto-generated method stub
+		
 	}
 }
