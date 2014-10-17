@@ -5,6 +5,8 @@
     android:versionName="1.0" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature android:name="android.hardware.nfc" android:required="true" />
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -36,6 +38,15 @@
             android:label="@string/title_activity_read_track_tag"
             android:theme="@style/AppTheme"
             android:parentActivityName="org.uta.nfcorienteering.activity.MainActivity" >
+            
+            <intent-filter>
+       			 <action android:name="android.nfc.action.TECH_DISCOVERED"/>
+            </intent-filter>
+            <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
+                   android:resource="@xml/nfc_tech_list" />
+            <intent-filter>
+                <action android:name="android.nfc.action.TAG_DISCOVERED"/>
+            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.nfcorienteering.MainActivity" />

@@ -27,4 +27,14 @@
         android:onClick="trackFinished"
         android:text="@string/next" />
 
+    <TextView
+        android:id="@+id/tagIdText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activeEventText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="78dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 </RelativeLayout>
