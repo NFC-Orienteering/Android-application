@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
+import org.uta.nfcorienteering.event.Track;
 
 public class JsonResolver {
 	public static OrienteeringEvent resloveExampleJson(String json) {
@@ -28,6 +29,29 @@ public class JsonResolver {
 		event.setStartingTime(startingTime);
 
 		return event;
+	}
+	
+	public static Track resolveTrackJson(String json){
+		Track track = new Track();
+		int id = 0;
+		String name = "";
+		String distance = "";
+		
+		try {
+			JSONObject jsonObject = new JSONObject(json);
+			
+			id = jsonObject.getInt("id");
+			name = jsonObject.getString("name");
+			distance = jsonObject.getString("distance");
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return track;
+		}
+		
+		track.setTrackName(name);
+		track.setTrackNumber(id);
+		track.setDistance(distance);
+		return track;
 	}
 
 }
