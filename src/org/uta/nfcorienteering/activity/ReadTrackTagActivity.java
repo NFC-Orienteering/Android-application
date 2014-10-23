@@ -39,9 +39,9 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 	//This method is here only temporarily just to move to the next Activity via Next-button.
 	public void showTrackInfo(View v){
 		
-		Intent intent = new Intent(this, TrackInfoActivity.class);
-		startActivity(intent);
-
+		//Intent intent = new Intent(this, TrackInfoActivity.class);
+		//startActivity(intent);
+		postNfcRead("button");
 			
 	}
 
@@ -50,7 +50,7 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 	public void postNfcRead(String result) {
 		tagId.setText(result);
 		String trackId = result;	
-		boolean trackIdFound = false;
+		boolean trackIdFound = true;
 		
 		//Received trackID, result, should be queried to server if there is such event available.
 		if (trackIdFound){
@@ -65,6 +65,7 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 	public  void startTrackInfoActivity(OrienteeringEvent event){
 			
 		Intent intent = new Intent(this, TrackInfoActivity.class);
+		intent.putExtra("TRACK_INFO",(Serializable)event);
 		startActivity(intent);
 
 		
@@ -75,8 +76,16 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 		@Override
 		protected OrienteeringEvent doInBackground(String... params) {
 
-
-			return null;
+			String eventUrl = UrlGenerator.exampleJsonUrl();
+			String eventJson = HttpRequest.tryHttpGet(eventUrl);
+			OrienteeringEvent event = JsonResolver.resloveExampleJson(eventJson);
+			
+			String trackUrl = UrlGenerator.trackUrl(1, 1);
+			String trackJson = HttpRequest.tryHttpGet(trackUrl);
+			Track track = JsonResolver.resolveTrackJson(trackJson);
+			
+			event.setSelectedTrack(track);
+			return event;
 		}
 		
 		@Override

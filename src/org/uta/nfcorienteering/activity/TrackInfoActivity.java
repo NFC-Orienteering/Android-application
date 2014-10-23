@@ -31,7 +31,7 @@ public class TrackInfoActivity extends Activity {
 	ImageButton selectOtherTrack;
 	ImageButton selectThisTrack;
 	
-	TextView trackLength;
+	TextView trackDistance;
 	TextView trackDifficulty;
 	TextView trackAvailableFrom;
 	TextView trackAvailableTo;
@@ -53,27 +53,43 @@ public class TrackInfoActivity extends Activity {
 		selectOtherTrack = (ImageButton)findViewById(R.id.selectOtherButton);
 		selectThisTrack = (ImageButton)findViewById(R.id.selectThisButton);
 		
+		event = (OrienteeringEvent)getIntent().getSerializableExtra("TRACK_INFO");
+		track = event.getSelectedTrack();
+		
 		//Here should be all the info relating the track.
 		eventName = (TextView)findViewById(R.id.eventNameText);
+		eventName.setText(event.getEventName());
 		
-		trackLength = (TextView)findViewById(R.id.trackLengthText);
+		trackDistance = (TextView)findViewById(R.id.trackLengthText);
+		trackDistance.setText(track.getDistance());
 		
 		trackDifficulty = (TextView)findViewById(R.id.trackDifficultyText);
 		
 		trackAvailableFrom = (TextView)findViewById(R.id.availableFromText);
+		trackAvailableFrom.setText(event.getStartingTime());
 		
 		trackAvailableTo = (TextView)findViewById(R.id.availableToText);
-
-		
-		/*
-		 * Information on these TextViews should be set up here as the information has been received from web server.
-		 */
 
 		
 		/*
 		 * The (possible) image of the track's map should be set up here. You have to possibly set the image's width and height
 		 * here manually so that it scales properly on the screen.
 		 */
+		
+		/*Bitmap mapImage_val;
+		mapImage = (ImageView)findViewById(R.id.mapImage);
+		URL mapUrl;
+		try {
+			mapUrl = new URL(track.getMapUrl());
+			mapImage_val = BitmapFactory.decodeStream(mapUrl.openConnection().getInputStream());
+			mapImage.setImageBitmap(mapImage_val);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		
 		
 		
