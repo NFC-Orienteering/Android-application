@@ -1,14 +1,16 @@
 package org.uta.nfcorienteering.event;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Track {
+public class Track implements Serializable{
 	private int trackNumber = 0;
 	private String trackName = "";
 	private ArrayList<Checkpoint> checkpoints = null;
 	private int currentCheckPoint = 0;
 	private String MapUrl = "";
 	private String description = "";
+	private int length = 0;
 
 	public int getTrackNumber() {
 		return trackNumber;
@@ -48,6 +50,14 @@ public class Track {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public int getLength() {
+		return length;
+	}
+	
+	public void setLength(int length){
+		this.length = length;
 	}
 
 	public boolean newCheckPointReached(String tagid) {

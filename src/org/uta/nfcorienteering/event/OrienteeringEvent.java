@@ -1,6 +1,8 @@
 package org.uta.nfcorienteering.event;
 
-public class OrienteeringEvent {
+import java.io.Serializable;
+
+public class OrienteeringEvent implements Serializable {
 	private int eventID = 0;
 	private String eventName = "";
 	private String startingTime = "";

@@ -4,6 +4,8 @@ import java.util.Vector;
 
 
 import org.uta.nfcorienteering.R;
+import org.uta.nfcorienteering.event.OrienteeringRecord;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -26,6 +28,7 @@ public class TrackResultsActivity extends Activity {
 
 	ImageButton uploadButton, noUploadButton;
 	Vector <TextView> resultList = new Vector<TextView>();
+	OrienteeringRecord record = new OrienteeringRecord();
 
 	
 	@Override
@@ -36,7 +39,10 @@ public class TrackResultsActivity extends Activity {
 		uploadButton = (ImageButton)findViewById(R.id.uploadButton);
 		noUploadButton = (ImageButton)findViewById(R.id.noUploadButton);
 		
-		setResultTable();
+		//Collect the records of the track from our intent.
+		record = (OrienteeringRecord)getIntent().getSerializableExtra("RECORD");
+		
+		setResultTable(record);
 		
 	}
 
@@ -51,7 +57,7 @@ public class TrackResultsActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	public void setResultTable(){
+	public void setResultTable(OrienteeringRecord record){
 		
 		int controlPointCount = 6;
 		
@@ -77,9 +83,9 @@ public class TrackResultsActivity extends Activity {
 			TextView controlPointNumber = new TextView(this);
 			TextView controlPointTime = new TextView(this);
 			
-			rowNumber.setPadding(5, 5, 5, 5);
-			controlPointNumber.setPadding(5, 5, 5, 5);
-			controlPointTime.setPadding(5, 5, 5, 5);
+			rowNumber.setPadding(10, 10, 10, 10);
+			controlPointNumber.setPadding(10, 10, 10, 10);
+			controlPointTime.setPadding(10, 10, 10, 10);
 			
 			rowNumber.setText(String.valueOf(i+1) + ".");
 			controlPointNumber.setText("Point " + String.valueOf(Math.floor(Math.random() * 16)));

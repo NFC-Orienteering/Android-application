@@ -1,9 +1,18 @@
 package org.uta.nfcorienteering.activity;
 
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.uta.nfcorienteering.R;
+import org.uta.nfcorienteering.event.OrienteeringEvent;
+import org.uta.nfcorienteering.event.Track;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +23,9 @@ import android.widget.TextView;
 
 public class TrackInfoActivity extends Activity {
 
+	Track track;
+	OrienteeringEvent event;
+	
 	//Declare the used UI -components.
 	TextView eventName;
 	ImageButton selectOtherTrack;
@@ -36,25 +48,27 @@ public class TrackInfoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_track_info);
 		
+		
 		//set the buttons.
 		selectOtherTrack = (ImageButton)findViewById(R.id.selectOtherButton);
 		selectThisTrack = (ImageButton)findViewById(R.id.selectThisButton);
 		
+		//Here should be all the info relating the track.
 		eventName = (TextView)findViewById(R.id.eventNameText);
-		/* The event name should be set up here as the information has been received from web server.
-		 * eventName.setText....
-		 */
 		
 		trackLength = (TextView)findViewById(R.id.trackLengthText);
+		
 		trackDifficulty = (TextView)findViewById(R.id.trackDifficultyText);
+		
 		trackAvailableFrom = (TextView)findViewById(R.id.availableFromText);
+		
 		trackAvailableTo = (TextView)findViewById(R.id.availableToText);
+
 		
 		/*
 		 * Information on these TextViews should be set up here as the information has been received from web server.
 		 */
-		
-		mapImage = (ImageView)findViewById(R.id.mapImage);
+
 		
 		/*
 		 * The (possible) image of the track's map should be set up here. You have to possibly set the image's width and height
