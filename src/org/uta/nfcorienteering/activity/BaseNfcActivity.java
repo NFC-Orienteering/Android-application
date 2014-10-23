@@ -43,8 +43,7 @@ public abstract class BaseNfcActivity extends Activity {
 			if (!nfcAdapter.isEnabled()) {
 				Toast.makeText(
 						this,
-						"Your NFC-reader is disabled. Enable NFC-reader to continue",
-						Toast.LENGTH_LONG).show();
+						"Your NFC-reader is disabled. Enable NFC-reader to continue",Toast.LENGTH_LONG).show();
 				startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
 			}
 		}
