@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Track {
 	private int trackNumber = 0;
 	private String trackName = "";
+	private String distance = "";
 	private ArrayList<Checkpoint> checkpoints = null;
 	private int currentCheckPoint = 0;
 	private String MapUrl = "";
@@ -73,5 +74,13 @@ public class Track {
 			return false;
 		}
 
+	}
+
+	public String getDistance() {
+		return distance;
+	}
+
+	public void setDistance(String distance) {
+		this.distance = distance;
 	}
 }
