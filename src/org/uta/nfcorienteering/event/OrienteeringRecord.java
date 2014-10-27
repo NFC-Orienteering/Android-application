@@ -1,8 +1,9 @@
 package org.uta.nfcorienteering.event;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class OrienteeringRecord {
+public class OrienteeringRecord implements Serializable {
 	private String username = "";
 	private ArrayList<Punch> punches = null;
 	

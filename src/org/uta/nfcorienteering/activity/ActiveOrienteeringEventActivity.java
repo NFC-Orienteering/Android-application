@@ -3,6 +3,7 @@ package org.uta.nfcorienteering.activity;
 import java.io.Serializable;
 
 import org.uta.nfcorienteering.R;
+import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.event.OrienteeringRecord;
 
 import android.app.Activity;
@@ -28,12 +29,16 @@ import android.widget.TextView;
 public class ActiveOrienteeringEventActivity extends BaseNfcActivity {
 
 	final Context context = this;
-	//HEre should be added the last control point of the array as finish_point to end the activity.
 	final String FINISH_POINT = "default";
-	Button nextButton;
 	
+	Button nextButton;
+	TextView tagIdText;
+	
+	//Object which includes event information and where track record should be saved
+	OrienteeringEvent event;
 	//Object to store the record of the track
 	OrienteeringRecord record = new OrienteeringRecord();
+	
 	
 	
 	@Override
@@ -42,6 +47,10 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity {
 		setContentView(R.layout.activity_active_orienteering_event);
 		
 		nextButton = (Button)findViewById(R.id.activeEventNextButton);
+		tagIdText = (TextView)findViewById(R.id.tagIdText);
+		
+		event = (OrienteeringEvent)getIntent().getSerializableExtra("TRACK_INFO");
+		event.setRecord(record);
 
 		
 	}
@@ -140,17 +149,20 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity {
 	public void trackFinished(View v){
 		
 		Intent intent = new Intent(this, TrackResultsActivity.class);
+		intent.putExtra("EVENT_RECORD", (Serializable)event);
 		startActivity(intent);
 	}
 
 	@Override
 	public void postNfcRead(String result) {
 		
+		tagIdText.setText(result);
+		
 		if(result.equals(FINISH_POINT)){
 			//Here the timer etc. should be ended and the OrienteeringRecord -object should be finalized.
 			//Record will be passed to resultsActivity via intent.
 			Intent intent = new Intent(this, TrackResultsActivity.class);
-			intent.putExtra("RECORD", (Serializable)record);
+			intent.putExtra("EVENT_RECORD", (Serializable)event);
 			startActivity(intent);
 		}
 

@@ -1,9 +1,10 @@
 package org.uta.nfcorienteering.activity;
 
-import java.util.Vector;
+
 
 
 import org.uta.nfcorienteering.R;
+import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.event.OrienteeringRecord;
 
 import android.app.Activity;
@@ -27,9 +28,10 @@ import android.widget.TextView;
 public class TrackResultsActivity extends Activity {
 
 	ImageButton uploadButton, noUploadButton;
-	Vector <TextView> resultList = new Vector<TextView>();
-	OrienteeringRecord record = new OrienteeringRecord();
-
+	OrienteeringEvent event;
+	
+	TextView eventNameText, trackDistanceText;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +40,16 @@ public class TrackResultsActivity extends Activity {
 		
 		uploadButton = (ImageButton)findViewById(R.id.uploadButton);
 		noUploadButton = (ImageButton)findViewById(R.id.noUploadButton);
+		eventNameText = (TextView)findViewById(R.id.eventNameText);
+		trackDistanceText = (TextView)findViewById(R.id.trackLengthText);
 		
 		//Collect the records of the track from our intent.
-		record = (OrienteeringRecord)getIntent().getSerializableExtra("RECORD");
+		event = (OrienteeringEvent)getIntent().getSerializableExtra("EVENT_RECORD");
+		eventNameText.setText(event.getEventName());
+		trackDistanceText.setText(event.getSelectedTrack().getDistance());
 		
-		setResultTable(record);
+		
+		setResultTable(event.getRecord());
 		
 	}
 

@@ -2,6 +2,7 @@ package org.uta.nfcorienteering.activity;
 
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -100,6 +101,7 @@ public class TrackInfoActivity extends Activity {
 	public void startOrienteeringActivity(View v) {
 		
 		Intent intent = new Intent(this, ActiveOrienteeringEventActivity.class);
+		intent.putExtra("TRACK_INFO",(Serializable)event);
 		startActivity(intent);
 	}
 	
