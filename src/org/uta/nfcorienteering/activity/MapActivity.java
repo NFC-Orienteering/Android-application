@@ -16,6 +16,10 @@ public class MapActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		initGestureImageView();
+	}
+
+	private void initGestureImageView() {
 		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 
@@ -24,7 +28,6 @@ public class MapActivity extends Activity {
 		view.setLayoutParams(params);
 
 		ViewGroup layout = (ViewGroup) findViewById(R.id.gesture_image_view);
-
 		layout.addView(view);
 	}
 }
