@@ -4,15 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class OrienteeringRecord implements Serializable {
-	private String username = "";
+	private String nickname = "";
 	private ArrayList<Punch> punches = null;
 	
 	
-	public String getUsername() {
-		return username;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public ArrayList<Punch> getPunches() {
 		return punches;

@@ -3,6 +3,11 @@ package org.uta.nfcorienteering.event;
 import java.io.Serializable;
 
 public class OrienteeringEvent implements Serializable {
+	/**
+	 * Default serial id
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private int eventID = 0;
 	private String eventName = "";
 	private String startingTime = "";

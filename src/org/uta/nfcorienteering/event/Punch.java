@@ -1,9 +1,17 @@
 package org.uta.nfcorienteering.event;
 
 public class Punch {
-
 	private int checkpointNumber = 0;
 	private String timestamp = "";
+
+	public Punch() {
+		;
+	}
+
+	public Punch(int checkpointNumber, String timestamp) {
+		this.checkpointNumber = checkpointNumber;
+		this.timestamp = timestamp;
+	}
 
 	public int getCheckpointNumber() {
 		return checkpointNumber;
@@ -21,4 +29,8 @@ public class Punch {
 		this.timestamp = timestamp;
 	}
 
+	@Override
+	public String toString() {
+		return checkpointNumber + ":" + timestamp;
+	}
 }
