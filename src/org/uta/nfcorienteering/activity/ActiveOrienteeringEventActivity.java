@@ -6,6 +6,8 @@ import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.event.OrienteeringRecord;
 
+import com.iutinvg.compass.Compass;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -14,31 +16,44 @@ import android.graphics.Color;
 import android.graphics.Paint.Style;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 
-public class ActiveOrienteeringEventActivity extends BaseNfcActivity {
+public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 
 	final Context context = this;
 	final String FINISH_POINT = "default";
 	
+	private Compass compass;
+	boolean compassHidden;
+	boolean compassLarge;
+	
 	Button nextButton;
 	TextView tagIdText;
+	ImageView compassImage;
 	
 	//Object which includes event information and where track record should be saved
 	OrienteeringEvent event;
 	//Object to store the record of the track
 	OrienteeringRecord record = new OrienteeringRecord();
 	
+
 	
 	
 	@Override
@@ -46,13 +61,36 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_active_orienteering_event);
 		
+		compassHidden = false;
+		compassLarge = false;
 		nextButton = (Button)findViewById(R.id.activeEventNextButton);
 		tagIdText = (TextView)findViewById(R.id.tagIdText);
 		
+		compassImage = (ImageView)findViewById(R.id.compassImageView);
+		compassImage.setOnClickListener(new OnClickListener() {
+			public void onClick(View v){
+				if(!compassLarge) {
+					compassImage.setImageResource(R.drawable.compass_big);
+					compassImage.setPadding(0, 15, 0, 0);
+					compassLarge = true;
+				}
+				else {
+					compassImage.setImageResource(R.drawable.compass_small);
+					compassImage.setPadding(0,0,0,0);
+					compassLarge = false;
+				}
+				
+			}
+		});
+		
 		event = (OrienteeringEvent)getIntent().getSerializableExtra("TRACK_INFO");
 		event.setRecord(record);
-
 		
+		compass = new Compass(this);
+		
+		compass.arrowView = compassImage;
+		
+
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu){
@@ -73,11 +111,52 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity {
 			startActivity(intent);
 			return true;
 		}
+		if(item.getItemId() == R.id.hide_compass){
+			if(compassHidden){
+				findViewById(R.id.compassImageView).setVisibility(View.VISIBLE);
+				compassHidden = false;
+				item.setTitle("Hide Compass");
+
+			}
+			else {
+				findViewById(R.id.compassImageView).setVisibility(View.INVISIBLE);
+				compassHidden = true;
+				item.setTitle("Unhide Compass");
+			}
+			ret = true;
+		}
 		else {
 			ret = super.onOptionsItemSelected(item);
 		}
 		return ret;
 	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		compass.start();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		compass.start();
+
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		compass.stop();
+
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		compass.stop();
+	}
+	
 	
 	public void showResultDialog() {
 		
@@ -168,4 +247,6 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity {
 
 		
 	}
+
+
 }

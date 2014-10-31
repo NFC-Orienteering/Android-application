@@ -10,6 +10,10 @@
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
+    
+     <uses-feature
+		android:name="android.hardware.sensor.magnetic_field"
+		android:required="true" />
 
     <uses-sdk
         android:minSdkVersion="14"
