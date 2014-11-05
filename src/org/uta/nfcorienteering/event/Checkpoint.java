@@ -3,6 +3,11 @@ package org.uta.nfcorienteering.event;
 public class Checkpoint {
 	private int checkpointNumber = 0;
 	private String rfidTag = "";
+	
+	public Checkpoint(int cpNumber, String tagId) {
+		checkpointNumber = cpNumber;
+		rfidTag = tagId;
+	}
 
 	public int getCheckpointNumber() {
 		return checkpointNumber;

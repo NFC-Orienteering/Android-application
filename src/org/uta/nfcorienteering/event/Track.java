@@ -51,6 +51,16 @@ public class Track implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public int getCurrentCheckPoint() {
+		return currentCheckPoint;
+	}
+	
+	public void setCurrentCheckPoint(int currentCheckPoint) {
+		this.currentCheckPoint = currentCheckPoint;
+	}
+	
+	
 
 	public boolean newCheckPointReached(String tagid) {
 
@@ -66,12 +76,13 @@ public class Track implements Serializable{
 
 		if (checkpoints.get(currentCheckPoint).getRfidTag() == tagid)
 		{
-			currentCheckPoint++;
+			
 			return true;
 
 		} else 
 		
 		{
+			
 			return false;
 		}
 

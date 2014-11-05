@@ -1,10 +1,13 @@
 package org.uta.nfcorienteering.activity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import org.uta.nfcorienteering.R;
+import org.uta.nfcorienteering.event.Checkpoint;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.event.OrienteeringRecord;
+import org.uta.nfcorienteering.event.Punch;
 
 import com.iutinvg.compass.Compass;
 
@@ -47,13 +50,16 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	boolean compassLarge;
 	
 	Button nextButton;
-	TextView tagIdText;
+
 	ImageView compassImage;
 	
 	//Object which includes event information and where track record should be saved
 	OrienteeringEvent event;
 	//Object to store the record of the track
 	OrienteeringRecord record = new OrienteeringRecord();
+	//Object to store the punches of control points
+	ArrayList<Punch> punches = new ArrayList<Punch>();
+
 	
 
 	
@@ -66,7 +72,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		compassHidden = false;
 		compassLarge = false;
 		nextButton = (Button)findViewById(R.id.activeEventNextButton);
-		tagIdText = (TextView)findViewById(R.id.tagIdText);
+
 		
 		compassImage = (ImageView)findViewById(R.id.compassImageView);
 		compassImage.setOnClickListener(new OnClickListener() {
@@ -88,10 +94,20 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		event = (OrienteeringEvent)getIntent().getSerializableExtra("TRACK_INFO");
 		event.setRecord(record);
 		
+		ArrayList<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
+		
 		compass = new Compass(this);
 		
 		compass.arrowView = compassImage;
 		
+		
+		//Dummy values to checkpoints
+		for(int i = 0; i < 5; i++) {
+			
+			Checkpoint cp = new Checkpoint(i, "ControlPoint" + i);
+			checkpoints.add(cp);
+		}
+		event.getSelectedTrack().setCheckpoints(checkpoints);
 
 	}
 
@@ -175,7 +191,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		});
 		
 		//SET THE TABLE OF RESULTS
-		int controlPointCount = 6;
+		int controlPointCount = event.getSelectedTrack().getCheckpoints().size();
 		
 	    TableLayout tableLayout = (TableLayout)dialog.findViewById(R.id.eventResultTable);
 	    TableLayout.LayoutParams params = new TableLayout.LayoutParams(TableLayout.
@@ -183,10 +199,10 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	    
 	    params.setMargins(5,10,5,10);
 	    
-	    ShapeDrawable border = new ShapeDrawable(new RectShape());
+	    /*ShapeDrawable border = new ShapeDrawable(new RectShape());
 		border.getPaint().setStyle(Style.STROKE);
 		border.getPaint().setColor(Color.GREEN);
-	    
+	    */
 	    
 	    for(int i = 0; i < controlPointCount; i++) {
 	    	TableRow tableRow = new TableRow(this);
@@ -200,19 +216,21 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			controlPointTime.setPadding(5, 5, 5, 5);
 			
 			rowNumber.setText(String.valueOf(i+1) + ".");
-			controlPointNumber.setText("Point " + String.valueOf(Math.floor(Math.random() * 16)));
-			controlPointTime.setText(String.valueOf(Math.floor(Math.random()*14)) + " : " + String.valueOf(Math.floor(Math.random()* 59)));
-	    	
+			controlPointNumber.setText("Point " + String.valueOf(event.getSelectedTrack().getCheckpoints().get(i).getCheckpointNumber()));
+			
+			if(i < punches.size()){
+				controlPointTime.setText(punches.get(i).getTimestamp());
+			}
 			rowNumber.setTextColor(Color.BLACK);
 			rowNumber.setGravity(Gravity.CENTER);
 			controlPointNumber.setTextColor(Color.BLACK);
 			controlPointNumber.setGravity(Gravity.CENTER);
 			controlPointTime.setTextColor(Color.BLACK);
 			controlPointTime.setGravity(Gravity.CENTER);
-			controlPointNumber.setBackgroundDrawable(border);
+			/*controlPointNumber.setBackgroundDrawable(border);
 			rowNumber.setBackgroundDrawable(border);
 			controlPointTime.setBackgroundDrawable(border);
-	    
+	    	*/
 			tableRow.addView(rowNumber);
 			tableRow.addView(controlPointNumber);
 			tableRow.addView(controlPointTime);
@@ -227,32 +245,99 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	}
 		
 		
+
+	@Override
+	public void postNfcRead(String result) {
+		
+		
+		 Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
+		 // Vibrate for 500 milliseconds
+		 v.vibrate(500);
+		
+		
+		boolean correctTagRead = event.getSelectedTrack().newCheckPointReached(result);
+		
+		if(correctTagRead) {
+			
+			//The tag that has been correctly read belongs to a control point
+			if(event.getSelectedTrack().getCurrentCheckPoint() > 0 && 
+					event.getSelectedTrack().getCurrentCheckPoint() < event.getSelectedTrack().getCheckpoints().size() - 1){
+				
+				Toast.makeText(this, "Control point tag " + result +" read successfully!", Toast.LENGTH_LONG).show();
+				Punch controlPoint = new Punch();
+				controlPoint.setCheckpointNumber(event.getSelectedTrack().getCurrentCheckPoint());
+				
+				//Calculate the time it took for this control point by substracting the timestamp time from the
+				//control point before this from the total time.
+				
+				punches.add(controlPoint);
+				
+				event.getSelectedTrack().setCurrentCheckPoint(event.getSelectedTrack().getCurrentCheckPoint() + 1);
+				
+				
+			}
+			//The tag that has been correctly read is a starting tag
+			else if(event.getSelectedTrack().getCurrentCheckPoint()  == 0){
+				//Starting tag was checked
+				//call timer service
+				event.getSelectedTrack().setCurrentCheckPoint(event.getSelectedTrack().getCurrentCheckPoint() + 1);
+				Punch startingPoint = new Punch(0, "00:00");
+				punches.add(startingPoint);
+			}
+			
+			//The tag that has been correctly read is a finish tag and the other control points have been read correctly.
+			else if(event.getSelectedTrack().getCurrentCheckPoint() == event.getSelectedTrack().getCheckpoints().size() - 1){
+				//Finish tag was read and the other control points were read correctly.
+				trackFinished(true);
+			}
+			
+		}
+		//The next correct tag was not read so have to do something to inform the orienteer 
+		//depending on the situation.
+		else {
+			
+			if(event.getSelectedTrack().getCurrentCheckPoint() > 0){
+				
+				//Check if finish point tag was read too early
+				if(event.getSelectedTrack().getCheckpoints().get(event.getSelectedTrack().getCheckpoints().size()-1).equals(result)){
+					trackFinished(false);
+				}
+				else {
+					Toast.makeText(this, "Wrong control point tag was read", Toast.LENGTH_LONG).show();
+				}
+						
+			}
+			else if(event.getSelectedTrack().getCurrentCheckPoint()  == 0){
+				
+				Toast.makeText(this, "Invalid starting tag read. Please read the starting tag to start.", Toast.LENGTH_LONG).show();
+				
+			}
+
+			
+		}
+			
+	}
+	
+	public void trackFinished(boolean allControlPointsTagged) {
+		
+		event.getSelectedTrack().setCurrentCheckPoint(event.getSelectedTrack().getCurrentCheckPoint() + 1);
+		Toast.makeText(this, "Track finished!", Toast.LENGTH_LONG).show();
+		
+		//stop timer
+		
+		//Set punches to record.
+		record.setPunches(punches);
+		
+		Intent intent = new Intent(this, TrackResultsActivity.class);
+		intent.putExtra("EVENT_RECORD", (Serializable)event);
+		startActivity(intent);
+		finish();
+		
+	}
 	public void trackFinished(View v){
 		
 		Intent intent = new Intent(this, TrackResultsActivity.class);
 		intent.putExtra("EVENT_RECORD", (Serializable)event);
 		startActivity(intent);
 	}
-
-	@Override
-	public void postNfcRead(String result) {
-		
-		tagIdText.setText(result);
-		 Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
-		 // Vibrate for 500 milliseconds
-		 v.vibrate(500);
-		Toast.makeText(this, "Control point tag " + result +" read successfully!", Toast.LENGTH_LONG).show();
-		
-		if(result.equals(FINISH_POINT)){
-			//Here the timer etc. should be ended and the OrienteeringRecord -object should be finalized.
-			//Record will be passed to resultsActivity via intent.
-			Intent intent = new Intent(this, TrackResultsActivity.class);
-			intent.putExtra("EVENT_RECORD", (Serializable)event);
-			startActivity(intent);
-		}
-
-		
-	}
-
-
 }
