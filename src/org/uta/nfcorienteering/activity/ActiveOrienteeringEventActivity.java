@@ -21,6 +21,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
@@ -236,6 +238,10 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	public void postNfcRead(String result) {
 		
 		tagIdText.setText(result);
+		 Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
+		 // Vibrate for 500 milliseconds
+		 v.vibrate(500);
+		Toast.makeText(this, "Control point tag " + result +" read successfully!", Toast.LENGTH_LONG).show();
 		
 		if(result.equals(FINISH_POINT)){
 			//Here the timer etc. should be ended and the OrienteeringRecord -object should be finalized.

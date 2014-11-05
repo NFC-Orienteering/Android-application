@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/example_map"
+        android:src="@drawable/map"
         gesture-image:max-scale="10.0"
         gesture-image:min-scale="0.1"
         gesture-image:strict="false" />
@@ -43,7 +43,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="51dp"
         android:contentDescription="@string/imageDescription"
         android:src="@drawable/compass_small" />
 

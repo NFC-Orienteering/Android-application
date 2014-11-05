@@ -9,9 +9,11 @@ import org.uta.nfcorienteering.http.HttpRequest;
 import org.uta.nfcorienteering.http.JsonResolver;
 import org.uta.nfcorienteering.http.UrlGenerator;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +22,8 @@ import android.widget.Toast;
 
 public class ReadTrackTagActivity extends BaseNfcActivity {
 
+	
+	final Context context = this;
 	TextView tagId;
 	Button nextButton;
 
@@ -52,8 +56,14 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 		String trackId = result;	
 		boolean trackIdFound = true;
 		
+		Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
+		 // Vibrate for 500 milliseconds
+		 v.vibrate(500);
+		
 		//Received trackID, result, should be queried to server if there is such event available.
 		if (trackIdFound){
+			Toast.makeText(this, "Track found, downloading track data. Please wait", Toast.LENGTH_LONG).show();
+			nextButton.setEnabled(false);
 			new EventDataDownloader().execute(trackId);
 		}
 		else {
