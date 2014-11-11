@@ -9,17 +9,22 @@ import java.net.URL;
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.event.Track;
+import org.uta.nfcorienteering.http.HttpRequest;
+import org.uta.nfcorienteering.http.JsonResolver;
+import org.uta.nfcorienteering.http.UrlGenerator;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class TrackInfoActivity extends Activity {
@@ -72,25 +77,11 @@ public class TrackInfoActivity extends Activity {
 		trackAvailableTo = (TextView)findViewById(R.id.availableToText);
 
 		
-		/*
-		 * The (possible) image of the track's map should be set up here. You have to possibly set the image's width and height
-		 * here manually so that it scales properly on the screen.
-		 */
-		
-		/*Bitmap mapImage_val;
+		//Set up the image in AsyncTask.
 		mapImage = (ImageView)findViewById(R.id.mapImage);
-		URL mapUrl;
-		try {
-			mapUrl = new URL(track.getMapUrl());
-			mapImage_val = BitmapFactory.decodeStream(mapUrl.openConnection().getInputStream());
-			mapImage.setImageBitmap(mapImage_val);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+		new MapImageDownloader().execute();
+		
+
 		
 		
 		
@@ -113,5 +104,34 @@ public class TrackInfoActivity extends Activity {
 		startActivity(intent);
 	}
 
+	class MapImageDownloader extends AsyncTask<String, Void, Bitmap> {
 
+		@Override
+		protected Bitmap doInBackground(String... params) {
+
+			URL mapUrl;
+			try {
+				mapUrl = new URL(UrlGenerator.mapUrl(track.getMapUrl()));
+				return (BitmapFactory.decodeStream(mapUrl.openConnection().getInputStream()));
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Bitmap image) {
+			if(image != null){
+				mapImage.setImageBitmap(image);
+			}
+		
+			
+		}
+
+	}
+
+	
+	
 }

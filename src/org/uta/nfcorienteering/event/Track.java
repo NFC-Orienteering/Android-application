@@ -3,6 +3,8 @@ package org.uta.nfcorienteering.event;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import android.graphics.Bitmap;
+
 public class Track implements Serializable{
 	private int trackNumber = 0;
 	private String trackName = "";
@@ -95,5 +97,7 @@ public class Track implements Serializable{
 	public void setDistance(String distance) {
 		this.distance = distance;
 	}
+	
+
 }
 

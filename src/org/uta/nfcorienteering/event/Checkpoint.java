@@ -1,6 +1,8 @@
 package org.uta.nfcorienteering.event;
 
-public class Checkpoint {
+import java.io.Serializable;
+
+public class Checkpoint implements Serializable{
 	private int checkpointNumber = 0;
 	private String rfidTag = "";
 	

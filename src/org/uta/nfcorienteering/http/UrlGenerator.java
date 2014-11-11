@@ -24,6 +24,10 @@ public class UrlGenerator {
 		return domain + "/" + event + "/" + eventNumber + "/" + track + "/"
 				+ trackNumber+postfix;
 	}
+	
+	public static String mapUrl(String imageUrl) {
+		return domain + imageUrl;
+	}
 
 	public static String exampleJsonUrl() {
 		return "http://ec2-54-69-118-107.us-west-2.compute.amazonaws.com/events.json";
