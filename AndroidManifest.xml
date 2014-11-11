@@ -85,6 +85,7 @@
                 android:value="com.example.nfcorienteering.TrackResults" />
         </activity>
         <activity android:name="org.uta.nfcorienteering.activity.MapActivity" />
+        <service android:name="org.uta.nfcorienteering.service.TimerService"/>
     </application>
 
 </manifest>

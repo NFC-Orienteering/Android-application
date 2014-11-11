@@ -5,7 +5,7 @@ import java.util.TimerTask;
 
 public class Stopwatch {
 	private int timerReadingMillis = 0;
-	private int tickMillis = 50;
+	private int tickMillis = 50; //indicating precision
 
 	private Timer timer = null;
 	private TimerTask timerTask = null;
