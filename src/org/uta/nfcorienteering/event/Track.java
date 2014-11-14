@@ -70,13 +70,16 @@ public class Track implements Serializable{
 		// or not if it is then
 		// we will move to the next otherwise it will pop up with a msg. that
 		// the tag id is incorrect.
+		System.out.println("VErtailu");
+		System.out.println(tagid);
+		System.out.println(checkpoints.get(currentCheckPoint).getRfidTag());
 
 		if (checkpoints == null) 
 		{
 			throw new NullPointerException();
 		}
 
-		if (checkpoints.get(currentCheckPoint).getRfidTag() == tagid)
+		if (checkpoints.get(currentCheckPoint).getRfidTag().equals(tagid))
 		{
 			
 			return true;

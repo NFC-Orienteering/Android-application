@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class TrackResultsActivity extends Activity {
@@ -48,8 +49,12 @@ public class TrackResultsActivity extends Activity {
 		eventNameText.setText(event.getEventName());
 		trackDistanceText.setText(event.getSelectedTrack().getDistance());
 		
-		
-		setResultTable(event.getRecord());
+		if(event.getRecord().getPunches() == null){
+			Toast.makeText(this, "No orienteering record was found", Toast.LENGTH_LONG).show();
+		}
+		else{
+			setResultTable(event);
+		}
 		
 	}
 
@@ -64,10 +69,27 @@ public class TrackResultsActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	public void setResultTable(OrienteeringRecord record){
+	public void setResultTable(OrienteeringEvent event){
 		
-		int controlPointCount = 6;
+		int controlPointCount = event.getSelectedTrack().getCheckpoints().size();
+		int taggedPointsCount = 0;
 		
+		boolean[] pointsTagged = new boolean[controlPointCount];
+		for(int i = 1; i < controlPointCount; i++) {
+			boolean tagFound = false;
+			for(int j = 1; j < event.getRecord().getPunches().size(); j++) {
+				if(event.getRecord().getPunches().get(j).getCheckpointNumber() == event.getSelectedTrack().getCheckpoints().get(i).getCheckpointNumber()){
+					pointsTagged[i] = true;
+					tagFound = true;
+					taggedPointsCount++;
+					break;
+				}
+			}
+			if(!tagFound){
+				pointsTagged[i] = false;
+			}
+			
+		}
 		
 
 	    TableLayout tableLayout = (TableLayout)findViewById(R.id.resultTable);
@@ -84,19 +106,32 @@ public class TrackResultsActivity extends Activity {
 		
 	    
 	    
-	    for(int i = 0; i < controlPointCount; i++) {
+	    for(int i = 1; i < controlPointCount; i++) {
 	    	TableRow tableRow = new TableRow(this);
 	    	TextView rowNumber = new TextView(this);
 			TextView controlPointNumber = new TextView(this);
 			TextView controlPointTime = new TextView(this);
 			
-			rowNumber.setPadding(10, 10, 10, 10);
-			controlPointNumber.setPadding(10, 10, 10, 10);
-			controlPointTime.setPadding(10, 10, 10, 10);
+			rowNumber.setPadding(15, 15, 15, 15);
+			controlPointNumber.setPadding(15, 15, 15, 15);
+			controlPointTime.setPadding(15, 15, 15, 15);
 			
-			rowNumber.setText(String.valueOf(i+1) + ".");
-			controlPointNumber.setText("Point " + String.valueOf(Math.floor(Math.random() * 16)));
-			controlPointTime.setText(String.valueOf(Math.floor(Math.random()*14)) + " : " + String.valueOf(Math.floor(Math.random()* 59)));
+			rowNumber.setText(String.valueOf(i) + ".");
+			controlPointNumber.setText("Point " + event.getSelectedTrack().getCheckpoints().get(i).getCheckpointNumber());
+			
+			//Check that corresponding controlPoints have been tagged during the track completion.
+			if(pointsTagged[i]) {
+				if(i >= event.getRecord().getPunches().size()){
+					controlPointTime.setText(event.getRecord().getPunches().get(event.getRecord().getPunches().size()-1).getTimestamp());
+				}
+				else {
+					controlPointTime.setText(event.getRecord().getPunches().get(i).getTimestamp());
+				}
+			}
+			else {
+				controlPointTime.setText("Not tagged");
+			}
+			
 	    	
 			rowNumber.setTextColor(Color.BLACK);
 			rowNumber.setGravity(Gravity.CENTER);
@@ -111,8 +146,6 @@ public class TrackResultsActivity extends Activity {
 			tableRow.addView(rowNumber);
 			tableRow.addView(controlPointNumber);
 			tableRow.addView(controlPointTime);
-			
-			
 			tableLayout.addView(tableRow);
 			
 			
@@ -120,14 +153,13 @@ public class TrackResultsActivity extends Activity {
 	    }
 	    TableRow tableRow = new TableRow(this);
 
-		
 		TextView total = new TextView(this);
 		TextView controlPointsGot = new TextView(this);
 		TextView totalTime = new TextView(this);
 		
 		total.setText("Total");
-		controlPointsGot.setText("6 / 6");
-		totalTime.setText("01:12:56");
+		controlPointsGot.setText(String.valueOf(taggedPointsCount) + " / " + String.valueOf(controlPointCount-1));
+		totalTime.setText(event.getRecord().getPunches().get(event.getRecord().getPunches().size()-1).getTimestamp());
 		
 		total.setPadding(5, 5, 5, 5);
 		controlPointsGot.setPadding(5, 5, 5, 5);

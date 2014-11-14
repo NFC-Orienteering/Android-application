@@ -1,6 +1,8 @@
 package org.uta.nfcorienteering.event;
 
-public class Punch {
+import java.io.Serializable;
+
+public class Punch implements Serializable {
 	private int checkpointNumber = 0;
 	private String timestamp = "";
 

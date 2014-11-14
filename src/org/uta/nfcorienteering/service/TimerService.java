@@ -20,7 +20,7 @@ public class TimerService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		stopwatch.start();
+			stopwatch.start();
 		return super.onStartCommand(intent, flags, startId);
 	}
 
@@ -29,7 +29,7 @@ public class TimerService extends Service {
 		return binder;
 	}
 
-	class StopwatchBinder extends Binder {
+	public class StopwatchBinder extends Binder {
 		public void resetStopwatch() {
 			stopwatch.stop();
 			stopwatch.start();
@@ -42,6 +42,7 @@ public class TimerService extends Service {
 
 	@Override
 	public void onDestroy() {
+		stopSelf();
 		stopwatch.stop();
 		super.onDestroy();
 	}
