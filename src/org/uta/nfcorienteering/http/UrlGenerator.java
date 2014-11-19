@@ -5,6 +5,7 @@ public class UrlGenerator {
 	static final String domain = "http://nfc-orienteering.sis.uta.fi/api/v1";
 	static final String event = "events";
 	static final String track = "tracks";
+	static final String result = "results";
 	static final String postfix = ".json";
 
 	public static String eventListURL() {
@@ -31,8 +32,8 @@ public class UrlGenerator {
 	public static String exampleJsonUrl() {
 		return "http://ec2-54-69-118-107.us-west-2.compute.amazonaws.com/events.json";
 	}
-	
-	public static String uploadResultUrl(){
-		return "";
+
+	public static String uploadResultUrl() {
+		return domain + "/" + track + "/" + result;
 	}
 }

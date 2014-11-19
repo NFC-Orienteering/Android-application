@@ -48,9 +48,11 @@ public class JsonResolver {
 			JSONArray controlPointsJson = jsonObject
 					.getJSONArray("control_points");
 			for (int i = 0; i < controlPointsJson.length(); i++) {
-				JSONObject controlPointJson = controlPointsJson.getJSONObject(i);
+				JSONObject controlPointJson = controlPointsJson
+						.getJSONObject(i);
 
-				int controlPointNumber = Integer.parseInt(controlPointJson.getString("id"));
+				int controlPointNumber = Integer.parseInt(controlPointJson
+						.getString("id"));
 				String tagId = controlPointJson.getString("tag_id");
 
 				Checkpoint cp = new Checkpoint(controlPointNumber, tagId);
@@ -67,11 +69,15 @@ public class JsonResolver {
 			return track;
 		}
 
-		track.setMapUrl(mapUrl);
 		track.setTrackName(name);
 		track.setTrackNumber(id);
 		track.setDistance(distance);
 		track.setCheckpoints(controlPoints);
+
+		if (!mapUrl.contains("http")) {
+			mapUrl = "http://nfc-orienteering.sis.uta.fi" + mapUrl;
+		}
+		track.setMapUrl(mapUrl);
 		return track;
 	}
 
@@ -88,21 +94,21 @@ public class JsonResolver {
 				events.add(event);
 			}
 			return events;
-			
+
 		} catch (JSONException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
-	private OrienteeringEvent resolveEvent(String json) throws JSONException{
+
+	private OrienteeringEvent resolveEvent(String json) throws JSONException {
 		OrienteeringEvent event = new OrienteeringEvent();
 		JSONObject jsonObject = new JSONObject(json);
-		
-		//TODO 
-		
+
+		// TODO
+
 		return event;
-		
+
 	}
 
 }

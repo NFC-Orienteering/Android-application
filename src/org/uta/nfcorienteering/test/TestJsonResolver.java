@@ -12,16 +12,8 @@ import org.uta.nfcorienteering.http.UrlGenerator;
 
 public class TestJsonResolver extends TestCase {
 
-	/*
-	 * public void testResolveExampleJson(){ String json =
-	 * HttpRequest.tryHttpGet(UrlGenerator.exampleJsonUrl()); OrienteeringEvent
-	 * event = JsonResolver.resloveExampleJson(json);
-	 * assertEquals("Orienting event", event.getEventName()); assertEquals(1,
-	 * event.getEventID()); assertEquals("2014-10-12", event.getStartingTime());
-	 * }
-	 */
 	public void testResolveTrack() {
-		String url = UrlGenerator.trackUrl(1, 1);
+		String url = UrlGenerator.trackUrl(1);
 		String json = HttpRequest.tryHttpGet(url);
 		Track track = JsonResolver.resolveTrackJson(json);
 		ArrayList<Checkpoint> checkpoints = track.getCheckpoints();
@@ -29,10 +21,14 @@ public class TestJsonResolver extends TestCase {
 		assertEquals(1, track.getTrackNumber());
 		assertEquals("5 km", track.getDistance());
 		assertEquals("Intermediate", track.getTrackName());
-		
+
 		assertCheckPoint(checkpoints.get(0), 3, "4");
 		assertCheckPoint(checkpoints.get(1), 2, "3");
 		assertCheckPoint(checkpoints.get(2), 1, "2");
+
+		assertEquals(
+				"http://nfc-orienteering.sis.uta.fi/system/tracks/images/000/000/001/original/Hellenberge.jpg?1416325614",
+				track.getMapUrl());
 	}
 
 	private void assertCheckPoint(Checkpoint checkpoint, int number,
