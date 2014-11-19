@@ -36,9 +36,9 @@
     <string name="results_text">Track results</string>
     <string name="total_text">Total</string>
     <string name="noUpload_button">Don\'t upload results</string>
-    <string name="upload_button">Upload results</string>
-    <string name="uploadInfo_text">If you want to have your track results being shown in the final results of the event,
-        choose Upload results.</string>
+    <string name="upload_results_text">Uploading results</string>
+    <string name="uploadInfo_text">You can upload your results to be shown in the overall results section
+       								in the web page if you wish.</string>
     <string name="title_activity_upload_results">Upload your results</string>
     
     <string name="uploadResults_button">Upload Results</string>
@@ -46,4 +46,13 @@
 	<string name="menu_settings">Record</string>
 	<string name="menu_quit">Quit Event</string>
 	<string name="hide_compass">Hide Compass</string>
+	<string name="see_result">See result</string>
+	
+	<string name="addName_text">Add name</string>
+	<string name="cancel_button">Cancel</string>
+	<string name="next_button">Next</string>
+	<string name="ok_button">OK</string>
+	<string name="nickname_text">Nickname</string>
+	<string name="tracks_text">Track</string>
+	<string name="upload_text">Upload</string>
 </resources>

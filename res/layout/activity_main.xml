@@ -81,14 +81,23 @@
 
     <ImageButton
         android:id="@+id/start_button"
-        android:contentDescription="@string/imageDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TextView6"
         android:layout_centerHorizontal="true"
         android:background="@drawable/startevent_selector"
+        android:contentDescription="@string/imageDescription"
         android:gravity="center"
-        android:onClick="selectTrackNFC"
-         />
+        android:onClick="selectTrackNFC" />
+
+    <Button
+        android:id="@+id/history_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/start_button"
+        android:layout_below="@id/start_button"
+        android:layout_marginTop="10dip"
+        android:onClick="onClick"
+        android:text="History" />
 
 </RelativeLayout>

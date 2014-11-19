@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundWhite"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/result_item_event_name"
+        style="@style/result_list_item" />
+
+    <TextView
+        android:id="@+id/result_item_distance"
+        style="@style/result_list_item" />
+
+    <TextView
+        android:id="@+id/result_item_location"
+        style="@style/result_list_item" />
+
+    <TextView
+        android:id="@+id/result_item_date"
+        style="@style/result_list_item" />
+
+    <Button
+        android:id="@+id/result_item_button"
+        style="@style/result_list_item"
+        android:layout_gravity="right"
+        android:focusable="false"
+        android:text="@string/see_result" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="@color/appGreen" />
+
+</LinearLayout>
