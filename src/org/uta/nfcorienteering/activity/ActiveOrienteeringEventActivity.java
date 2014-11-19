@@ -5,30 +5,20 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import org.uta.nfcorienteering.R;
-import org.uta.nfcorienteering.event.Checkpoint;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.event.OrienteeringRecord;
 import org.uta.nfcorienteering.event.Punch;
+import org.uta.nfcorienteering.event.Track;
 import org.uta.nfcorienteering.service.TimerService;
 import org.uta.nfcorienteering.service.TimerService.StopwatchBinder;
-import org.uta.nfcorienteering.utility.Stopwatch;
+import org.uta.nfcorienteering.utility.DataInstance;
 
-import com.iutinvg.compass.Compass;
-
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Color;
-import android.graphics.Paint.Style;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Vibrator;
@@ -37,14 +27,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.iutinvg.compass.Compass;
 
 
 public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
@@ -66,6 +56,8 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	OrienteeringRecord record = new OrienteeringRecord();
 	//Object to store the punches of control points
 	ArrayList<Punch> punches = new ArrayList<Punch>();
+	
+	private Track track = null;
 	
 	StopwatchBinder stopwatch;
 	boolean mBound = false;
@@ -103,7 +95,10 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			}
 		});
 		
-		event = (OrienteeringEvent)getIntent().getSerializableExtra("TRACK_INFO");
+		//event = (OrienteeringEvent)getIntent().getSerializableExtra("TRACK_INFO");
+		event = DataInstance.getInstace().getEvent();
+		track = DataInstance.getInstace().getTrack();
+		
 		event.setRecord(record);
 		
 		compass = new Compass(this);
@@ -191,7 +186,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		});
 		
 		//SET THE TABLE OF RESULTS
-		int controlPointCount = event.getSelectedTrack().getCheckpoints().size();
+		int controlPointCount = track.getCheckpoints().size();
 		
 	    TableLayout tableLayout = (TableLayout)dialog.findViewById(R.id.eventResultTable);
 	    TableLayout.LayoutParams params = new TableLayout.LayoutParams(TableLayout.
@@ -216,7 +211,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			controlPointTime.setPadding(5, 5, 5, 5);
 			
 			rowNumber.setText(String.valueOf(i+1) + ".");
-			controlPointNumber.setText("Point " + String.valueOf(event.getSelectedTrack().getCheckpoints().get(i).getCheckpointNumber()));
+			controlPointNumber.setText("Point " + String.valueOf(track.getCheckpoints().get(i).getCheckpointNumber()));
 			
 			if(i < punches.size()){
 				controlPointTime.setText(punches.get(i).getTimestamp());
@@ -257,17 +252,17 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		 System.out.println(result);
 		
 		
-		boolean correctTagRead = event.getSelectedTrack().newCheckPointReached(result);
+		boolean correctTagRead = track.newCheckPointReached(result);
 		
 		if(correctTagRead) {
 			
 			//The tag that has been correctly read belongs to a control point
-			if(event.getSelectedTrack().getCurrentCheckPoint() > 0 && 
-					event.getSelectedTrack().getCurrentCheckPoint() < event.getSelectedTrack().getCheckpoints().size() - 1){
+			if(track.getCurrentCheckPoint() > 0 && 
+					track.getCurrentCheckPoint() < track.getCheckpoints().size() - 1){
 				
 				Toast.makeText(this, "Control point tag " + result +" read successfully!", Toast.LENGTH_LONG).show();
 				Punch controlPoint = new Punch();
-				controlPoint.setCheckpointNumber(event.getSelectedTrack().getCheckpoints().get(event.getSelectedTrack().getCurrentCheckPoint()).getCheckpointNumber());
+				controlPoint.setCheckpointNumber(track.getCheckpoints().get(track.getCurrentCheckPoint()).getCheckpointNumber());
 				
 				long totalTimeSeconds = TimeUnit.MILLISECONDS.toSeconds(Integer.parseInt(stopwatch.readTimeMillis()));
 				String currentTimeStamp = convertSecondsToHMmSs(totalTimeSeconds);
@@ -275,12 +270,12 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				controlPoint.setTimestamp(currentTimeStamp);
 				punches.add(controlPoint);
 				
-				event.getSelectedTrack().setCurrentCheckPoint(event.getSelectedTrack().getCurrentCheckPoint() + 1);
+				track.setCurrentCheckPoint(track.getCurrentCheckPoint() + 1);
 				
 				
 			}
 			//The tag that has been correctly read is a starting tag
-			else if(event.getSelectedTrack().getCurrentCheckPoint()  == 0){
+			else if(track.getCurrentCheckPoint()  == 0){
 				//Starting tag was checked
 				Toast.makeText(this, "Starting tag read! Have fun!", Toast.LENGTH_LONG).show();
 				
@@ -289,13 +284,13 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				bindService(timerServiceIntent, mConnection, BIND_AUTO_CREATE);
 				startService(timerServiceIntent);
 					
-				event.getSelectedTrack().setCurrentCheckPoint(event.getSelectedTrack().getCurrentCheckPoint() + 1);
+				track.setCurrentCheckPoint(track.getCurrentCheckPoint() + 1);
 				Punch startingPoint = new Punch(0, "00:00:00");
 				punches.add(startingPoint);
 			}
 			
 			//The tag that has been correctly read is a finish tag and the other control points have been read correctly.
-			else if(event.getSelectedTrack().getCurrentCheckPoint() == event.getSelectedTrack().getCheckpoints().size() - 1){
+			else if(track.getCurrentCheckPoint() ==track.getCheckpoints().size() - 1){
 
 				//Finish tag was read and the other control points were read correctly.
 				/*long totalTimeMillis = Integer.parseInt(stopwatch.readTimeMillis());
@@ -307,11 +302,11 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				String finalTimeStamp = convertSecondsToHMmSs(totalTimeSeconds);
 				
 				Punch controlPoint = new Punch();
-				controlPoint.setCheckpointNumber(event.getSelectedTrack().getCheckpoints().get(event.getSelectedTrack().getCurrentCheckPoint()).getCheckpointNumber());
+				controlPoint.setCheckpointNumber(track.getCheckpoints().get(track.getCurrentCheckPoint()).getCheckpointNumber());
 				controlPoint.setTimestamp(finalTimeStamp);
 				punches.add(controlPoint);
 				
-				event.getSelectedTrack().setCurrentCheckPoint(event.getSelectedTrack().getCurrentCheckPoint() + 1);
+				track.setCurrentCheckPoint(track.getCurrentCheckPoint() + 1);
 				trackFinished(true);
 			}
 			
@@ -320,17 +315,17 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		//depending on the situation.
 		else {
 			
-			if(event.getSelectedTrack().getCurrentCheckPoint() > 0){
+			if(track.getCurrentCheckPoint() > 0){
 				
 				//Check if finish point tag was read too early
-				if(event.getSelectedTrack().getCheckpoints().get(event.getSelectedTrack().getCheckpoints().size()-1).getRfidTag().equals(result)){
+				if(track.getCheckpoints().get(track.getCheckpoints().size()-1).getRfidTag().equals(result)){
 					
 					long totalTimeSeconds = TimeUnit.MILLISECONDS.toSeconds(Integer.parseInt(stopwatch.readTimeMillis()));
 					String finalTimeStamp = convertSecondsToHMmSs(totalTimeSeconds);
 					
 					Punch controlPoint = new Punch();
 					controlPoint.setTimestamp(finalTimeStamp);
-					controlPoint.setCheckpointNumber(event.getSelectedTrack().getCheckpoints().get(event.getSelectedTrack().getCheckpoints().size()-1).getCheckpointNumber());
+					controlPoint.setCheckpointNumber(track.getCheckpoints().get(track.getCheckpoints().size()-1).getCheckpointNumber());
 					punches.add(controlPoint);
 					
 					trackFinished(false);
@@ -340,7 +335,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				}
 						
 			}
-			else if(event.getSelectedTrack().getCurrentCheckPoint()  == 0){
+			else if(track.getCurrentCheckPoint()  == 0){
 				
 				Toast.makeText(this, "Invalid starting tag read. Please read the starting tag to start.", Toast.LENGTH_LONG).show();
 				

@@ -46,7 +46,7 @@ public class TestJsonBuilder extends TestCase {
 
 		track.setTrackNumber(2123);
 
-		event.setSelectedTrack(track);
+		//event.setSelectedTrack(track);
 		event.setRecord(orienteeringRecord);
 
 		JsonBuilder builder = new JsonBuilder();

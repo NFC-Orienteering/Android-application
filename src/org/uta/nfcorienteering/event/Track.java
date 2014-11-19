@@ -13,6 +13,7 @@ public class Track implements Serializable{
 	private int currentCheckPoint = 0;
 	private String MapUrl = "";
 	private String description = "";
+	private OrienteeringEvent parentEvent = null;
 
 	public int getTrackNumber() {
 		return trackNumber;
@@ -99,6 +100,14 @@ public class Track implements Serializable{
 
 	public void setDistance(String distance) {
 		this.distance = distance;
+	}
+
+	public OrienteeringEvent getParentEvent() {
+		return parentEvent;
+	}
+
+	public void setParentEvent(OrienteeringEvent parentEvent) {
+		this.parentEvent = parentEvent;
 	}
 	
 

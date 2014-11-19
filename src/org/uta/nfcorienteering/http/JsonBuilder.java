@@ -1,5 +1,7 @@
 package org.uta.nfcorienteering.http;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,7 +13,12 @@ import org.uta.nfcorienteering.event.Track;
 public class JsonBuilder {
 
 	public String recordToJson(OrienteeringEvent event) {
-		Track track = event.getSelectedTrack();
+
+		return recordToJsonObject(event).toString();
+	}
+
+	public JSONObject recordToJsonObject(OrienteeringEvent event) {
+		/*Track track = event.getSelectedTrack();
 		OrienteeringRecord record = event.getRecord();
 
 		JSONObject jsonObject = new JSONObject();
@@ -27,7 +34,18 @@ public class JsonBuilder {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return jsonObject.toString();
+
+		return jsonObject;
+		*/
+		
+		return null;
+	}
+
+	public JSONArray jsonObjectsToArray(ArrayList<JSONObject> jsonObjects) {
+		JSONArray array = new JSONArray();
+
+		return array;
+
 	}
 
 }
