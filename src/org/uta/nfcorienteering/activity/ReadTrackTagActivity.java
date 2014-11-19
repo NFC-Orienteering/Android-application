@@ -103,7 +103,7 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 		//	String trackJson = HttpRequest.tryHttpGet(trackUrl);
 		//	Track track = JsonResolver.resolveTrackJson(trackJson);
 			
-			HttpHelper.getTrackAndParentEvent(1);
+			HttpHelper.getTrackAndParentEvent(3);
 		//	event.setSelectedTrack(track);
 
 			return DataInstance.getInstace().getEvent();
