@@ -20,8 +20,8 @@ public class UrlGenerator {
 
 	}
 
-	public static String trackUrl(int eventNumber, int trackNumber) {
-		return domain + "/" + track + "/" + trackNumber;
+	public static String trackUrl(int trackID) {
+		return domain + "/" + track + "/" + trackID;
 	}
 
 	public static String mapUrl(String imageUrl) {
@@ -30,5 +30,9 @@ public class UrlGenerator {
 
 	public static String exampleJsonUrl() {
 		return "http://ec2-54-69-118-107.us-west-2.compute.amazonaws.com/events.json";
+	}
+	
+	public static String uploadResultUrl(){
+		return "";
 	}
 }

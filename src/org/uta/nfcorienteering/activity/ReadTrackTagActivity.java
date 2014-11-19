@@ -96,7 +96,7 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 			String eventJson = HttpRequest.tryHttpGet(eventUrl);
 			OrienteeringEvent event = JsonResolver.resloveExampleJson(eventJson);
 			
-			String trackUrl = UrlGenerator.trackUrl(1, 1);
+			String trackUrl = UrlGenerator.trackUrl(1);
 			String trackJson = HttpRequest.tryHttpGet(trackUrl);
 			Track track = JsonResolver.resolveTrackJson(trackJson);
 			
