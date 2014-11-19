@@ -8,9 +8,11 @@ import java.net.URL;
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.event.Track;
+import org.uta.nfcorienteering.http.HttpHelper;
 import org.uta.nfcorienteering.http.HttpRequest;
 import org.uta.nfcorienteering.http.JsonResolver;
 import org.uta.nfcorienteering.http.UrlGenerator;
+import org.uta.nfcorienteering.utility.DataInstance;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +21,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.provider.ContactsContract.Contacts.Data;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -92,17 +95,18 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 		@Override
 		protected OrienteeringEvent doInBackground(String... params) {
 
-			String eventUrl = UrlGenerator.exampleJsonUrl();
-			String eventJson = HttpRequest.tryHttpGet(eventUrl);
-			OrienteeringEvent event = JsonResolver.resloveExampleJson(eventJson);
+		//	String eventUrl = UrlGenerator.exampleJsonUrl();
+		//	String eventJson = HttpRequest.tryHttpGet(eventUrl);
+		//	OrienteeringEvent event = JsonResolver.resloveExampleJson(eventJson);
 			
-			String trackUrl = UrlGenerator.trackUrl(1);
-			String trackJson = HttpRequest.tryHttpGet(trackUrl);
-			Track track = JsonResolver.resolveTrackJson(trackJson);
+		//	String trackUrl = UrlGenerator.trackUrl(1);
+		//	String trackJson = HttpRequest.tryHttpGet(trackUrl);
+		//	Track track = JsonResolver.resolveTrackJson(trackJson);
 			
-			event.setSelectedTrack(track);
+			HttpHelper.getTrackAndParentEvent(1);
+		//	event.setSelectedTrack(track);
 
-			return event;
+			return DataInstance.getInstace().getEvent();
 		}
 		
 		@Override

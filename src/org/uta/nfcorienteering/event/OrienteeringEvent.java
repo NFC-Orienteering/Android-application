@@ -11,8 +11,9 @@ public class OrienteeringEvent implements Serializable {
 	private int eventID = 0;
 	private String eventName = "";
 	private String startingTime = "";
+	private String endingTime = "";
 	private int trackAmount = 0;
-	private Track selectedTrack = null;
+	private String location = "";
 	private OrienteeringRecord record;
 
 	public int getEventID() {
@@ -47,13 +48,6 @@ public class OrienteeringEvent implements Serializable {
 		this.trackAmount = trackAmount;
 	}
 
-	public Track getSelectedTrack() {
-		return selectedTrack;
-	}
-
-	public void setSelectedTrack(Track selectedTrack) {
-		this.selectedTrack = selectedTrack;
-	}
 
 	public OrienteeringRecord getRecord() {
 		return record;
@@ -61,6 +55,22 @@ public class OrienteeringEvent implements Serializable {
 
 	public void setRecord(OrienteeringRecord record) {
 		this.record = record;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getEndingTime() {
+		return endingTime;
+	}
+
+	public void setEndingTime(String endingTime) {
+		this.endingTime = endingTime;
 	}
 
 }

@@ -18,7 +18,7 @@ public class JsonBuilder {
 	}
 
 	public JSONObject recordToJsonObject(OrienteeringEvent event) {
-		Track track = event.getSelectedTrack();
+		/*Track track = event.getSelectedTrack();
 		OrienteeringRecord record = event.getRecord();
 
 		JSONObject jsonObject = new JSONObject();
@@ -36,6 +36,9 @@ public class JsonBuilder {
 		}
 
 		return jsonObject;
+		*/
+		
+		return null;
 	}
 
 	public JSONArray jsonObjectsToArray(ArrayList<JSONObject> jsonObjects) {

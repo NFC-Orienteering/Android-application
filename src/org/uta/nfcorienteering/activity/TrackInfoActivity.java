@@ -12,6 +12,7 @@ import org.uta.nfcorienteering.event.Track;
 import org.uta.nfcorienteering.http.HttpRequest;
 import org.uta.nfcorienteering.http.JsonResolver;
 import org.uta.nfcorienteering.http.UrlGenerator;
+import org.uta.nfcorienteering.utility.DataInstance;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -59,8 +60,12 @@ public class TrackInfoActivity extends Activity {
 		selectOtherTrack = (ImageButton)findViewById(R.id.selectOtherButton);
 		selectThisTrack = (ImageButton)findViewById(R.id.selectThisButton);
 		
-		event = (OrienteeringEvent)getIntent().getSerializableExtra("TRACK_INFO");
-		track = event.getSelectedTrack();
+		//event = (OrienteeringEvent)getIntent().getSerializableExtra("TRACK_INFO");
+		//track = event.getSelectedTrack();
+		
+		event = DataInstance.getInstace().getEvent();
+		track = DataInstance.getInstace().getTrack();
+		
 		
 		//Here should be all the info relating the track.
 		eventName = (TextView)findViewById(R.id.eventNameText);
