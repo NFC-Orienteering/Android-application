@@ -3,6 +3,8 @@ package org.uta.nfcorienteering.activity;
 
 
 
+import java.io.Serializable;
+
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.event.OrienteeringRecord;
@@ -61,12 +63,15 @@ public class TrackResultsActivity extends Activity {
 
 	public void uploadResults(View v) {
 		Intent intent = new Intent(this, UploadResultsActivity.class);
+		intent.putExtra("TRACK_INFO",(Serializable)event);
 		startActivity(intent);
+		finish();
 	}
 	
 	public void backToStartMenu(View v) {
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
+		finish();
 	}
 	
 	public void setResultTable(OrienteeringEvent event){

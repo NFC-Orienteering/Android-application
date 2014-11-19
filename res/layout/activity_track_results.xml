@@ -70,26 +70,23 @@
         android:text="@string/uploadInfo_text" />
 
     <TextView
+        android:id="@+id/eventNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/noUploadButton"
+        android:layout_below="@+id/resultsText"
+        android:layout_marginTop="26dp"
+        android:text="@string/eventName_text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
         android:id="@+id/trackLengthText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/eventNameText"
         android:layout_alignBottom="@+id/eventNameText"
         android:layout_alignLeft="@+id/uploadButton"
-        android:layout_marginLeft="38dp"
         android:text="@string/trackLength_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/eventNameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/resultsText"
-        android:layout_marginTop="25dp"
-        android:layout_toLeftOf="@+id/trackLengthText"
-        android:text="@string/eventName_text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
 
 </RelativeLayout>

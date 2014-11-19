@@ -1,18 +1,46 @@
 package org.uta.nfcorienteering.activity;
 
 import org.uta.nfcorienteering.R;
+import org.uta.nfcorienteering.event.OrienteeringEvent;
+
+import android.R.color;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class UploadResultsActivity extends Activity {
 
+	final int STATE_NICKNAME = 1;
+	final int STATE_UPLOAD = 2;
+	final int STATE_FINISH = 3;
+	
+	
+	TextView addNameText, nicknameText, uploadText, finishText;
+	TextView uploadingResultsText;
 	EditText nicknameTextField;
-	Button uploadResultsButton;
+	Button nextButton, cancelButton;
+	ProgressBar progressBarUpload;
+	String nickname;
+	int progressState;
+	ImageView okIconSmall;
+	
+	TableLayout trackUploadTable;
+	
+	OrienteeringEvent event;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +48,162 @@ public class UploadResultsActivity extends Activity {
 		setContentView(R.layout.activity_upload_results);
 
 		nicknameTextField = (EditText) findViewById(R.id.nicknameTextField);
-		uploadResultsButton = (Button) findViewById(R.id.uploadButton);
+		nextButton = (Button) findViewById(R.id.nextResultsButton);
+		cancelButton = (Button) findViewById(R.id.cancelResultsButton);
+		progressBarUpload = (ProgressBar) findViewById(R.id.progressBarResults);
+		nicknameText = (TextView) findViewById(R.id.nicknameText);
+		uploadText = (TextView) findViewById(R.id.trackUploadText);
+		finishText = (TextView) findViewById(R.id.uploadText);
+		addNameText = (TextView) findViewById(R.id.addNameText);
+		uploadingResultsText = (TextView) findViewById(R.id.uploadingResultsText);
+		trackUploadTable = (TableLayout) findViewById(R.id.trackUploadTable);
+		
+		nicknameText.setTextColor(Color.GREEN);
+		uploadText.setTextColor(Color.BLACK);
+		finishText.setTextColor(Color.BLACK);
+		
+		event = (OrienteeringEvent)getIntent().getSerializableExtra("EVENT_RECORD");
+		
+		progressState = STATE_NICKNAME;
+	}
+	
+	public void uploadProgressNext(View v) {
+		
+		if(progressState == STATE_NICKNAME){
+			nickname = nicknameTextField.getText().toString();
+			nicknameTextField.setVisibility(View.INVISIBLE);
+			addNameText.setVisibility(View.INVISIBLE);
+			uploadText.setTextColor(Color.GREEN);
+			progressState = STATE_UPLOAD;
+			
+			nextButton.setText("Upload");
+			
+			progressBarUpload.setProgress(20);
+			
+			TableRow tableRow = new TableRow(this);
+	    	TextView trackName = new TextView(this);
+			TextView totalTimestamp = new TextView(this);
+			
+			trackName.setPadding(40, 15, 10, 15);
+			totalTimestamp.setPadding(10, 15, 10, 15);
+			
+			trackName.setText("Orienteering event  " + "5 km");
+			//trackName.setText(event.getEventName() + "  " + event.getSelectedTrack().getDistance());
+			//totalTimestamp.setText(event.getRecord().getPunches().get(event.getRecord().getPunches().size()-1).getTimestamp());
+			totalTimestamp.setText("01:24:45");
+			
+			trackName.setTextSize(20);
+			totalTimestamp.setTextSize(20);
+			
+			okIconSmall = new ImageView(this);
+			okIconSmall.setBackgroundResource(R.drawable.ok_icon_small);
+			tableRow.addView(okIconSmall);
+			
+			
+			tableRow.addView(trackName);
+			tableRow.addView(totalTimestamp);
+			tableRow.setGravity(Gravity.CENTER);
+			trackUploadTable.addView(tableRow);
+			
+		}
+		else if(progressState == STATE_UPLOAD){
+			//HERE should be implemented the POST-method.
+			finishText.setTextColor(Color.GREEN);
+			
+			trackUploadTable.removeAllViews();
+			progressBarUpload.setProgress(100);
+			
+			TextView uploadFeedback1 = new TextView(this);
+			TextView uploadFeedback2 = new TextView(this);
+			TextView uploadFeedback3 = new TextView(this);
+			
+			uploadFeedback1.setText("Results");
+			uploadFeedback2.setText("are");
+			uploadFeedback3.setText("uploaded");
+			
+			uploadFeedback1.setTextSize(25);
+			uploadFeedback2.setTextSize(25);
+			uploadFeedback3.setTextSize(25);
+			
+			uploadFeedback1.setPadding(40, 15, 10, 15);
+			uploadFeedback2.setPadding(40, 15, 10, 15);
+			uploadFeedback3.setPadding(40, 15, 10, 15);
+			
+			uploadFeedback1.setGravity(Gravity.CENTER);
+			uploadFeedback2.setGravity(Gravity.CENTER);
+			uploadFeedback3.setGravity(Gravity.CENTER);
+			
+			
+			TableRow row1 = new TableRow(this);
+			row1.addView(uploadFeedback1);
+			TableRow row2 = new TableRow(this);
+			row2.addView(uploadFeedback2);
+			TableRow row3 = new TableRow(this);
+			row3.addView(uploadFeedback3);
+			
+			row1.setGravity(Gravity.CENTER);
+			row2.setGravity(Gravity.CENTER);
+			row3.setGravity(Gravity.CENTER);
+			
+			ImageView okIcon = new ImageView(this);
+			okIcon.setBackgroundResource(R.drawable.ok_icon);
+			okIcon.setPadding(40, 15, 10, 15);
+			TableRow row4 = new TableRow(this);
+			row4.addView(okIcon);
+			row4.setGravity(Gravity.CENTER);
+			
+			trackUploadTable.addView(row1);
+			trackUploadTable.addView(row2);
+			trackUploadTable.addView(row3);
+			trackUploadTable.addView(row4);
+			
+			
+			
+			nextButton.setText("OK");
+			progressState = STATE_FINISH;
+		}
+		
+		else if(progressState == STATE_FINISH) {
+			uploadResults(nextButton);
+		}
+	}
+	
+	public void uploadProgressCancel(View v) {
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+	    builder.setTitle("Upload results");
+	    builder.setMessage("Do you want to cancel uploading your results and return to" +
+	    					" main menu?");
+
+	    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+	        public void onClick(DialogInterface dialog, int which) {
+	            // Return to main menu
+	        	returnToMainMenu();
+	        }
+
+	    });
+	    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+	        @Override
+	        public void onClick(DialogInterface dialog, int which) {
+	            // Do nothing
+	            dialog.dismiss();
+	        }
+	    });
+	    AlertDialog alert = builder.create();
+	    alert.show();
 	}
 
+	public void returnToMainMenu(){
+		
+		Toast.makeText(this, "Orienteering results not uploaded", Toast.LENGTH_LONG).show();
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		finish();
+	}
+	
 	public void uploadResults(View v) {
 
 		Toast.makeText(this, "Results uploaded with nickname " + nicknameTextField.getText() + ".", Toast.LENGTH_SHORT).show();

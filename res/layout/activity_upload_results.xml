@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutUpload"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -8,36 +9,132 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="org.uta.nfcorienteering.activity.UploadResultsActivity" >
 
-    <EditText
-        android:id="@+id/nicknameTextField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/uploadResultsInfoText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/uploadButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/nicknameTextField"
-        android:layout_below="@+id/nicknameTextField"
-        android:layout_marginTop="32dp"
-        android:onClick="uploadResults"
-        android:text="@string/uploadResults_button" />
-
     <TextView
-        android:id="@+id/uploadResultsInfoText"
+        android:id="@+id/uploadingResultsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp"
-        android:gravity="center"
-        android:text="@string/uploadInfo_text" />
+        android:text="@string/upload_results_text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+        <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/uploadingResultsText"
+        android:orientation="horizontal"
+        android:weightSum="1.0" >
+
+        <TextView
+            android:id="@+id/nicknameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".33"
+            android:gravity="center"
+            android:text="@string/nickname_text"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/trackUploadText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".33"
+            android:gravity="center"
+            android:text="@string/tracks_text"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/uploadText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".33"
+            android:gravity="center"
+            android:text="@string/upload_text"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:weightSum="1.0" >
+
+        <Button
+            android:id="@+id/cancelResultsButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:onClick="uploadProgressCancel"
+            android:text="@string/cancel_button" />
+
+        <Button
+            android:id="@+id/nextResultsButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:onClick="uploadProgressNext"
+            android:text="@string/next_button" />
+    </LinearLayout>
+    
+    
+
+    <ProgressBar
+	    android:id="@+id/progressBarResults"
+	    style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout1"
+	    android:layout_alignLeft="@+id/linearLayout1"
+	    android:layout_alignStart="@+id/linearLayout1"
+	    android:layout_marginBottom="39dp" />
+    
+    
+     <TableLayout
+        android:id="@+id/trackUploadTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+		android:gravity="center" >
+        
+    </TableLayout>
+
+    <EditText
+        android:id="@+id/nicknameTextField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addNameText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/addNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nicknameTextField"
+        android:layout_alignStart="@+id/nicknameTextField"
+        android:layout_below="@+id/trackUploadTable"
+        android:layout_marginTop="50dp"
+        android:text="@string/addName_text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <View
+        android:id="@+id/split_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/black" />
+
+
 
 </RelativeLayout>

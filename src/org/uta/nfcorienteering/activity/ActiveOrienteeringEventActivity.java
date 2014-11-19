@@ -269,14 +269,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				Punch controlPoint = new Punch();
 				controlPoint.setCheckpointNumber(event.getSelectedTrack().getCheckpoints().get(event.getSelectedTrack().getCurrentCheckPoint()).getCheckpointNumber());
 				
-				//Calculate the time it took for this control point by substracting the timestamp time from the
-				//control point before this from the total time.
 				long totalTimeSeconds = TimeUnit.MILLISECONDS.toSeconds(Integer.parseInt(stopwatch.readTimeMillis()));
-				
-				//Take the punch data before this controlPoint
-				//String lastTimeStamp = punches.get(event.getSelectedTrack().getCurrentCheckPoint() -1).getTimestamp();
-				//get split time in String timestamp
-				//String currentTimeStamp = getSplitTimeString(lastTimeStamp, totalTimeMillis);
 				String currentTimeStamp = convertSecondsToHMmSs(totalTimeSeconds);
 				
 				controlPoint.setTimestamp(currentTimeStamp);
