@@ -2,7 +2,7 @@ package org.uta.nfcorienteering.http;
 
 public class UrlGenerator {
 
-	static final String domain = "http://ec2-54-69-118-107.us-west-2.compute.amazonaws.com";
+	static final String domain = "http://nfc-orienteering.sis.uta.fi/api/v1";
 	static final String event = "events";
 	static final String track = "tracks";
 	static final String postfix = ".json";
@@ -12,19 +12,18 @@ public class UrlGenerator {
 	}
 
 	public static String eventURL(int eventNum) {
-		return domain + "/" + event + "/" + eventNum + postfix;
+		return domain + "/" + event + "/" + eventNum;
 	}
 
 	public static String trackListURL(int eventNum) {
-		return domain + "/" + event + "/" + eventNum + "/" + track + postfix;
+		return domain + "/" + event + "/" + eventNum + "/" + track;
 
 	}
 
 	public static String trackUrl(int eventNumber, int trackNumber) {
-		return domain + "/" + event + "/" + eventNumber + "/" + track + "/"
-				+ trackNumber+postfix;
+		return domain + "/" + track + "/" + trackNumber;
 	}
-	
+
 	public static String mapUrl(String imageUrl) {
 		return domain + imageUrl;
 	}

@@ -14,11 +14,11 @@ public class JsonResolver {
 		OrienteeringEvent event = new OrienteeringEvent();
 		int id = 0;
 		String name = "";
-		String startingTime="";
+		String startingTime = "";
 		try {
-			JSONArray jsonArray= new JSONArray(json);
+			JSONArray jsonArray = new JSONArray(json);
 			JSONObject jsonObject = jsonArray.getJSONObject(0);
-			
+
 			id = jsonObject.getInt("id");
 			name = jsonObject.getString("name");
 			startingTime = jsonObject.getString("start_date");
@@ -33,30 +33,31 @@ public class JsonResolver {
 
 		return event;
 	}
-	
-	public static Track resolveTrackJson(String json){
+
+	public static Track resolveTrackJson(String json) {
 		Track track = new Track();
 		int id = 0;
 		String name = "";
 		String distance = "";
 		String mapUrl = "";
 		ArrayList<Checkpoint> controlPoints = new ArrayList<Checkpoint>();
-		
+
 		try {
 			JSONObject jsonObject = new JSONObject(json);
-			
-			JSONArray controlPointsJson = jsonObject.getJSONArray("control_points");
-			for(int i = 0; i < controlPointsJson.length(); i++) {
-				JSONObject c = controlPointsJson.getJSONObject(i);
-				
-				int trackNumber = Integer.parseInt(c.getString("id"));
-				String tagId = c.getString("tag_id");
-				
-				Checkpoint cp = new Checkpoint(trackNumber, tagId);
+
+			JSONArray controlPointsJson = jsonObject
+					.getJSONArray("control_points");
+			for (int i = 0; i < controlPointsJson.length(); i++) {
+				JSONObject controlPointJson = controlPointsJson.getJSONObject(i);
+
+				int controlPointNumber = Integer.parseInt(controlPointJson.getString("id"));
+				String tagId = controlPointJson.getString("tag_id");
+
+				Checkpoint cp = new Checkpoint(controlPointNumber, tagId);
 				controlPoints.add(cp);
-				
+
 			}
-			
+
 			mapUrl = jsonObject.getString("image");
 			id = jsonObject.getInt("id");
 			name = jsonObject.getString("name");
@@ -65,13 +66,43 @@ public class JsonResolver {
 			e.printStackTrace();
 			return track;
 		}
-		
+
 		track.setMapUrl(mapUrl);
 		track.setTrackName(name);
 		track.setTrackNumber(id);
 		track.setDistance(distance);
 		track.setCheckpoints(controlPoints);
 		return track;
+	}
+
+	public ArrayList<OrienteeringEvent> jsonArrayToList(String jsonArray) {
+		ArrayList<OrienteeringEvent> events = new ArrayList<OrienteeringEvent>();
+
+		JSONArray array = null;
+		try {
+			array = new JSONArray(jsonArray);
+			int size = array.length();
+			for (int i = 0; i < size; i++) {
+				String json = array.getString(i);
+				OrienteeringEvent event = resolveEvent(json);
+				events.add(event);
+			}
+			return events;
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	private OrienteeringEvent resolveEvent(String json) throws JSONException{
+		OrienteeringEvent event = new OrienteeringEvent();
+		JSONObject jsonObject = new JSONObject(json);
+		
+		//TODO 
+		
+		return event;
+		
 	}
 
 }
