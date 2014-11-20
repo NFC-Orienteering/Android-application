@@ -214,7 +214,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			controlPointNumber.setText("Point " + String.valueOf(track.getCheckpoints().get(i).getCheckpointNumber()));
 			
 			if(i < punches.size()){
-				controlPointTime.setText(punches.get(i).getTimestamp());
+				controlPointTime.setText(punches.get(i).getTotalTimestamp());
 			}
 			rowNumber.setTextColor(Color.BLACK);
 			rowNumber.setGravity(Gravity.CENTER);
@@ -264,10 +264,15 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				Punch controlPoint = new Punch();
 				controlPoint.setCheckpointNumber(track.getCheckpoints().get(track.getCurrentCheckPoint()).getCheckpointNumber());
 				
-				long totalTimeSeconds = TimeUnit.MILLISECONDS.toSeconds(Integer.parseInt(stopwatch.readTimeMillis()));
-				String currentTimeStamp = convertSecondsToHMmSs(totalTimeSeconds);
+				long totalTimeMillis = Integer.parseInt(stopwatch.readTimeMillis());
+				long totalTimeSeconds = TimeUnit.MILLISECONDS.toSeconds(totalTimeMillis);
+				String totalTimestamp = convertSecondsToHMmSs(totalTimeSeconds);
+				controlPoint.setTotalTimestamp(totalTimestamp);
 				
-				controlPoint.setTimestamp(currentTimeStamp);
+				
+				String lastTimeStamp = punches.get(track.getCurrentCheckPoint() -1).getTotalTimestamp();
+				String splitTime = getSplitTimeString(lastTimeStamp, totalTimeMillis);
+				controlPoint.setSplitTime(splitTime);
 				punches.add(controlPoint);
 				
 				track.setCurrentCheckPoint(track.getCurrentCheckPoint() + 1);
@@ -293,17 +298,18 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			else if(track.getCurrentCheckPoint() ==track.getCheckpoints().size() - 1){
 
 				//Finish tag was read and the other control points were read correctly.
-				/*long totalTimeMillis = Integer.parseInt(stopwatch.readTimeMillis());
-				String lastTimeStamp = punches.get(event.getSelectedTrack().getCurrentCheckPoint() -1).getTimestamp();
-				String currentTimeStamp = getSplitTimeString(lastTimeStamp, totalTimeMillis);
-				*/
 				
-				long totalTimeSeconds = TimeUnit.MILLISECONDS.toSeconds(Integer.parseInt(stopwatch.readTimeMillis()));
-				String finalTimeStamp = convertSecondsToHMmSs(totalTimeSeconds);
+				long totalTimeMillis = Integer.parseInt(stopwatch.readTimeMillis());
+				long totalTimeSeconds = TimeUnit.MILLISECONDS.toSeconds(totalTimeMillis);
 				
 				Punch controlPoint = new Punch();
 				controlPoint.setCheckpointNumber(track.getCheckpoints().get(track.getCurrentCheckPoint()).getCheckpointNumber());
-				controlPoint.setTimestamp(finalTimeStamp);
+				String totalTimestamp = convertSecondsToHMmSs(totalTimeSeconds);
+				controlPoint.setTotalTimestamp(totalTimestamp);
+				
+				String lastTimeStamp = punches.get(track.getCurrentCheckPoint() -1).getTotalTimestamp();
+				String splitTime = getSplitTimeString(lastTimeStamp, totalTimeMillis);
+				controlPoint.setSplitTime(splitTime);
 				punches.add(controlPoint);
 				
 				track.setCurrentCheckPoint(track.getCurrentCheckPoint() + 1);
@@ -320,11 +326,16 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				//Check if finish point tag was read too early
 				if(track.getCheckpoints().get(track.getCheckpoints().size()-1).getRfidTag().equals(result)){
 					
-					long totalTimeSeconds = TimeUnit.MILLISECONDS.toSeconds(Integer.parseInt(stopwatch.readTimeMillis()));
-					String finalTimeStamp = convertSecondsToHMmSs(totalTimeSeconds);
-					
 					Punch controlPoint = new Punch();
-					controlPoint.setTimestamp(finalTimeStamp);
+					
+					long totalTimeMillis = Integer.parseInt(stopwatch.readTimeMillis());
+					long totalTimeSeconds = TimeUnit.MILLISECONDS.toSeconds(totalTimeMillis);
+					String totalTimestamp = convertSecondsToHMmSs(totalTimeSeconds);
+					controlPoint.setTotalTimestamp(totalTimestamp);
+					
+					String lastTimeStamp = punches.get(track.getCurrentCheckPoint() -1).getTotalTimestamp();
+					String splitTime = getSplitTimeString(lastTimeStamp, totalTimeMillis);
+					controlPoint.setSplitTime(splitTime);
 					controlPoint.setCheckpointNumber(track.getCheckpoints().get(track.getCheckpoints().size()-1).getCheckpointNumber());
 					punches.add(controlPoint);
 					

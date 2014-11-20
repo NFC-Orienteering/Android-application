@@ -2,6 +2,8 @@ package org.uta.nfcorienteering.activity;
 
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
+import org.uta.nfcorienteering.event.Track;
+import org.uta.nfcorienteering.utility.DataInstance;
 
 import android.R.color;
 import android.app.Activity;
@@ -28,6 +30,8 @@ public class UploadResultsActivity extends Activity {
 	final int STATE_UPLOAD = 2;
 	final int STATE_FINISH = 3;
 	
+	OrienteeringEvent event;
+	private Track track;
 	
 	TextView addNameText, nicknameText, uploadText, finishText;
 	TextView uploadingResultsText;
@@ -40,7 +44,6 @@ public class UploadResultsActivity extends Activity {
 	
 	TableLayout trackUploadTable;
 	
-	OrienteeringEvent event;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +65,8 @@ public class UploadResultsActivity extends Activity {
 		uploadText.setTextColor(Color.BLACK);
 		finishText.setTextColor(Color.BLACK);
 		
-		event = (OrienteeringEvent)getIntent().getSerializableExtra("EVENT_RECORD");
+		event = DataInstance.getInstace().getEvent();
+		track = DataInstance.getInstace().getTrack();
 		
 		progressState = STATE_NICKNAME;
 	}
@@ -87,18 +91,27 @@ public class UploadResultsActivity extends Activity {
 			trackName.setPadding(40, 15, 10, 15);
 			totalTimestamp.setPadding(10, 15, 10, 15);
 			
-			trackName.setText("Orienteering event  " + "5 km");
-			//trackName.setText(event.getEventName() + "  " + event.getSelectedTrack().getDistance());
-			//totalTimestamp.setText(event.getRecord().getPunches().get(event.getRecord().getPunches().size()-1).getTimestamp());
-			totalTimestamp.setText("01:24:45");
+			trackName.setText(event.getEventName() + "  " + track.getDistance());
 			
-			trackName.setTextSize(20);
-			totalTimestamp.setTextSize(20);
+			if(event.getRecord().getPunches() != null){
+			  
+				if(event.getRecord().getPunches().get
+				  (event.getRecord().getPunches().size()-1).getTotalTimestamp() != null){
+					
+					totalTimestamp.setText(event.getRecord().getPunches().get
+							  (event.getRecord().getPunches().size()-1).getTotalTimestamp());
+				}
+			}
+			else{
+				totalTimestamp.setText("01:24:45");
+			}
+			
+			trackName.setTextSize(16);
+			totalTimestamp.setTextSize(16);
 			
 			okIconSmall = new ImageView(this);
 			okIconSmall.setBackgroundResource(R.drawable.ok_icon_small);
 			tableRow.addView(okIconSmall);
-			
 			
 			tableRow.addView(trackName);
 			tableRow.addView(totalTimestamp);
