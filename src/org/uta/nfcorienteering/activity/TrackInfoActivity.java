@@ -116,7 +116,7 @@ public class TrackInfoActivity extends Activity {
 
 			URL mapUrl;
 			try {
-				mapUrl = new URL(UrlGenerator.mapUrl(track.getMapUrl()));
+				mapUrl = new URL(track.getMapUrl());
 				return (BitmapFactory.decodeStream(mapUrl.openConnection().getInputStream()));
 			} catch (MalformedURLException e) {
 				e.printStackTrace();

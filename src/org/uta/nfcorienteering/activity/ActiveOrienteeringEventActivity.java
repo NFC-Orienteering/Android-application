@@ -18,6 +18,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -42,7 +43,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	final Context context = this;
 	final String FINISH_POINT = "default";
 	
-	private Compass compass;
+	private Compass compass =  null;
 	boolean compassHidden;
 	boolean compassLarge;
 	
@@ -101,11 +102,19 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		
 		event.setRecord(record);
 		
-		compass = new Compass(this);
-		compass.arrowView = compassImage;
-
+		setCompass();
+		
 	}
 
+	public void setCompass() {
+		if(compass == null) {
+			compass = new Compass(this);
+			compass.arrowView = compassImage;
+		}
+	
+	}
+
+	
 	public boolean onCreateOptionsMenu(Menu menu){
 		getMenuInflater().inflate(R.menu.main, menu);
 		

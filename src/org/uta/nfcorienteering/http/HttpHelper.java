@@ -6,18 +6,27 @@ import org.uta.nfcorienteering.utility.DataInstance;
 
 public class HttpHelper {
 
-	public static void getTrackAndParentEvent(int trackNumber) {
-		String url = UrlGenerator.trackUrl(trackNumber);
-		String response = HttpRequest.tryHttpGet(url);
+	public static boolean getTrackAndParentEvent(String infoTagId) {
+		
+		String response = "";
+		response = HttpRequest.tryHttpGet(UrlGenerator.searchTrackUrl(infoTagId));
+		
+		if(response.equals("")){
+			return false;
+		}
+		else {
+			Track track = JsonResolver.resolveTrackJson(response);
 
-		Track track = JsonResolver.resolveTrackJson(response);
-
-		DataInstance dataInstance = DataInstance.getInstace();
-		dataInstance.setTrack(track);
-		dataInstance.setEvent(track.getParentEvent());
+			DataInstance dataInstance = DataInstance.getInstace();
+			dataInstance.setTrack(track);
+			dataInstance.setEvent(track.getParentEvent());
+			return true;	
+		}
 	}
 
 	public boolean pushRecord(OrienteeringRecord record) {
 		return false;
 	}
+	
+
 }
