@@ -20,9 +20,11 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Vibrator;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iutinvg.compass.Compass;
+import com.polites.android.GestureImageView;
 
 
 public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
@@ -103,7 +106,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		event.setRecord(record);
 		
 		setCompass();
-		
+	    setImageSize();
 	}
 
 	public void setCompass() {
@@ -244,8 +247,6 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	    
 	    }
 	    dialog.show();
-	
-	
 	}
 		
 		
@@ -446,5 +447,23 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	    long m = (seconds / 60) % 60;
 	    long h = (seconds / (60 * 60)) % 24;
 	    return String.format("%d:%02d:%02d", h,m,s);
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
+	    setImageSize();    	
+	}
+	
+	private void setImageSize() {
+    	GestureImageView img = (GestureImageView) findViewById(R.id.gesture_image_view);
+    	
+    	Display display = getWindowManager().getDefaultDisplay();
+    	Point point = new Point();
+    	display.getSize(point);    	
+  	
+    	img.getLayoutParams().width = point.x;
+    	img.getLayoutParams().height = point.y;
+    	img.reset();
 	}
 }
