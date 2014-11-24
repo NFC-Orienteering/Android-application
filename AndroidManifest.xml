@@ -10,12 +10,11 @@
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
-    
-     <uses-feature
-		android:name="android.hardware.sensor.magnetic_field"
-		android:required="true" />
-     
-     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-feature
+        android:name="android.hardware.sensor.magnetic_field"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -85,7 +84,10 @@
                 android:value="com.example.nfcorienteering.TrackResults" />
         </activity>
         <activity android:name="org.uta.nfcorienteering.activity.MapActivity" />
-        <service android:name="org.uta.nfcorienteering.service.TimerService"/>
+
+        <service android:name="org.uta.nfcorienteering.service.TimerService" />
+
+        <activity android:name="org.uta.nfcorienteering.activity.ResultHistoryActivity" />
     </application>
 
 </manifest>

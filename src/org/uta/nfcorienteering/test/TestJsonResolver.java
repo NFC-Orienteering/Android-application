@@ -52,7 +52,6 @@ public class TestJsonResolver extends TestCase {
 		assertEquals("Tampere",event.getLocation());
 		assertEquals("2014-11-18 12:00:00", event.getStartingTime());
 		assertEquals("2015-11-18 12:00:00", event.getEndingTime());
-		
 	}
 
 }

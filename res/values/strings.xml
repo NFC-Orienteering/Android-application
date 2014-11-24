@@ -54,4 +54,5 @@
 	<string name="nickname_text">Nickname</string>
 	<string name="tracks_text">Track</string>
 	<string name="upload_text">Upload</string>
+	<string name="see_result">See result</string>
 </resources>
