@@ -62,27 +62,37 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 	@Override
 	public void postNfcRead(String result) {
 		tagId.setText(result);
-		String trackId = result;	
-		boolean trackIdFound = true;
+		String infoTagId = result;	
+		
+		if(infoTagId.equals("button")){
+			infoTagId = "12";
+		}
+
 		
 		Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
 		 // Vibrate for 500 milliseconds
 		 v.vibrate(500);
 		
 		//Received trackID, result, should be queried to server if there is such event available.
-		if (trackIdFound){
-			Toast.makeText(this, "Track found, downloading track data. Please wait", Toast.LENGTH_LONG).show();
-			nextButton.setEnabled(false);
-			new EventDataDownloader().execute(trackId);
+		nextButton.setEnabled(false);
+		Toast.makeText(context, "Searching for track data. Please wait", Toast.LENGTH_LONG).show();
+		new EventDataDownloader().execute(infoTagId);
+
+	}
+	
+	public void searchTrackDataResults(OrienteeringEvent event) {
+		if(event != null){
+			Toast.makeText(context, "Track found!", Toast.LENGTH_SHORT).show();
+			startTrackInfoActivity(event);
 		}
 		else {
-			Toast.makeText(this, "Track could not be found with the ID read from the Tag. Please try reading " +
-		             "another Tag.", Toast.LENGTH_LONG).show();			
+			Toast.makeText(context, "Track could not be found with the ID read from the Tag. Please try reading " +
+		             "another Tag.", Toast.LENGTH_LONG).show();
 		}
 	}
 	
 	public  void startTrackInfoActivity(OrienteeringEvent event){
-			
+		Toast.makeText(context, "Track found!", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, TrackInfoActivity.class);
 		intent.putExtra("TRACK_INFO",(Serializable)event);
 		startActivity(intent);
@@ -103,15 +113,24 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 		//	String trackJson = HttpRequest.tryHttpGet(trackUrl);
 		//	Track track = JsonResolver.resolveTrackJson(trackJson);
 			
-			HttpHelper.getTrackAndParentEvent(3);
+			System.out.println(params[0]);
+			boolean trackFound = HttpHelper.getTrackAndParentEvent(params[0]);
+			
+			if(!trackFound){
+				return null;
+			}
+			else {
+				return DataInstance.getInstace().getEvent();
+			}
+
 		//	event.setSelectedTrack(track);
 
-			return DataInstance.getInstace().getEvent();
+			
 		}
 		
 		@Override
 		protected void onPostExecute(OrienteeringEvent event) {
-			startTrackInfoActivity(event);
+			searchTrackDataResults(event);
 		}
 
 	}

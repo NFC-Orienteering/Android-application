@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class Punch implements Serializable {
 	private int checkpointNumber = 0;
-	private String timestamp = "";
+	private String totalTimestamp = "";
+	private String splitTime = "";
 
 	public Punch() {
 		;
@@ -12,7 +13,7 @@ public class Punch implements Serializable {
 
 	public Punch(int checkpointNumber, String timestamp) {
 		this.checkpointNumber = checkpointNumber;
-		this.timestamp = timestamp;
+		this.totalTimestamp = timestamp;
 	}
 
 	public int getCheckpointNumber() {
@@ -23,16 +24,24 @@ public class Punch implements Serializable {
 		this.checkpointNumber = checkpointNumber;
 	}
 
-	public String getTimestamp() {
-		return timestamp;
+	public String getTotalTimestamp() {
+		return totalTimestamp;
 	}
 
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
+	public void setTotalTimestamp(String timestamp) {
+		this.totalTimestamp = timestamp;
+	}
+	
+	public String getSplitTime() {
+		return splitTime;
+	}
+	
+	public void setSplitTime(String splitTime) {
+		this.splitTime = splitTime;
 	}
 
 	@Override
 	public String toString() {
-		return checkpointNumber + ":" + timestamp;
+		return checkpointNumber + ":" + totalTimestamp;
 	}
 }

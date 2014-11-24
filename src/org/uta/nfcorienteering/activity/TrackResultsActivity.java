@@ -127,10 +127,10 @@ public class TrackResultsActivity extends Activity {
 				if (i >= event.getRecord().getPunches().size()) {
 					controlPointTime.setText(event.getRecord().getPunches()
 							.get(event.getRecord().getPunches().size() - 1)
-							.getTimestamp());
+							.getTotalTimestamp());
 				} else {
 					controlPointTime.setText(event.getRecord().getPunches()
-							.get(i).getTimestamp());
+							.get(i).getTotalTimestamp());
 				}
 			} else {
 				controlPointTime.setText("Not tagged");
@@ -162,7 +162,7 @@ public class TrackResultsActivity extends Activity {
 		controlPointsGot.setText(String.valueOf(taggedPointsCount) + " / "
 				+ String.valueOf(controlPointCount - 1));
 		totalTime.setText(event.getRecord().getPunches()
-				.get(event.getRecord().getPunches().size() - 1).getTimestamp());
+				.get(event.getRecord().getPunches().size() - 1).getTotalTimestamp());
 
 		total.setPadding(5, 5, 5, 5);
 		controlPointsGot.setPadding(5, 5, 5, 5);
