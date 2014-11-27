@@ -34,9 +34,9 @@ public class TestJsonBuilder extends TestCase {
 		ArrayList<Punch> punches = new ArrayList<Punch>();
 
 		Punch p1, p2, p3;
-		p1 = new Punch(32,"00");
-		p2 = new Punch(21,"20000");
-		p3 = new Punch(43,"74223");
+		p1 = new Punch(32,0,0);
+		p2 = new Punch(21,2000, 30000);
+		p3 = new Punch(43,1233, 123123);
 		punches.add(p1);
 		punches.add(p2);
 		punches.add(p3);

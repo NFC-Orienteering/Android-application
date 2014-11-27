@@ -1,19 +1,21 @@
 package org.uta.nfcorienteering.event;
 
 import java.io.Serializable;
+import java.util.concurrent.TimeUnit;
 
 public class Punch implements Serializable {
 	private int checkpointNumber = 0;
-	private String totalTimestamp = "";
-	private String splitTime = "";
+	private long totalTimestampMillis = 0;
+	private long splitTimeMillis = 0;
 
 	public Punch() {
 		;
 	}
 
-	public Punch(int checkpointNumber, String timestamp) {
+	public Punch(int checkpointNumber, long timestamp, long splitTime) {
 		this.checkpointNumber = checkpointNumber;
-		this.totalTimestamp = timestamp;
+		this.totalTimestampMillis = timestamp;
+		this.splitTimeMillis = splitTime;
 	}
 
 	public int getCheckpointNumber() {
@@ -24,24 +26,27 @@ public class Punch implements Serializable {
 		this.checkpointNumber = checkpointNumber;
 	}
 
-	public String getTotalTimestamp() {
-		return totalTimestamp;
+	public long getTotalTimestampMillis() {
+		return totalTimestampMillis;
 	}
 
-	public void setTotalTimestamp(String timestamp) {
-		this.totalTimestamp = timestamp;
+	public void setTotalTimestampMillis(long timestampMillis) {
+		this.totalTimestampMillis = timestampMillis;
 	}
 	
-	public String getSplitTime() {
-		return splitTime;
+	public long getSplitTimeMillis() {
+		return splitTimeMillis;
 	}
 	
-	public void setSplitTime(String splitTime) {
-		this.splitTime = splitTime;
+	public void setSplitTimeMillis(long splitTimeMillis) {
+		this.splitTimeMillis = splitTimeMillis;
 	}
-
-	@Override
-	public String toString() {
-		return checkpointNumber + ":" + totalTimestamp;
+	
+	public static String convertMillisToHMmSs(long millis) {
+		long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
+	    long s = seconds % 60;
+	    long m = (seconds / 60) % 60;
+	    long h = (seconds / (60 * 60)) % 24;
+	    return String.format("%d:%02d:%02d", h,m,s);
 	}
 }

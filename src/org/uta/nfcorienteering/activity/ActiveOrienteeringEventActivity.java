@@ -65,12 +65,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	
 	StopwatchBinder stopwatch;
 	boolean mBound = false;
-	
 	Intent timerServiceIntent;
-	
-	
-
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +76,6 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		compassLarge = false;
 		nextButton = (Button)findViewById(R.id.activeEventNextButton);
 
-		
 		compassImage = (ImageView)findViewById(R.id.compassImageView);
 		compassImage.setOnClickListener(new OnClickListener() {
 			public void onClick(View v){
@@ -104,6 +98,15 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		
 		event.setRecord(record);
 		
+		for(int i = 0; i < track.getCheckpoints().size(); i++) {
+			Punch controlPoint = new Punch();
+			
+			controlPoint.setCheckpointNumber(track.getCheckpoints().get(i).getCheckpointNumber());
+			controlPoint.setSplitTimeMillis(0);
+			controlPoint.setTotalTimestampMillis(0);
+			punches.add(controlPoint);
+		}
+		
 		setCompass();
 	    setImageSize();
 	}
@@ -119,7 +122,6 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	
 	public boolean onCreateOptionsMenu(Menu menu){
 		getMenuInflater().inflate(R.menu.main, menu);
-		
 		return true;
 	}
 	
@@ -137,13 +139,12 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		}
 		if(item.getItemId() == R.id.hide_compass){
 			if(compassHidden){
-				findViewById(R.id.compassImageView).setVisibility(View.VISIBLE);
+				compassImage.setVisibility(ImageView.VISIBLE);
 				compassHidden = false;
 				item.setTitle("Hide Compass");
-
 			}
 			else {
-				findViewById(R.id.compassImageView).setVisibility(View.INVISIBLE);
+				compassImage.setVisibility(ImageView.INVISIBLE);
 				compassHidden = true;
 				item.setTitle("Unhide Compass");
 			}
@@ -205,7 +206,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	    
 	    params.setMargins(5,10,5,10);
 	    
-	    for(int i = 0; i < controlPointCount; i++) {
+	    for(int i = 1; i < controlPointCount; i++) {
 	    	TableRow tableRow = new TableRow(this);
 
 	    	TextView rowNumber = new TextView(this);
@@ -214,14 +215,20 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			
 			rowNumber.setPadding(5, 5, 5, 5);
 			controlPointNumber.setPadding(5, 5, 5, 5);
-			controlPointTime.setPadding(5, 5, 5, 5);
+			controlPointTime.setPadding(5,5,5,5);
 			
 			rowNumber.setText(String.valueOf(i+1) + ".");
 			controlPointNumber.setText("Point " + String.valueOf(track.getCheckpoints().get(i).getCheckpointNumber()));
 			
-			if(i < punches.size()){
-				controlPointTime.setText(punches.get(i).getTotalTimestamp());
+			if(i < track.getCurrentCheckPoint()){
+				if(punches.get(i).getTotalTimestampMillis() == 0){
+					controlPointTime.setText("Not tagged");
+				}
+				else{
+					controlPointTime.setText(Punch.convertMillisToHMmSs(punches.get(i).getTotalTimestampMillis()));
+				}
 			}
+	
 			rowNumber.setTextColor(Color.BLACK);
 			rowNumber.setGravity(Gravity.CENTER);
 			controlPointNumber.setTextColor(Color.BLACK);
@@ -243,41 +250,49 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	@Override
 	public void postNfcRead(String result) {
 		
-		
 		 Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
-		 // Vibrate for 500 milliseconds
 		 v.vibrate(500);
-		 
-		 System.out.println(result);
+
+		int checkpointIndex = track.newCheckPointReached(result);
 		
-		
-		boolean correctTagRead = track.newCheckPointReached(result);
-		
-		if(correctTagRead) {
+		if(checkpointIndex >= 0) {
+			
+			boolean tagRead = false;
+			if(punches.get(checkpointIndex).getTotalTimestampMillis() > 0) {
+				Toast.makeText(this, "Tag has been already read!", Toast.LENGTH_LONG).show();
+				tagRead = true;
+			}
 			
 			//The tag that has been correctly read belongs to a control point
-			if(track.getCurrentCheckPoint() > 0 && 
-					track.getCurrentCheckPoint() < track.getCheckpoints().size() - 1){
-				
+			if(checkpointIndex > 0 && !tagRead &&
+					checkpointIndex < track.getCheckpoints().size() - 1 && track.getCurrentCheckPoint() > 0){
+
 				Toast.makeText(this, "Control point tag " + result +" read successfully!", Toast.LENGTH_LONG).show();
-				Punch controlPoint = new Punch();
-				controlPoint.setCheckpointNumber(track.getCheckpoints().get(track.getCurrentCheckPoint()).getCheckpointNumber());
+				int lastTaggedIndex = 0;
+				
+				for(int i = 1; i < track.getCheckpoints().size()-1; i++) {
+					if(punches.get(i).getTotalTimestampMillis() > 0)
+						lastTaggedIndex = i;
+				}
 				
 				long totalTimeMillis = Integer.parseInt(stopwatch.readTimeMillis());
-				long totalTimeSeconds = TimeUnit.MILLISECONDS.toSeconds(totalTimeMillis);
-				String totalTimestamp = convertSecondsToHMmSs(totalTimeSeconds);
-				controlPoint.setTotalTimestamp(totalTimestamp);
+				punches.get(checkpointIndex).setTotalTimestampMillis(totalTimeMillis);
+				punches.get(checkpointIndex).setSplitTimeMillis(getSplitTimeMillis(punches.get(lastTaggedIndex)
+						.getTotalTimestampMillis(), totalTimeMillis));
 				
-				String lastTimeStamp = punches.get(track.getCurrentCheckPoint() -1).getTotalTimestamp();
-				String splitTime = getSplitTimeString(lastTimeStamp, totalTimeMillis);
-				controlPoint.setSplitTime(splitTime);
-				punches.add(controlPoint);
+				for(int i = checkpointIndex + 1; i < track.getCheckpoints().size() - 1; i++) {
+					if(punches.get(i).getTotalTimestampMillis() > 0){
+						punches.get(i).setSplitTimeMillis(0);
+						punches.get(i).setTotalTimestampMillis(0);
+					}
+				}
 				
 				track.setCurrentCheckPoint(track.getCurrentCheckPoint() + 1);
 				
 			}
 			//The tag that has been correctly read is a starting tag
-			else if(track.getCurrentCheckPoint()  == 0){
+			else if(checkpointIndex == 0 && track.getCurrentCheckPoint() == 0){
+				
 				//Starting tag was checked
 				Toast.makeText(this, "Starting tag read! Have fun!", Toast.LENGTH_LONG).show();
 				
@@ -287,68 +302,49 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				startService(timerServiceIntent);
 					
 				track.setCurrentCheckPoint(track.getCurrentCheckPoint() + 1);
-				Punch startingPoint = new Punch(0, "00:00:00");
-				punches.add(startingPoint);
+				
 			}
 			
-			//The tag that has been correctly read is a finish tag and the other control points have been read correctly.
-			else if(track.getCurrentCheckPoint() ==track.getCheckpoints().size() - 1){
+			//The tag that has been correctly read is a finish tag 
+			else if(checkpointIndex == track.getCheckpoints().size() - 1 && track.getCurrentCheckPoint() > 0){
 
-				//Finish tag was read and the other control points were read correctly.
+				int lastTaggedIndex = 0;
+				for(int i = 1; i < track.getCheckpoints().size()-1; i++) {
+					
+					if(punches.get(i).getTotalTimestampMillis() > 0)
+						lastTaggedIndex = i;
+				}
 				
 				long totalTimeMillis = Integer.parseInt(stopwatch.readTimeMillis());
-				long totalTimeSeconds = TimeUnit.MILLISECONDS.toSeconds(totalTimeMillis);
+				punches.get(checkpointIndex).setTotalTimestampMillis(totalTimeMillis);
+				punches.get(checkpointIndex).setSplitTimeMillis(getSplitTimeMillis(punches.get(lastTaggedIndex)
+						.getTotalTimestampMillis(), totalTimeMillis));
 				
-				Punch controlPoint = new Punch();
-				controlPoint.setCheckpointNumber(track.getCheckpoints().get(track.getCurrentCheckPoint()).getCheckpointNumber());
-				String totalTimestamp = convertSecondsToHMmSs(totalTimeSeconds);
-				controlPoint.setTotalTimestamp(totalTimestamp);
-				
-				String lastTimeStamp = punches.get(track.getCurrentCheckPoint() -1).getTotalTimestamp();
-				String splitTime = getSplitTimeString(lastTimeStamp, totalTimeMillis);
-				controlPoint.setSplitTime(splitTime);
-				punches.add(controlPoint);
+				boolean trackComplete = true;
+				for(int i = 1; i < track.getCheckpoints().size(); i++) {
+					if(punches.get(i).getTotalTimestampMillis() == 0)
+						trackComplete = false;
+				}
 				
 				track.setCurrentCheckPoint(track.getCurrentCheckPoint() + 1);
-				trackFinished(true);
+				trackFinished(trackComplete);
+			}
+			else if(checkpointIndex > 0 && track.getCurrentCheckPoint() == 0){
+				Toast.makeText(this, "Invalid starting tag read. Please read the starting tag to start.", Toast.LENGTH_LONG).show();
+			}
+			else if(checkpointIndex == 0 && track.getCurrentCheckPoint() > 0) {
+				Toast.makeText(this, "Starting tag has already been read!", Toast.LENGTH_LONG).show();
 			}
 			
 		}
-		//The next correct tag was not read so have to do something to inform the orienteer 
-		//depending on the situation.
 		else {
 			
 			if(track.getCurrentCheckPoint() > 0){
-				
-				//Check if finish point tag was read too early
-				if(track.getCheckpoints().get(track.getCheckpoints().size()-1).getRfidTag().equals(result)){
-					
-					Punch controlPoint = new Punch();
-					
-					long totalTimeMillis = Integer.parseInt(stopwatch.readTimeMillis());
-					long totalTimeSeconds = TimeUnit.MILLISECONDS.toSeconds(totalTimeMillis);
-					String totalTimestamp = convertSecondsToHMmSs(totalTimeSeconds);
-					controlPoint.setTotalTimestamp(totalTimestamp);
-					
-					String lastTimeStamp = punches.get(track.getCurrentCheckPoint() -1).getTotalTimestamp();
-					String splitTime = getSplitTimeString(lastTimeStamp, totalTimeMillis);
-					controlPoint.setSplitTime(splitTime);
-					controlPoint.setCheckpointNumber(track.getCheckpoints().get(track.getCheckpoints().size()-1).getCheckpointNumber());
-					punches.add(controlPoint);
-					
-					trackFinished(false);
-				}
-				else {
-					Toast.makeText(this, "Wrong control point tag was read", Toast.LENGTH_LONG).show();
-				}
-						
+				Toast.makeText(this, "Wrong control point tag was read", Toast.LENGTH_LONG).show();
 			}
 			else if(track.getCurrentCheckPoint()  == 0){
-				
 				Toast.makeText(this, "Invalid starting tag read. Please read the starting tag to start.", Toast.LENGTH_LONG).show();
-				
 			}
-
 		}			
 	}
 	
@@ -358,35 +354,26 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				IBinder service) {
 			
 			stopwatch = (StopwatchBinder) service;
-			mBound = true;
-			
+			mBound = true;	
 		}
-
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
 			mBound = false;
 			stopwatch.resetStopwatch();
 			stopwatch = null;
-			
-		}
-		
+		}	
 	};
 	
 	public void trackFinished(boolean allControlPointsTagged) {
 		
-		//stop timer
 		stopService(timerServiceIntent);
 		
 		if(allControlPointsTagged)
 			Toast.makeText(this, "Track finished successfully!", Toast.LENGTH_LONG).show();
-		
 		else
 			Toast.makeText(this,  "Track finished but some control points are missing!", Toast.LENGTH_LONG).show();
-		
-		
-		//Set punches to record.
+
 		record.setPunches(punches);
-		
 		Intent intent = new Intent(this, TrackResultsActivity.class);
 		intent.putExtra("EVENT_RECORD", (Serializable)event);
 		startActivity(intent);
@@ -400,40 +387,8 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		startActivity(intent);
 	}
 	
-	public String getSplitTimeString (String lastTimestamp, long totalTimeMillis) {
-		
-		long lastTimeStampMillis = 0;
-		long currentTimeStampMillis = 0;
-		
-		String[] timeSplit = lastTimestamp.split(":");
-		long[] intTimes = new long[timeSplit.length];
-		
-		for(int i = 0; i < timeSplit.length; i++) {
-			intTimes[i] = Integer.parseInt(timeSplit[i]);
-		}
-		
-		if(intTimes.length == 3){
-			lastTimeStampMillis += TimeUnit.HOURS.toMillis(intTimes[0]);
-			lastTimeStampMillis += TimeUnit.MINUTES.toMillis(intTimes[1]);
-			lastTimeStampMillis += TimeUnit.SECONDS.toMillis(intTimes[2]);
-		}
-		else {
-			lastTimeStampMillis += TimeUnit.MINUTES.toMillis(intTimes[0]);
-			lastTimeStampMillis += TimeUnit.SECONDS.toMillis(intTimes[1]);
-		}
-		
-		currentTimeStampMillis = totalTimeMillis - lastTimeStampMillis;
-		long currentTimeStampSeconds = TimeUnit.MILLISECONDS.toSeconds(currentTimeStampMillis);
-		String currentTimeStamp = convertSecondsToHMmSs(currentTimeStampSeconds);
-
-		return currentTimeStamp;
-	}
-	
-	public static String convertSecondsToHMmSs(long seconds) {
-	    long s = seconds % 60;
-	    long m = (seconds / 60) % 60;
-	    long h = (seconds / (60 * 60)) % 24;
-	    return String.format("%d:%02d:%02d", h,m,s);
+	public long getSplitTimeMillis (long lastTimestamp, long totalTimeMillis) {
+		return totalTimeMillis - lastTimestamp;
 	}
 	
 	@Override

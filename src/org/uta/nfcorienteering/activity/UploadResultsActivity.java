@@ -3,6 +3,7 @@ package org.uta.nfcorienteering.activity;
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.event.Track;
+import org.uta.nfcorienteering.event.Punch;
 import org.uta.nfcorienteering.utility.DataInstance;
 
 import android.app.Activity;
@@ -94,10 +95,10 @@ public class UploadResultsActivity extends Activity {
 			if(event.getRecord().getPunches() != null){
 			  
 				if(event.getRecord().getPunches().get
-				  (event.getRecord().getPunches().size()-1).getTotalTimestamp() != null){
+				  (event.getRecord().getPunches().size()-1).getTotalTimestampMillis() > 0){
 					
-					totalTimestamp.setText(event.getRecord().getPunches().get
-							  (event.getRecord().getPunches().size()-1).getTotalTimestamp());
+					totalTimestamp.setText(Punch.convertMillisToHMmSs(event.getRecord().getPunches().get
+							  (event.getRecord().getPunches().size()-1).getTotalTimestampMillis()));
 				}
 			}
 			else{

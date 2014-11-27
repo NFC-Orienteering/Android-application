@@ -63,25 +63,20 @@ public class Track implements Serializable{
 	
 	
 
-	public boolean newCheckPointReached(String tagid) {
+	public int newCheckPointReached(String tagid) {
 
 		if (checkpoints == null) 
 		{
 			throw new NullPointerException();
 		}
-
-		if (checkpoints.get(currentCheckPoint).getRfidTag().equals(tagid))
-		{
-			
-			return true;
-
-		} else 
 		
-		{
+		for(int i = 0; i < checkpoints.size(); i++) {
 			
-			return false;
+			if(checkpoints.get(i).getRfidTag().equals(tagid)){
+				return i;
+			}
 		}
-
+		return -1;
 	}
 
 	public String getDistance() {

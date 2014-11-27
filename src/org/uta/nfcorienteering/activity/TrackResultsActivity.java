@@ -3,6 +3,7 @@ package org.uta.nfcorienteering.activity;
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.event.Track;
+import org.uta.nfcorienteering.event.Punch;
 import org.uta.nfcorienteering.utility.DataInstance;
 
 import android.app.Activity;
@@ -38,9 +39,6 @@ public class TrackResultsActivity extends Activity {
 		eventNameText = (TextView) findViewById(R.id.eventNameText);
 		trackDistanceText = (TextView) findViewById(R.id.trackLengthText);
 
-		// Collect the records of the track from our intent.
-		// event = (OrienteeringEvent) getIntent().getSerializableExtra(
-		// "EVENT_RECORD");
 		event = DataInstance.getInstace().getEvent();
 		track = DataInstance.getInstace().getTrack();
 
@@ -71,24 +69,6 @@ public class TrackResultsActivity extends Activity {
 		int controlPointCount = track.getCheckpoints().size();
 		int taggedPointsCount = 0;
 
-		boolean[] pointsTagged = new boolean[controlPointCount];
-		for (int i = 1; i < controlPointCount; i++) {
-			boolean tagFound = false;
-			for (int j = 1; j < event.getRecord().getPunches().size(); j++) {
-				if (event.getRecord().getPunches().get(j).getCheckpointNumber() == track
-						.getCheckpoints().get(i).getCheckpointNumber()) {
-					pointsTagged[i] = true;
-					tagFound = true;
-					taggedPointsCount++;
-					break;
-				}
-			}
-			if (!tagFound) {
-				pointsTagged[i] = false;
-			}
-
-		}
-
 		TableLayout tableLayout = (TableLayout) findViewById(R.id.resultTable);
 
 		TableLayout.LayoutParams params = new TableLayout.LayoutParams(
@@ -115,20 +95,14 @@ public class TrackResultsActivity extends Activity {
 			controlPointNumber.setText("Point "
 					+ track.getCheckpoints().get(i).getCheckpointNumber());
 
-			// Check that corresponding controlPoints have been tagged during
-			// the track completion.
-			if (pointsTagged[i]) {
-				if (i >= event.getRecord().getPunches().size()) {
-					controlPointTime.setText(event.getRecord().getPunches()
-							.get(event.getRecord().getPunches().size() - 1)
-							.getTotalTimestamp());
-				} else {
-					controlPointTime.setText(event.getRecord().getPunches()
-							.get(i).getTotalTimestamp());
-				}
-			} else {
+			if(event.getRecord().getPunches().get(i).getTotalTimestampMillis() == 0){
 				controlPointTime.setText("Not tagged");
 			}
+			else {
+				controlPointTime.setText(Punch.convertMillisToHMmSs(event.getRecord().getPunches().get(i).getTotalTimestampMillis()));
+				taggedPointsCount++;
+			}
+			
 
 			rowNumber.setTextColor(Color.BLACK);
 			rowNumber.setGravity(Gravity.CENTER);
@@ -155,8 +129,8 @@ public class TrackResultsActivity extends Activity {
 		total.setText("Total");
 		controlPointsGot.setText(String.valueOf(taggedPointsCount) + " / "
 				+ String.valueOf(controlPointCount - 1));
-		totalTime.setText(event.getRecord().getPunches()
-				.get(event.getRecord().getPunches().size() - 1).getTotalTimestamp());
+		totalTime.setText(Punch.convertMillisToHMmSs(event.getRecord().getPunches()
+				.get(event.getRecord().getPunches().size() - 1).getTotalTimestampMillis()));
 
 		total.setPadding(5, 5, 5, 5);
 		controlPointsGot.setPadding(5, 5, 5, 5);

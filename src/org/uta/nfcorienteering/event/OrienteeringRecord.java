@@ -12,6 +12,7 @@ public class OrienteeringRecord implements Serializable {
 	private String nickname = "";
 	private String finishDate = "";
 	private ArrayList<Punch> punches = null;
+	private boolean recordComplete = false;
 
 	public String getNickname() {
 		return nickname;
@@ -35,6 +36,14 @@ public class OrienteeringRecord implements Serializable {
 
 	public void setFinishDate(String finishDate) {
 		this.finishDate = finishDate;
+	}
+	
+	public boolean getRecordComplete() {
+		return recordComplete;
+	}
+	
+	public void setRecordComplete(boolean recordComplete) {
+		this.recordComplete = recordComplete;
 	}
 
 }
