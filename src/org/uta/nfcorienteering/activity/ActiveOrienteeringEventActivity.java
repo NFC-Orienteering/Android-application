@@ -98,8 +98,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				
 			}
 		});
-		
-		//event = (OrienteeringEvent)getIntent().getSerializableExtra("TRACK_INFO");
+
 		event = DataInstance.getInstace().getEvent();
 		track = DataInstance.getInstace().getTrack();
 		
@@ -206,11 +205,6 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	    
 	    params.setMargins(5,10,5,10);
 	    
-	    /*ShapeDrawable border = new ShapeDrawable(new RectShape());
-		border.getPaint().setStyle(Style.STROKE);
-		border.getPaint().setColor(Color.GREEN);
-	    */
-	    
 	    for(int i = 0; i < controlPointCount; i++) {
 	    	TableRow tableRow = new TableRow(this);
 
@@ -234,15 +228,10 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			controlPointNumber.setGravity(Gravity.CENTER);
 			controlPointTime.setTextColor(Color.BLACK);
 			controlPointTime.setGravity(Gravity.CENTER);
-			/*controlPointNumber.setBackgroundDrawable(border);
-			rowNumber.setBackgroundDrawable(border);
-			controlPointTime.setBackgroundDrawable(border);
-	    	*/
+
 			tableRow.addView(rowNumber);
 			tableRow.addView(controlPointNumber);
 			tableRow.addView(controlPointTime);
-			
-			
 			tableLayout.addView(tableRow);
 	    
 	    }
@@ -279,14 +268,12 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				String totalTimestamp = convertSecondsToHMmSs(totalTimeSeconds);
 				controlPoint.setTotalTimestamp(totalTimestamp);
 				
-				
 				String lastTimeStamp = punches.get(track.getCurrentCheckPoint() -1).getTotalTimestamp();
 				String splitTime = getSplitTimeString(lastTimeStamp, totalTimeMillis);
 				controlPoint.setSplitTime(splitTime);
 				punches.add(controlPoint);
 				
 				track.setCurrentCheckPoint(track.getCurrentCheckPoint() + 1);
-				
 				
 			}
 			//The tag that has been correctly read is a starting tag

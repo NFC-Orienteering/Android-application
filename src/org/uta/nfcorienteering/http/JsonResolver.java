@@ -1,17 +1,14 @@
 package org.uta.nfcorienteering.http;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.uta.nfcorienteering.event.Checkpoint;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
-import org.uta.nfcorienteering.event.OrienteeringRecord;
 import org.uta.nfcorienteering.event.Track;
 
-import android.graphics.Paint.Join;
 import android.util.Log;
 
 public class JsonResolver {

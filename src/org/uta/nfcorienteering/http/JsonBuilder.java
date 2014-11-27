@@ -3,12 +3,8 @@ package org.uta.nfcorienteering.http;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
-import org.uta.nfcorienteering.event.OrienteeringRecord;
-import org.uta.nfcorienteering.event.Punch;
-import org.uta.nfcorienteering.event.Track;
 
 public class JsonBuilder {
 

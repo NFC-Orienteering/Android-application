@@ -1,10 +1,7 @@
 package org.uta.nfcorienteering.activity;
 
-import java.io.Serializable;
-
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
-import org.uta.nfcorienteering.event.OrienteeringRecord;
 import org.uta.nfcorienteering.event.Track;
 import org.uta.nfcorienteering.utility.DataInstance;
 
@@ -17,10 +14,7 @@ import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;

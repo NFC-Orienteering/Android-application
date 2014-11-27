@@ -9,9 +9,6 @@ import java.net.URL;
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.event.Track;
-import org.uta.nfcorienteering.http.HttpRequest;
-import org.uta.nfcorienteering.http.JsonResolver;
-import org.uta.nfcorienteering.http.UrlGenerator;
 import org.uta.nfcorienteering.utility.DataInstance;
 
 import android.app.Activity;
@@ -21,11 +18,9 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class TrackInfoActivity extends Activity {

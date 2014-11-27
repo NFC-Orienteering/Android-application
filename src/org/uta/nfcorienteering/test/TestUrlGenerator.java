@@ -1,8 +1,8 @@
 package org.uta.nfcorienteering.test;
 
-import org.uta.nfcorienteering.http.UrlGenerator;
-
 import junit.framework.TestCase;
+
+import org.uta.nfcorienteering.http.UrlGenerator;
 
 public class TestUrlGenerator extends TestCase {
 

@@ -3,8 +3,6 @@ package org.uta.nfcorienteering.event;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import android.graphics.Bitmap;
-
 public class Track implements Serializable{
 	private int trackNumber = 0;
 	private String trackName = "";
@@ -66,14 +64,6 @@ public class Track implements Serializable{
 	
 
 	public boolean newCheckPointReached(String tagid) {
-
-		// this.tagid = tag_id;checking the current tag+id whether it is correct
-		// or not if it is then
-		// we will move to the next otherwise it will pop up with a msg. that
-		// the tag id is incorrect.
-		System.out.println("VErtailu");
-		System.out.println(tagid);
-		System.out.println(checkpoints.get(currentCheckPoint).getRfidTag());
 
 		if (checkpoints == null) 
 		{
