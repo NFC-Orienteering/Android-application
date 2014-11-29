@@ -70,6 +70,12 @@ public class UploadResultsActivity extends Activity {
 		progressState = STATE_NICKNAME;
 	}
 	
+	@Override
+	public void onBackPressed()
+	{
+
+	}
+	
 	public void uploadProgressNext(View v) {
 		
 		if(progressState == STATE_NICKNAME){

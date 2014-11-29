@@ -53,15 +53,23 @@ public class TrackResultsActivity extends Activity {
 		}
 
 	}
+	
+	@Override
+	public void onBackPressed()
+	{
+
+	}
 
 	public void uploadResults(View v) {
 		Intent intent = new Intent(this, UploadResultsActivity.class);
 		startActivity(intent);
+		finish();
 	}
 
 	public void backToStartMenu(View v) {
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
+		finish();
 	}
 
 	public void setResultTable(OrienteeringEvent event) {

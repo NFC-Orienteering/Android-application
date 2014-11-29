@@ -139,12 +139,15 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		}
 		if(item.getItemId() == R.id.hide_compass){
 			if(compassHidden){
-				compassImage.setVisibility(ImageView.VISIBLE);
+				if(compassLarge)
+					compassImage.setImageResource(R.drawable.compass_big);
+				else
+					compassImage.setImageResource(R.drawable.compass_small);
 				compassHidden = false;
 				item.setTitle("Hide Compass");
 			}
 			else {
-				compassImage.setVisibility(ImageView.INVISIBLE);
+				compassImage.setImageResource(0);
 				compassHidden = true;
 				item.setTitle("Unhide Compass");
 			}
@@ -154,6 +157,12 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			ret = super.onOptionsItemSelected(item);
 		}
 		return ret;
+	}
+	
+	@Override
+	public void onBackPressed()
+	{
+
 	}
 	
 	@Override
@@ -385,6 +394,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		Intent intent = new Intent(this, TrackResultsActivity.class);
 		intent.putExtra("EVENT_RECORD", (Serializable)event);
 		startActivity(intent);
+		finish();
 	}
 	
 	public long getSplitTimeMillis (long lastTimestamp, long totalTimeMillis) {
