@@ -20,8 +20,8 @@ public class TestUrlGenerator extends TestCase {
 
 	public void testUploadResultUrl() {
 		assertEquals(
-				"http://nfc-orienteering.sis.uta.fi/api/v1/tracks/results",
-				UrlGenerator.uploadResultUrl());
-
+				"http://nfc-orienteering.sis.uta.fi/api/v1/tracks/123/results",
+				UrlGenerator.uploadResultUrl("123"));
 	}
+	
 }

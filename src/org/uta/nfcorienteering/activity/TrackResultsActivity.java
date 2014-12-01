@@ -12,7 +12,9 @@ import android.graphics.Color;
 import android.graphics.Paint.Style;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
+import android.opengl.Visibility;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -39,9 +41,8 @@ public class TrackResultsActivity extends Activity {
 		eventNameText = (TextView) findViewById(R.id.eventNameText);
 		trackDistanceText = (TextView) findViewById(R.id.trackLengthText);
 
-		event = DataInstance.getInstace().getEvent();
-		track = DataInstance.getInstace().getTrack();
-
+		initView();
+		
 		eventNameText.setText(event.getEventName());
 		trackDistanceText.setText(track.getDistance());
 
@@ -51,7 +52,35 @@ public class TrackResultsActivity extends Activity {
 		} else {
 			setResultTable(event);
 		}
-
+	}
+	
+	private void initView(){
+		Bundle data = getIntent().getExtras();
+		if (data.getBoolean("isFromResultActivity")) {
+			initDataFromIntent(data);
+			hideUploadUI();
+		}else {
+			initDataFromGlobal();
+		}
+	}
+	
+	private void hideUploadUI(){
+		noUploadButton.setVisibility(View.INVISIBLE);
+		uploadButton.setVisibility(View.INVISIBLE);
+		
+		findViewById(R.id.uploadInfoText).setVisibility(View.INVISIBLE);
+		
+	}
+	
+	private void initDataFromIntent(Bundle data){
+		track = (Track) data.get("track");
+		event = track.getParentEvent();
+	}
+	
+	private void initDataFromGlobal(){
+		
+		event = DataInstance.getInstace().getEvent();
+		track = DataInstance.getInstace().getTrack();
 	}
 	
 	@Override

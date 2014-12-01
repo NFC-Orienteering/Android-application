@@ -27,7 +27,7 @@ public class EventHistoryActivity extends Activity {
 		JsonBuilder builder = new JsonBuilder();
 		ArrayList<JSONObject> jsonObjects = new ArrayList<JSONObject>();
 
-		for (OrienteeringEvent orienteeringEvent : events) {
+	/*	for (OrienteeringEvent orienteeringEvent : events) {
 			JSONObject jsonObject = builder
 					.recordToJsonObject(orienteeringEvent);
 			jsonObjects.add(jsonObject);
@@ -39,6 +39,7 @@ public class EventHistoryActivity extends Activity {
 		SharedPreferences.Editor editor = localHistory.edit();
 		editor.putString("orienteeringRecords", result);
 		editor.commit();
+		*/
 	}
 
 	

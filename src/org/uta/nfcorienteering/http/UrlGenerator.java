@@ -26,11 +26,12 @@ public class UrlGenerator {
 		return domain + "/" + track + "/" + trackID;
 	}
 
-	public static String uploadResultUrl() {
-		return domain + "/" + track + "/" + result;
+	public static String uploadResultUrl(String trackNumber) {
+		return domain + "/" + track + "/" + trackNumber + "/" + result;
 	}
-	
+
 	public static String searchTrackUrl(String params) {
 		return domain + "/" + track + "/" + search + "/" + params;
 	}
+
 }

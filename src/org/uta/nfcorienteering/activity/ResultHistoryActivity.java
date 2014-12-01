@@ -6,6 +6,7 @@ import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.event.OrienteeringRecord;
 import org.uta.nfcorienteering.event.Track;
+import org.uta.nfcorienteering.utility.LocalStorage;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,20 +23,35 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class ResultHistoryActivity extends Activity {
+	ArrayList<Track> data = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_result_history);
 
-		ArrayList<Track> data = initDummyData();
+		readHistory();
 
 		ListView listView = (ListView) findViewById(R.id.histor_list_view);
 		HistoryListAdapter adapter = new HistoryListAdapter(this);
 		adapter.setData(data);
 
 		listView.setAdapter(adapter);
+	}
+
+	private void readHistory() {
+		LocalStorage localStorage = new LocalStorage(this);
+		Object object = localStorage.readFromSharedPreference("result_history");
+
+		if (object == null) {
+			// localStorage.saveToSharedPreference("result_history",
+			// initDummyData());
+		}
+
+		data = (ArrayList<Track>) localStorage
+				.readFromSharedPreference("result_history");
 	}
 
 	private ArrayList<Track> initDummyData() {
@@ -129,7 +145,7 @@ public class ResultHistoryActivity extends Activity {
 			holder.date.setText("Complete date: " + record.getFinishDate());
 
 			holder.button.setOnClickListener(buttonClickLitsener);
-			holder.button.setTag(record);
+			holder.button.setTag(track);
 		}
 
 		private ButtonClickLitsener buttonClickLitsener = new ButtonClickLitsener();
@@ -138,11 +154,11 @@ public class ResultHistoryActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				OrienteeringRecord record = (OrienteeringRecord) v.getTag();
+				Track track = (Track) v.getTag();
 				Intent intent = new Intent(ResultHistoryActivity.this,
 						TrackResultsActivity.class);
-				intent.putExtra("record", record);
-				intent.putExtra("HistoryMode", true);
+				intent.putExtra("track", track);
+				intent.putExtra("isFromResultActivity", true);
 
 				startActivity(intent);
 			}

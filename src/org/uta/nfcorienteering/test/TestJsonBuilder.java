@@ -2,8 +2,6 @@ package org.uta.nfcorienteering.test;
 
 import java.util.ArrayList;
 
-import junit.framework.TestCase;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,14 +11,9 @@ import org.uta.nfcorienteering.event.Punch;
 import org.uta.nfcorienteering.event.Track;
 import org.uta.nfcorienteering.http.JsonBuilder;
 
-public class TestJsonBuilder extends TestCase {
-	/*
-	 * Example JSON:
-	 * 
-	 * { "track_id": 2123, "nick_name": "Nick Name", "results": { "32": 00,
-	 * "21": 20000, "43": 74223, } }
-	 */
+import android.test.AndroidTestCase;
 
+public class TestJsonBuilder extends AndroidTestCase {
 	private JSONObject jsonObject = null;
 	private JSONArray array = null;
 
@@ -34,37 +27,31 @@ public class TestJsonBuilder extends TestCase {
 		ArrayList<Punch> punches = new ArrayList<Punch>();
 
 		Punch p1, p2, p3;
-		p1 = new Punch(32,0,0);
-		p2 = new Punch(21,2000, 30000);
-		p3 = new Punch(43,1233, 123123);
+		p1 = new Punch(32, 100, 100);
+		p2 = new Punch(21, 150, 50);
+		p3 = new Punch(43, 210, 60);
 		punches.add(p1);
 		punches.add(p2);
 		punches.add(p3);
+
+		track.setParentEvent(event);
 
 		orienteeringRecord.setPunches(punches);
 		orienteeringRecord.setNickname("Nick Name");
 
 		track.setTrackNumber(2123);
 
-		//event.setSelectedTrack(track);
 		event.setRecord(orienteeringRecord);
 
 		JsonBuilder builder = new JsonBuilder();
-		String result = builder.recordToJson(event);
+		String result = builder.recordToJson(track);
 
 		try {
 			jsonObject = new JSONObject(result);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-	}
-
-	public void testGetTrackID() {
-		int trackID = -1;
-		trackID = (Integer) tryGetJsonValue("track_id");
-		assertEquals(2123, trackID);
 	}
 
 	public void testGetNickname() {
@@ -79,33 +66,15 @@ public class TestJsonBuilder extends TestCase {
 		results = array.toString();
 		assertFalse("".equals(results));
 	}
-	
-	public void testCheckResults(){
-		array = (JSONArray) tryGetJsonValue("results");
-		
-		String[] punchesValue = {"32:00","21:20000","43:74223"};
-		String str = "";
-		try {
-			for (int i = 0; i < punchesValue.length; i++) {
-				String punch = punchesValue[i];
-				str = array.getString(i);
-				
-				assertEquals(punch, str);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	}
-	
+
 	public Object tryGetJsonValue(String name) {
 		Object object = null;
 		try {
 			object = jsonObject.get(name);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 
 		return object;
 	}
-
 }

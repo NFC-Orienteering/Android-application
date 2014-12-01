@@ -3,7 +3,12 @@ package org.uta.nfcorienteering.event;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Track implements Serializable{
+public class Track implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7545882639858903218L;
+
 	private int trackNumber = 0;
 	private String trackName = "";
 	private String distance = "";
@@ -12,6 +17,26 @@ public class Track implements Serializable{
 	private String MapUrl = "";
 	private String description = "";
 	private OrienteeringEvent parentEvent = null;
+
+	public boolean checkComplete() {
+		OrienteeringRecord record = this.parentEvent.getRecord();
+		ArrayList<Punch> punches = record.getPunches();
+		if (checkpoints == null) {
+			return false;
+		}
+
+		int length = checkpoints.size();
+		for (int i = 0; i < length; i++) {
+			Checkpoint checkpoint = checkpoints.get(i);
+			Punch punch = punches.get(i);
+
+			if (checkpoint.getCheckpointNumber() != punch.getCheckpointNumber()
+					|| punch.getSplitTimeMillis() == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public int getTrackNumber() {
 		return trackNumber;
@@ -52,27 +77,24 @@ public class Track implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public int getCurrentCheckPoint() {
 		return currentCheckPoint;
 	}
-	
+
 	public void setCurrentCheckPoint(int currentCheckPoint) {
 		this.currentCheckPoint = currentCheckPoint;
 	}
-	
-	
 
 	public int newCheckPointReached(String tagid) {
 
-		if (checkpoints == null) 
-		{
+		if (checkpoints == null) {
 			throw new NullPointerException();
 		}
-		
-		for(int i = 0; i < checkpoints.size(); i++) {
-			
-			if(checkpoints.get(i).getRfidTag().equals(tagid)){
+
+		for (int i = 0; i < checkpoints.size(); i++) {
+
+			if (checkpoints.get(i).getRfidTag().equals(tagid)) {
 				return i;
 			}
 		}
@@ -94,7 +116,5 @@ public class Track implements Serializable{
 	public void setParentEvent(OrienteeringEvent parentEvent) {
 		this.parentEvent = parentEvent;
 	}
-	
 
 }
-

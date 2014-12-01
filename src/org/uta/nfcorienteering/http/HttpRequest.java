@@ -65,7 +65,7 @@ public class HttpRequest {
 		return result;
 	}
 
-	private String tryHttpPost(String szUrl, String content) {
+	public static String tryHttpPost(String szUrl, String content) {
 		String result = "";
 		try {
 			String urlParameters = content;
@@ -91,6 +91,7 @@ public class HttpRequest {
 			reader.close();
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			result = "";
 		}
 

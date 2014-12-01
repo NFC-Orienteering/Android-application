@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 public class Punch implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7861937422589577083L;
 	private int checkpointNumber = 0;
 	private long totalTimestampMillis = 0;
 	private long splitTimeMillis = 0;

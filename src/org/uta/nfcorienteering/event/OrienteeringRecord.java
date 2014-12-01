@@ -14,6 +14,26 @@ public class OrienteeringRecord implements Serializable {
 	private ArrayList<Punch> punches = null;
 	private boolean recordComplete = false;
 
+	public OrienteeringRecord(){
+		;
+	}
+	
+	public long getTotalTime(){
+		long maxTime = 0;
+		if (punches == null) {
+			return maxTime;
+		}
+		
+		for (Punch punch : punches) {
+			long current = punch.getTotalTimestampMillis();
+			if ( current > maxTime) {
+				maxTime = current;
+			}
+		}
+		
+		return maxTime;
+	}
+	
 	public String getNickname() {
 		return nickname;
 	}
