@@ -36,7 +36,6 @@ public class TrackInfoActivity extends Activity {
 	TextView trackDistance;
 	TextView trackDifficulty;
 	TextView trackAvailableFrom;
-	TextView trackAvailableTo;
 	
 	ImageView mapImage;
 	
@@ -61,8 +60,6 @@ public class TrackInfoActivity extends Activity {
 		
 		trackAvailableFrom = (TextView)findViewById(R.id.availableFromText);
 		trackAvailableFrom.setText(event.getStartingTime());
-		
-		trackAvailableTo = (TextView)findViewById(R.id.availableToText);
 
 		mapImage = (ImageView)findViewById(R.id.mapImage);
 		new MapImageDownloader().execute();
@@ -75,6 +72,7 @@ public class TrackInfoActivity extends Activity {
 		Intent intent = new Intent(this, ActiveOrienteeringEventActivity.class);
 		intent.putExtra("TRACK_INFO",(Serializable)event);
 		startActivity(intent);
+		finish();
 	}
 	
 	//OnClick-method for selectOtherTrack -button. This goes back to the ReadTrackTag -activity.
@@ -107,6 +105,7 @@ public class TrackInfoActivity extends Activity {
 		protected void onPostExecute(Bitmap image) {
 			if(image != null){
 				mapImage.setImageBitmap(image);
+				DataInstance.getInstace().setMapImage(image);
 			}
 		
 			

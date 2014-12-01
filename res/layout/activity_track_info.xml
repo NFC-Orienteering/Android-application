@@ -124,8 +124,7 @@
 	      android:id="@+id/mapImage"
 	      android:contentDescription="@string/imageDescription"
 	      android:layout_width="fill_parent"
-	      android:layout_height="fill_parent" 
-	      android:scaleType="center"/>
+	      android:layout_height="fill_parent" />
         
 
     </LinearLayout>

@@ -61,6 +61,8 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	//Object to store the punches of control points
 	ArrayList<Punch> punches = new ArrayList<Punch>();
 	
+	GestureImageView gestureMapImage;
+	
 	private Track track = null;
 	
 	StopwatchBinder stopwatch;
@@ -97,6 +99,9 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		track = DataInstance.getInstace().getTrack();
 		
 		event.setRecord(record);
+		
+		gestureMapImage = (GestureImageView) findViewById(R.id.gesture_image_view);
+		gestureMapImage.setImageBitmap(DataInstance.getInstace().getMapImage());
 		
 		for(int i = 0; i < track.getCheckpoints().size(); i++) {
 			Punch controlPoint = new Punch();
@@ -135,7 +140,9 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		if(item.getItemId() == R.id.menu_quit) {
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
+			finish();
 			return true;
+			
 		}
 		if(item.getItemId() == R.id.hide_compass){
 			if(compassHidden){

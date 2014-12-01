@@ -10,7 +10,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/map"
         gesture-image:max-scale="10.0"
         gesture-image:min-scale="0.1"
         gesture-image:strict="false" />
