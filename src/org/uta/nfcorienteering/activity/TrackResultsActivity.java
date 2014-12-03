@@ -1,10 +1,13 @@
 package org.uta.nfcorienteering.activity;
 
+import java.util.ArrayList;
+
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.event.Track;
 import org.uta.nfcorienteering.event.Punch;
 import org.uta.nfcorienteering.utility.DataInstance;
+import org.uta.nfcorienteering.utility.LocalStorage;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -28,6 +31,7 @@ public class TrackResultsActivity extends Activity {
 	ImageButton uploadButton, noUploadButton;
 	OrienteeringEvent event;
 	private Track track;
+	private boolean histroyMode = false;
 
 	TextView eventNameText, trackDistanceText;
 
@@ -56,11 +60,14 @@ public class TrackResultsActivity extends Activity {
 	
 	private void initView(){
 		Bundle data = getIntent().getExtras();
-		if (data.getBoolean("isFromResultActivity")) {
+		if (data.getBoolean("isFromHistroytActivity")) {
 			initDataFromIntent(data);
 			hideUploadUI();
+			histroyMode = true;
 		}else {
 			initDataFromGlobal();
+			storeResultToLocalHistroy();
+			
 		}
 	}
 	
@@ -83,10 +90,21 @@ public class TrackResultsActivity extends Activity {
 		track = DataInstance.getInstace().getTrack();
 	}
 	
+	
+	private void storeResultToLocalHistroy(){
+		LocalStorage localStorage = new LocalStorage(this);
+		Object data = localStorage.readFromSharedPreference("");
+		ArrayList<Track> histroy = (ArrayList<Track>) data;
+		
+		histroy.add(track);
+		localStorage.saveToSharedPreference("result_history", histroy);
+	}
 	@Override
 	public void onBackPressed()
 	{
-
+		if (histroyMode) {
+			super.onBackPressed();
+		}
 	}
 
 	public void uploadResults(View v) {

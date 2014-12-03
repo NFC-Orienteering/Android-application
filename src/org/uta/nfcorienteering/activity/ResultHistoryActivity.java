@@ -124,7 +124,8 @@ public class ResultHistoryActivity extends Activity {
 
 				holder.button = (Button) convertView
 						.findViewById(R.id.result_item_button);
-
+				holder.button.setOnClickListener(buttonClickLitsener);
+				
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -144,7 +145,6 @@ public class ResultHistoryActivity extends Activity {
 			holder.location.setText("Location: " + event.getLocation());
 			holder.date.setText("Complete date: " + record.getFinishDate());
 
-			holder.button.setOnClickListener(buttonClickLitsener);
 			holder.button.setTag(track);
 		}
 
@@ -158,7 +158,7 @@ public class ResultHistoryActivity extends Activity {
 				Intent intent = new Intent(ResultHistoryActivity.this,
 						TrackResultsActivity.class);
 				intent.putExtra("track", track);
-				intent.putExtra("isFromResultActivity", true);
+				intent.putExtra("isFromHistroytActivity", true);
 
 				startActivity(intent);
 			}
