@@ -98,6 +98,8 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		event = DataInstance.getInstace().getEvent();
 		track = DataInstance.getInstace().getTrack();
 		
+		setTitle(event.getEventName() + " " + track.getDistance());
+		
 		event.setRecord(record);
 		
 		gestureMapImage = (GestureImageView) findViewById(R.id.gesture_image_view);
@@ -138,6 +140,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			ret = true;
 		}
 		if(item.getItemId() == R.id.menu_quit) {
+			stopService(timerServiceIntent);
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
 			finish();
@@ -398,7 +401,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		
 	}
 	public void trackFinished(View v){
-		
+		stopService(timerServiceIntent);
 		Intent intent = new Intent(this, TrackResultsActivity.class);
 		intent.putExtra("EVENT_RECORD", (Serializable)event);
 		startActivity(intent);
