@@ -286,7 +286,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				Toast.makeText(this, "Control point tag " + result +" read successfully!", Toast.LENGTH_LONG).show();
 				int lastTaggedIndex = 0;
 				
-				for(int i = 1; i < track.getCheckpoints().size()-1; i++) {
+				for(int i = 1; i < checkpointIndex; i++) {
 					if(punches.get(i).getTotalTimestampMillis() > 0)
 						lastTaggedIndex = i;
 				}
@@ -303,7 +303,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 					}
 				}
 				
-				track.setCurrentCheckPoint(track.getCurrentCheckPoint() + 1);
+				track.setCurrentCheckPoint(checkpointIndex + 1);
 				
 			}
 			//The tag that has been correctly read is a starting tag
@@ -390,6 +390,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			Toast.makeText(this,  "Track finished but some control points are missing!", Toast.LENGTH_LONG).show();
 
 		record.setPunches(punches);
+		record.setRecordComplete(allControlPointsTagged);
 		Intent intent = new Intent(this, TrackResultsActivity.class);
 		intent.putExtra("EVENT_RECORD", (Serializable)event);
 		startActivity(intent);
