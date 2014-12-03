@@ -5,7 +5,7 @@ public class UrlGenerator {
 	static final String domain = "http://nfc-orienteering.sis.uta.fi/api/v1";
 	static final String event = "events";
 	static final String track = "tracks";
-	static final String result = "results";
+	static final String result = "result";
 	static final String search = "search";
 	static final String postfix = ".json";
 
