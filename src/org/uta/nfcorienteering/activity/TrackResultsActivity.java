@@ -95,7 +95,9 @@ public class TrackResultsActivity extends Activity {
 		LocalStorage localStorage = new LocalStorage(this);
 		Object data = localStorage.readFromSharedPreference("");
 		ArrayList<Track> histroy = (ArrayList<Track>) data;
-		
+		if (histroy == null) {
+			histroy = new ArrayList<Track>();
+		}
 		histroy.add(track);
 		localStorage.saveToSharedPreference("result_history", histroy);
 	}

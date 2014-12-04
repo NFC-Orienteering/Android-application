@@ -124,8 +124,8 @@ public class ResultHistoryActivity extends Activity {
 
 				holder.button = (Button) convertView
 						.findViewById(R.id.result_item_button);
+
 				holder.button.setOnClickListener(buttonClickLitsener);
-				
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
