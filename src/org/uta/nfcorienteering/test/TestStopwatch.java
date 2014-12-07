@@ -4,6 +4,8 @@ import junit.framework.TestCase;
 
 import org.uta.nfcorienteering.utility.Stopwatch;
 
+import android.util.Log;
+
 public class TestStopwatch extends TestCase {
 	
 	private Stopwatch stopwatch = new Stopwatch();
@@ -31,7 +33,7 @@ public class TestStopwatch extends TestCase {
 		try {
 			Thread.sleep(millis);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			Log.i("TestStopwatch", "Interrupted");
 		}
 	}
 }

@@ -10,15 +10,19 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 
+import android.util.Log;
+
 public class HttpRequest {
 
+	private static final String TAG = "Http-request";
+	
 	public static String tryHttpGet(String url) {
 		String webPage = "";
 
 		try {
 			webPage = readContentFromGet(url);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.i(TAG, "" + e);
 		}
 
 		return webPage;
@@ -52,10 +56,10 @@ public class HttpRequest {
 				retry = false;
 
 			} catch (SocketTimeoutException e) {
-				e.printStackTrace();
+				Log.e(TAG, "" + e);
 				retry = true;
 			} catch (UnknownHostException e) {
-				e.printStackTrace();
+				Log.i(TAG, "" + e);
 				retry = true;
 			}
 		}
@@ -91,7 +95,7 @@ public class HttpRequest {
 			reader.close();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.i(TAG, "" + e);
 			result = "";
 		}
 

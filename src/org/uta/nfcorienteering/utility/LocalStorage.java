@@ -11,9 +11,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Base64;
+import android.util.Log;
 
 public class LocalStorage {
 
+	private static final String TAG = "LocalStorage";
+	
 	Context context;
 	static SharedPreferences sp;
 
@@ -40,7 +43,7 @@ public class LocalStorage {
 			editor.putString(name, base64);
 			editor.commit();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Log.i(TAG, "" + e);
 		}
 	}
 
@@ -61,12 +64,12 @@ public class LocalStorage {
 			try {
 				object = bis.readObject();
 			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+				Log.i(TAG, "" + e);
 			}
 		} catch (StreamCorruptedException e) {
-			e.printStackTrace();
+			Log.i(TAG, "" + e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Log.i(TAG, "" + e);
 		}
 
 		return object;

@@ -9,9 +9,13 @@ import org.uta.nfcorienteering.event.OrienteeringRecord;
 import org.uta.nfcorienteering.event.Punch;
 import org.uta.nfcorienteering.event.Track;
 
+import android.util.Log;
+
 
 public class JsonBuilder {
 
+	private static final String TAG = "JsonBuilder";
+	
 	public String recordToJson(Track track) {
 
 		return recordToJsonObject(track).toString();
@@ -40,7 +44,7 @@ public class JsonBuilder {
 			jsonObject.put("complete", completed);
 			jsonObject.put("control_points", jsonArray);
 		} catch (JSONException e) {
-			e.printStackTrace();
+			Log.e(TAG, "" + e);
 		}
 		
 		return jsonObject;
@@ -53,7 +57,7 @@ public class JsonBuilder {
 			jsonObject.put("tag_id", punch.getCheckpointNumber());
 			jsonObject.put("time", punch.getSplitTimeMillis());
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e(TAG, "" + e);
 		}
 		
 		return jsonObject;

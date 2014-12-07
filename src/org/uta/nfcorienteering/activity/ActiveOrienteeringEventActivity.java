@@ -67,7 +67,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	
 	StopwatchBinder stopwatch;
 	boolean mBound = false;
-	Intent timerServiceIntent;
+	Intent timerServiceIntent = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -401,7 +401,8 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		
 	}
 	public void trackFinished(View v){
-		stopService(timerServiceIntent);
+		if(timerServiceIntent != null)
+			stopService(timerServiceIntent);
 		Intent intent = new Intent(this, TrackResultsActivity.class);
 		intent.putExtra("EVENT_RECORD", (Serializable)event);
 		startActivity(intent);

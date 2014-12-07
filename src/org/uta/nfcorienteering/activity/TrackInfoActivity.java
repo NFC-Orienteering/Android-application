@@ -17,6 +17,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,6 +26,8 @@ import android.widget.TextView;
 
 public class TrackInfoActivity extends Activity {
 
+	private static final String TAG = "TracInfoActivity";
+	
 	Track track;
 	OrienteeringEvent event;
 	
@@ -94,9 +97,9 @@ public class TrackInfoActivity extends Activity {
 				mapUrl = new URL(track.getMapUrl());
 				return (BitmapFactory.decodeStream(mapUrl.openConnection().getInputStream()));
 			} catch (MalformedURLException e) {
-				e.printStackTrace();
+				Log.i(TAG, "" + e);
 			} catch (IOException e) {
-				e.printStackTrace();
+				Log.i(TAG, "" + e);
 			}
 			return null;
 		}

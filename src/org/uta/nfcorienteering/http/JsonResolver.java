@@ -12,6 +12,9 @@ import org.uta.nfcorienteering.event.Track;
 import android.util.Log;
 
 public class JsonResolver {
+	
+	private static final String TAG = "JsonResolver";
+	
 	public static OrienteeringEvent resloveExampleJson(String json) {
 		OrienteeringEvent event = new OrienteeringEvent();
 		int id = 0;
@@ -25,7 +28,7 @@ public class JsonResolver {
 			name = jsonObject.getString("name");
 			startingTime = jsonObject.getString("start_date");
 		} catch (JSONException e) {
-			e.printStackTrace();
+			Log.e(TAG, "" + e);
 			return event;
 		}
 
@@ -42,7 +45,6 @@ public class JsonResolver {
 		try {
 			trackJson = new JSONObject(json);
 		} catch (Exception e) {
-			e.printStackTrace();
 			Log.e("Json resolver", "create json object from string failed");
 		}
 		return trackJson;
@@ -84,7 +86,7 @@ public class JsonResolver {
 			event = resolveEventJson(eventJson);
 
 		} catch (JSONException e) {
-			e.printStackTrace();
+			Log.i(TAG, "" + e);
 			return track;
 		}
 
@@ -118,8 +120,7 @@ public class JsonResolver {
 			startDate = resolveDateAndTime(eventJson.getString("start_date"));
 			endDate = resolveDateAndTime(eventJson.getString("end_date"));
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e(TAG, "" + e);
 		}
 
 		event.setEventID(eventID);
@@ -157,7 +158,7 @@ public class JsonResolver {
 			return events;
 
 		} catch (JSONException e) {
-			e.printStackTrace();
+			Log.e(TAG, "" + e);
 			return null;
 		}
 	}

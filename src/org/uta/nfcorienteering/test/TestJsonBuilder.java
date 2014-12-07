@@ -12,6 +12,7 @@ import org.uta.nfcorienteering.event.Track;
 import org.uta.nfcorienteering.http.JsonBuilder;
 
 import android.test.AndroidTestCase;
+import android.util.Log;
 
 public class TestJsonBuilder extends AndroidTestCase {
 	private JSONObject jsonObject = null;
@@ -72,7 +73,7 @@ public class TestJsonBuilder extends AndroidTestCase {
 		try {
 			object = jsonObject.get(name);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e("TestJsonBuilder", "Unable to retrieve JsonValue");
 		}
 
 		return object;
