@@ -7,14 +7,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="org.uta.nfcorienteering.activity.UploadResultsActivity" >
+    tools:context="org.uta.nfcorienteering.activity.UploadResultsActivity" 
+    android:background="@color/background">
 
     <TextView
+        style="@style/Title"
         android:id="@+id/uploadingResultsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:text="@string/upload_results_text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
@@ -28,6 +31,7 @@
         android:weightSum="1.0" >
 
         <TextView
+            style="@style/Name"
             android:id="@+id/nicknameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,6 +41,7 @@
             android:textSize="20sp" />
 
         <TextView
+            style="@style/Name"
             android:id="@+id/trackUploadText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,6 +51,7 @@
             android:textSize="20sp" />
 
         <TextView
+            style="@style/Name"
             android:id="@+id/uploadText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,21 +69,23 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
-        android:weightSum="1.0" >
+         >
 
         <Button
+            style="@style/LowButtons"
+        android:background="@drawable/button"
             android:id="@+id/cancelResultsButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
+            android:layout_weight="1"
             android:onClick="uploadProgressCancel"
             android:text="@string/cancel_button" />
 
         <Button
+            style="@style/LowButtons"
+        android:background="@drawable/button"
             android:id="@+id/nextResultsButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
+            android:layout_weight="1"
             android:onClick="uploadProgressNext"
             android:text="@string/next_button" />
     </LinearLayout>
@@ -108,6 +116,7 @@
     </TableLayout>
 
     <EditText
+        
         android:id="@+id/nicknameTextField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -117,6 +126,7 @@
         android:ems="10" />
 
     <TextView
+        style="@style/Name"
         android:id="@+id/addNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -133,7 +143,7 @@
         android:layout_height="1dp"
         android:layout_below="@+id/linearLayout2"
         android:layout_marginTop="15dp"
-        android:background="@android:color/black" />
+        android:background="@color/backgroundWhite" />
 
 
 

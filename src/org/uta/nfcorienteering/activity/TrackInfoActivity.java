@@ -19,7 +19,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,8 +33,8 @@ public class TrackInfoActivity extends Activity {
 	
 	//Declare the used UI -components.
 	TextView eventName;
-	ImageButton selectOtherTrack;
-	ImageButton selectThisTrack;
+	Button selectOtherTrack;
+	Button selectThisTrack;
 	
 	TextView trackDistance;
 	TextView trackDifficulty;
@@ -47,8 +47,8 @@ public class TrackInfoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_track_info);
 		
-		selectOtherTrack = (ImageButton)findViewById(R.id.selectOtherButton);
-		selectThisTrack = (ImageButton)findViewById(R.id.selectThisButton);
+		selectOtherTrack = (Button)findViewById(R.id.selectOtherButton);
+		selectThisTrack = (Button)findViewById(R.id.selectThisButton);
 		
 		event = DataInstance.getInstace().getEvent();
 		track = DataInstance.getInstace().getTrack();

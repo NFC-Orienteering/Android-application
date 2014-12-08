@@ -4,9 +4,11 @@
     android:layout_height="fill_parent"
     android:paddingTop="50dp"
     android:layout_gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background">
     
     <TableLayout 
+      style="@style/Content"
       android:id="@+id/eventResultTable"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -17,11 +19,11 @@
 
     <Button
         android:id="@+id/dialogOk_button"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/eventResultTable"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
+        style="@style/LowButtons"
+        android:layout_width="150dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/eventResultTable"
+        android:background="@drawable/button"
         android:gravity="center"
         android:text=" Ok " />
 

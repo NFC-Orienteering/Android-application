@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundWhite"
+    android:background="@color/background"
     android:orientation="vertical" >
 
     <TextView
@@ -22,8 +22,12 @@
         style="@style/result_list_item" />
 
     <Button
+        
         android:id="@+id/result_item_button"
-        style="@style/result_list_item"
+        style="@style/LowButtons"
+        android:layout_margin="10dip"
+        android:layout_width="wrap_content"
+        android:background="@drawable/button"
         android:layout_gravity="right"
         android:focusable="false"
         android:text="@string/see_result" />
@@ -31,6 +35,6 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="2dp"
-        android:background="@color/appGreen" />
+        android:background="@color/mainTextColor" />
 
 </LinearLayout>

@@ -20,7 +20,7 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -28,7 +28,7 @@ import android.widget.Toast;
 
 public class TrackResultsActivity extends Activity {
 
-	ImageButton uploadButton, noUploadButton;
+	Button uploadButton, noUploadButton;
 	OrienteeringEvent event;
 	private Track track;
 	private boolean histroyMode = false;
@@ -40,8 +40,8 @@ public class TrackResultsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_track_results);
 
-		uploadButton = (ImageButton) findViewById(R.id.uploadButton);
-		noUploadButton = (ImageButton) findViewById(R.id.noUploadButton);
+		uploadButton = (Button) findViewById(R.id.uploadButton);
+		noUploadButton = (Button) findViewById(R.id.noUploadButton);
 		eventNameText = (TextView) findViewById(R.id.eventNameText);
 		trackDistanceText = (TextView) findViewById(R.id.trackLengthText);
 

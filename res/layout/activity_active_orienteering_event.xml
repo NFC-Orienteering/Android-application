@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context="org.uta.nfcorienteering.activity.ActiveOrienteeringEventActivity" >
 
     <com.polites.android.GestureImageView
@@ -16,12 +17,12 @@
 
     <Button
         android:id="@+id/activeEventNextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/LowButtons"
+        android:layout_width="150dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_toRightOf="@+id/tagIdText"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/button"
         android:onClick="trackFinished"
         android:text="@string/next" />
 

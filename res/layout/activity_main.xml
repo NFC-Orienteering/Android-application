@@ -3,12 +3,13 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundWhite"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context="org.uta.nfcorienteering.activity.MainActivity"
     tools:ignore="MergeRootFrame" >
 
-    <TextView
+   <TextView
+        style="@style/Title"
         android:id="@+id/TextView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,9 +19,10 @@
         android:paddingBottom="25dp"
         android:paddingTop="10dp"
         android:text="@string/welcome_text"
-        android:textSize="8pt" />
+         />
 
     <TextView
+        style="@style/Name"
         android:id="@+id/TextView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,9 +31,10 @@
         android:gravity="center"
         android:paddingBottom="25dp"
         android:text="@string/info_text"
-        android:textSize="7pt" />
+        android:textSize="10pt" />
 
     <TextView
+        style="@style/Name"
         android:id="@+id/TextView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,6 +47,7 @@
         android:text="@string/instructions1_text" />
 
     <TextView
+        style="@style/Name"
         android:id="@+id/TextView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,6 +60,7 @@
         android:text="@string/instructions2_text" />
 
     <TextView
+        style="@style/Name"
         android:id="@+id/TextView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,6 +73,7 @@
         android:text="@string/instructions3_text" />
 
     <TextView
+        style="@style/Name"
         android:id="@+id/TextView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,25 +85,31 @@
         android:paddingRight="15dp"
         android:text="@string/instructions4_text" />
 
-    <ImageButton
-        android:id="@+id/start_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/TextView6"
+    <LinearLayout
+        style="@style/Name"
+        android:layout_width="fill_parent"
+ 		android:layout_height="fill_parent"
+ 		android:orientation="horizontal"
+    	android:layout_below="@+id/TextView6"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/startevent_selector"
-        android:contentDescription="@string/imageDescription"
-        android:gravity="center"
-        android:onClick="selectTrackNFC" />
+        android:gravity="bottom" >
 
     <Button
+        style="@style/LowButtons"
+        android:background="@drawable/button"
         android:id="@+id/history_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/start_button"
-        android:layout_below="@id/start_button"
-        android:layout_marginTop="10dip"
+        android:layout_weight="1"
         android:onClick="onClick"
-        android:text="History" />
+        android:text="@string/history" />
+    <Button
+        style="@style/LowButtons"
+        android:id="@+id/start_button"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/button"
+        android:text="@string/button_start"
+        android:onClick="selectTrackNFC" />
+</LinearLayout>
 
 </RelativeLayout>

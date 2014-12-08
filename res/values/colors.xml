@@ -2,5 +2,12 @@
 <resources>
     
     <color name="backgroundWhite">#f5f1ef</color>
-    <color name="appGreen">#6fe550</color>
+     <color name="appGreen">#6fe550</color>
+    <color name="background">#bdbdbd</color>
+    <color name="backgroundButton">#BF360C</color>
+    <color name="buttonTextColor">#f5f1ef</color>
+    <color name="mainTextColor">#ffffff</color>
+    <color name="titleTextColor">#fafafa</color>
+    <color name="contetnTextColor">#424242</color>
+    <color name="greycolor">#212121</color>
 </resources>
