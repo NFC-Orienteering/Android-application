@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/eventNameText"
         android:layout_alignBottom="@+id/eventNameText"
-        
+        android:layout_marginLeft="15dp"
         android:layout_toRightOf="@+id/eventNameText"
         
         android:text="@string/trackLength_text"
@@ -77,6 +77,7 @@
     android:layout_height="wrap_content"
     android:layout_alignLeft="@+id/eventNameText"
     android:layout_alignParentBottom="true"
+    
     android:gravity="bottom"
     android:orientation="horizontal" >
 
