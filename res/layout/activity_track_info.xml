@@ -11,9 +11,10 @@
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="fill_parent"
- 		android:layout_height="fill_parent"
+ 		android:layout_height="wrap_content"
  		android:orientation="horizontal"
     	android:layout_centerHorizontal="true"
+    	android:layout_alignParentBottom="true"
         android:gravity="bottom" >
     <Button
         style="@style/LowButtons"
@@ -93,9 +94,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/availabilityToLabel"
-       android:layout_toRightOf="@+id/availabilityToLabel"
         android:layout_alignBottom="@+id/availabilityToLabel"
-        
+        android:layout_alignLeft="@+id/availableFromText"
         android:text="@string/availabilityTo_text" 
         />
 
@@ -105,6 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/availabilityToLabel"
         android:layout_toRightOf="@+id/availabilityFromLabel"
+        android:layout_marginLeft="15dp"
         android:layout_centerHorizontal="true"
         android:text="@string/availabilityFrom_text" />
 
@@ -113,9 +114,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/availabilityFromLabel"
-        android:layout_marginLeft="40dp"
+        
+        android:layout_alignLeft="@+id/availableFromText"
+        android:layout_toRightOf="@+id/trackDifficultyLabel"
         android:text="@string/trackDifficulty_text" 
-        android:layout_centerHorizontal="true"/>
+        />
 
     <TextView
         android:id="@+id/trackLengthText"
@@ -123,7 +126,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/trackDifficultyLabel"
         android:layout_alignLeft="@+id/trackDifficultyText"
-        android:layout_marginLeft="40dp"
         android:text="@string/trackLength_text" />
 
     <LinearLayout
@@ -145,5 +147,4 @@
         
 
     </LinearLayout>
-
 </RelativeLayout>
