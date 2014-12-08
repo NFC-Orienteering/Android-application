@@ -2,8 +2,11 @@ package org.uta.nfcorienteering.activity;
 
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
-import org.uta.nfcorienteering.event.Track;
 import org.uta.nfcorienteering.event.Punch;
+import org.uta.nfcorienteering.event.Track;
+import org.uta.nfcorienteering.http.HttpRequest;
+import org.uta.nfcorienteering.http.JsonBuilder;
+import org.uta.nfcorienteering.http.UrlGenerator;
 import org.uta.nfcorienteering.utility.DataInstance;
 
 import android.app.Activity;
@@ -175,7 +178,9 @@ public class UploadResultsActivity extends Activity {
 			trackUploadTable.addView(row3);
 			trackUploadTable.addView(row4);
 			
+			JsonBuilder builder = new JsonBuilder(); 
 			
+			HttpRequest.tryHttpPost(UrlGenerator.uploadResultUrl(""+track.getTrackNumber()), builder.recordToJson(track));
 			
 			nextButton.setText("OK");
 			progressState = STATE_FINISH;
