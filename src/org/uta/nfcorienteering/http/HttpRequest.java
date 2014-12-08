@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.UnknownHostException;
 
 import android.util.Log;
@@ -74,8 +73,8 @@ public class HttpRequest {
 		try {
 			String urlParameters = content;
 			URL url = new URL(szUrl);
-			URLConnection conn = url.openConnection();
-
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.addRequestProperty("Content-Type", "application/json");
 			conn.setDoOutput(true);
 
 			OutputStreamWriter writer = new OutputStreamWriter(
@@ -93,7 +92,10 @@ public class HttpRequest {
 			}
 			writer.close();
 			reader.close();
-
+			
+			if ("".equals(result) && conn.getResponseCode() == 201){
+				result = "201 "+ conn.getResponseMessage();
+			}
 		} catch (Exception e) {
 			Log.i(TAG, "" + e);
 			result = "";

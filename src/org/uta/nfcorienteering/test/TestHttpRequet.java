@@ -21,9 +21,9 @@ public class TestHttpRequet extends TestCase {
 		assertFalse((content == ""));
 	}
 
-	public void testHttpPost() {
+	public void testHttpPostNormal() {
 		String postUrl = UrlGenerator.uploadResultUrl("3");
-		String postContent = "123";
+		String postContent = "";
 		String result = "";
 		
 		Track track = initData();
@@ -32,9 +32,33 @@ public class TestHttpRequet extends TestCase {
 		
 		result = HttpRequest.tryHttpPost(postUrl, postContent);
 		
-		assertFalse((result == ""));
+		assertTrue((result == "201 created"));
 	}
+	/*
+	public void testHttpPostJson(){
+		String postUrl = UrlGenerator.uploadResultUrl("3");
+		String postContent = "";
+		String result = "";
+		
+		Track track = initData();
+		JsonBuilder builder = new JsonBuilder();
+		postContent = (String)(Object)builder.recordToJsonObject(track);
+		
+		result = HttpRequest.tryHttpPost(postUrl, postContent);
+		
 
+	}
+	*/
+	/*
+	public void testHttpPostWrong(){
+		String postUrl = UrlGenerator.uploadResultUrl("3");
+		String postContent = "123";
+		String result = "";
+		
+		result = HttpRequest.tryHttpPost(postUrl, postContent);
+		
+	}
+*/
 	private Track initData() {
 		Track track = new Track();
 		OrienteeringRecord record = new OrienteeringRecord();
