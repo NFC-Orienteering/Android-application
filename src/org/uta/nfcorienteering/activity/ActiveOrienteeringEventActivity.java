@@ -82,14 +82,18 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		compassImage.setOnClickListener(new OnClickListener() {
 			public void onClick(View v){
 				if(!compassLarge) {
-					compassImage.setImageResource(R.drawable.compass_big);
-					compassImage.setPadding(0, 15, 0, 0);
-					compassLarge = true;
+					if(!compassHidden){
+						compassImage.setImageResource(R.drawable.compass_big);
+						compassImage.setPadding(0, 15, 0, 0);
+						compassLarge = true;
+					}
 				}
 				else {
-					compassImage.setImageResource(R.drawable.compass_small);
-					compassImage.setPadding(0,0,0,0);
-					compassLarge = false;
+					if(!compassHidden){
+						compassImage.setImageResource(R.drawable.compass_small);
+						compassImage.setPadding(0,0,0,0);
+						compassLarge = false;
+					}
 				}
 				
 			}
@@ -140,7 +144,9 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			ret = true;
 		}
 		if(item.getItemId() == R.id.menu_quit) {
-			stopService(timerServiceIntent);
+			if(timerServiceIntent != null){
+				stopService(timerServiceIntent);
+			}
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
 			finish();
@@ -153,11 +159,13 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 					compassImage.setImageResource(R.drawable.compass_big);
 				else
 					compassImage.setImageResource(R.drawable.compass_small);
+				compassImage.setVisibility(View.VISIBLE);
 				compassHidden = false;
 				item.setTitle("Hide Compass");
 			}
 			else {
 				compassImage.setImageResource(0);
+				compassImage.setVisibility(View.INVISIBLE);
 				compassHidden = true;
 				item.setTitle("Unhide Compass");
 			}
