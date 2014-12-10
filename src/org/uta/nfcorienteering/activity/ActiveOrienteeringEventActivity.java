@@ -43,8 +43,7 @@ import com.polites.android.GestureImageView;
 
 public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 
-	final Context context = this;
-	final String FINISH_POINT = "default";
+	final private Context context = this;
 	
 	private Compass compass =  null;
 	boolean compassHidden;
@@ -87,8 +86,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 						compassImage.setPadding(0, 15, 0, 0);
 						compassLarge = true;
 					}
-				}
-				else {
+				}else {
 					if(!compassHidden){
 						compassImage.setImageResource(R.drawable.compass_small);
 						compassImage.setPadding(0,0,0,0);
@@ -138,8 +136,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	
 	public boolean onOptionsItemSelected(MenuItem item){
 		boolean ret;
-		if(item.getItemId() == R.id.menu_settings)
-		{
+		if(item.getItemId() == R.id.menu_settings){
 			showResultDialog();
 			ret = true;
 		}
@@ -155,31 +152,35 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		}
 		if(item.getItemId() == R.id.hide_compass){
 			if(compassHidden){
-				if(compassLarge)
+				if(compassLarge){
 					compassImage.setImageResource(R.drawable.compass_big);
-				else
+				
+				} else {
 					compassImage.setImageResource(R.drawable.compass_small);
+				}
 				compassImage.setVisibility(View.VISIBLE);
 				compassHidden = false;
 				item.setTitle("Hide Compass");
-			}
-			else {
+				
+			} else {
 				compassImage.setImageResource(0);
 				compassImage.setVisibility(View.INVISIBLE);
 				compassHidden = true;
 				item.setTitle("Unhide Compass");
 			}
 			ret = true;
-		}
-		else {
+		} else {
 			ret = super.onOptionsItemSelected(item);
 		}
 		return ret;
 	}
 	
 	@Override
-	public void onBackPressed()
-	{
+	public void onBackPressed(){
+		/*
+		 * Method is empty because we don't want the back button
+		 * to do anything in this activity.
+		 */
 
 	}
 	
@@ -250,8 +251,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			if(i < track.getCurrentCheckPoint()){
 				if(punches.get(i).getTotalTimestampMillis() == 0){
 					controlPointTime.setText("Not tagged");
-				}
-				else{
+				} else{
 					controlPointTime.setText(Punch.convertMillisToHMmSs(punches.get(i).getTotalTimestampMillis()));
 				}
 			}
@@ -298,8 +298,9 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				int lastTaggedIndex = 0;
 				
 				for(int i = 1; i < checkpointIndex; i++) {
-					if(punches.get(i).getTotalTimestampMillis() > 0)
+					if(punches.get(i).getTotalTimestampMillis() > 0){
 						lastTaggedIndex = i;
+					}
 				}
 				
 				long totalTimeMillis = Integer.parseInt(stopwatch.readTimeMillis());
@@ -338,8 +339,9 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				int lastTaggedIndex = 0;
 				for(int i = 1; i < track.getCheckpoints().size()-1; i++) {
 					
-					if(punches.get(i).getTotalTimestampMillis() > 0)
+					if(punches.get(i).getTotalTimestampMillis() > 0){
 						lastTaggedIndex = i;
+					}
 				}
 				
 				long totalTimeMillis = Integer.parseInt(stopwatch.readTimeMillis());
@@ -349,27 +351,27 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 				
 				boolean trackComplete = true;
 				for(int i = 1; i < track.getCheckpoints().size(); i++) {
-					if(punches.get(i).getTotalTimestampMillis() == 0)
+					if(punches.get(i).getTotalTimestampMillis() == 0) {
 						trackComplete = false;
+					}
 				}
 				
 				track.setCurrentCheckPoint(track.getCurrentCheckPoint() + 1);
 				trackFinished(trackComplete);
-			}
-			else if(checkpointIndex > 0 && track.getCurrentCheckPoint() == 0){
+				
+			} else if(checkpointIndex > 0 && track.getCurrentCheckPoint() == 0){
 				Toast.makeText(this, "Invalid starting tag read. Please read the starting tag to start.", Toast.LENGTH_LONG).show();
-			}
-			else if(checkpointIndex == 0 && track.getCurrentCheckPoint() > 0) {
+				
+			} else if(checkpointIndex == 0 && track.getCurrentCheckPoint() > 0) {
 				Toast.makeText(this, "Starting tag has already been read!", Toast.LENGTH_LONG).show();
 			}
 			
-		}
-		else {
+		} else {
 			
 			if(track.getCurrentCheckPoint() > 0){
 				Toast.makeText(this, "Wrong control point tag was read", Toast.LENGTH_LONG).show();
-			}
-			else if(track.getCurrentCheckPoint()  == 0){
+				
+			} else if(track.getCurrentCheckPoint()  == 0){
 				Toast.makeText(this, "Invalid starting tag read. Please read the starting tag to start.", Toast.LENGTH_LONG).show();
 			}
 		}			
@@ -395,11 +397,13 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		
 		stopService(timerServiceIntent);
 		
-		if(allControlPointsTagged)
+		if(allControlPointsTagged) {
 			Toast.makeText(this, "Track finished successfully!", Toast.LENGTH_LONG).show();
-		else
+		
+		} else {
 			Toast.makeText(this,  "Track finished but some control points are missing!", Toast.LENGTH_LONG).show();
-
+		}
+		
 		record.setPunches(punches);
 		record.setRecordComplete(allControlPointsTagged);
 		Intent intent = new Intent(this, TrackResultsActivity.class);
@@ -409,8 +413,9 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		
 	}
 	public void trackFinished(View v){
-		if(timerServiceIntent != null)
+		if(timerServiceIntent != null) {
 			stopService(timerServiceIntent);
+		}
 		Intent intent = new Intent(this, TrackResultsActivity.class);
 		intent.putExtra("EVENT_RECORD", (Serializable)event);
 		startActivity(intent);

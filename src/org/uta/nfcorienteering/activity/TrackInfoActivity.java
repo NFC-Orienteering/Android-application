@@ -22,9 +22,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
-public class TrackInfoActivity extends Activity {
+public class TrackInfoActivity extends BaseNfcActivity {
 
 	private static final String TAG = "TracInfoActivity";
 	
@@ -114,6 +115,13 @@ public class TrackInfoActivity extends Activity {
 			
 		}
 
+	}
+
+	@Override
+	public void postNfcRead(String result) {
+		Toast.makeText(this, "Please select this track first before reading a starting tag, or" +
+				"go back to read some other track's info tag.", Toast.LENGTH_LONG).show();
+		
 	}
 
 	
