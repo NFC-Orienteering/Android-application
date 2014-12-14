@@ -9,11 +9,13 @@ import org.uta.nfcorienteering.utility.DataInstance;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,10 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 		nextButton = (Button) findViewById(R.id.readTagButton);
 		tagId = (TextView)findViewById(R.id.tagId);
 
+		ImageView nfcAnimation = (ImageView) findViewById(R.id.read_info_tag_nfc_animation);
+		nfcAnimation.setBackgroundResource(R.drawable.nfc_reader_animation);
+		AnimationDrawable anim = (AnimationDrawable) nfcAnimation.getBackground();
+		anim.start();		
 	}
 	
 	//This method is here only temporarily just to move to the next Activity via Next-button.

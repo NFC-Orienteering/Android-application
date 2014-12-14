@@ -14,6 +14,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -178,9 +179,8 @@ public class UploadResultsActivity extends Activity {
 			trackUploadTable.addView(row3);
 			trackUploadTable.addView(row4);
 			
-			JsonBuilder builder = new JsonBuilder(); 
-			
-			HttpRequest.tryHttpPost(UrlGenerator.uploadResultUrl(""+track.getTrackNumber()), builder.recordToJson(track));
+			// HTTP post can not be run on the main thread
+			new UploadResultsTask().execute(track); 
 			
 			nextButton.setText("OK");
 			progressState = STATE_FINISH;
@@ -239,5 +239,19 @@ public class UploadResultsActivity extends Activity {
 		 * In this method the process of uploading the results to webserver
 		 * should be implemented. After that, return back to MainActivity.class
 		 */
+	}
+	
+	private class UploadResultsTask extends AsyncTask<Track, Long, Boolean> {
+		@Override
+		protected Boolean doInBackground(Track... tracks) {
+			if(null != tracks && tracks.length > 0) {
+				JsonBuilder builder = new JsonBuilder(); 
+				HttpRequest.tryHttpPost(
+						UrlGenerator.uploadResultUrl("" + tracks[0].getTrackNumber()),
+						builder.recordToJson(track));
+				return true;
+			}
+			return false;
+		}	
 	}
 }

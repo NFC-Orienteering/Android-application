@@ -76,4 +76,6 @@
 	<string name="large_text">Large text</string>
 	<string name="ok">OK</string>
 	<string name="history">History</string>
+	
+	<string name="read_info_tag_nfc_animation">NFC is active</string>	
 </resources>
