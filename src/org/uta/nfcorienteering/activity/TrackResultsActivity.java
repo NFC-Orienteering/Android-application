@@ -88,7 +88,7 @@ public class TrackResultsActivity extends Activity {
 		
 		event = DataInstance.getInstace().getEvent();
 		track = DataInstance.getInstace().getTrack();
-	}
+	}	
 	
 	
 	private void storeResultToLocalHistroy(){

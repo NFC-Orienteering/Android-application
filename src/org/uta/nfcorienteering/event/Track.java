@@ -21,7 +21,8 @@ public class Track implements Serializable {
 	public boolean checkComplete() {
 		OrienteeringRecord record = this.parentEvent.getRecord();
 		ArrayList<Punch> punches = record.getPunches();
-		if (checkpoints == null) {
+		if (checkpoints == null
+			||punches == null) {
 			return false;
 		}
 
@@ -29,6 +30,9 @@ public class Track implements Serializable {
 		for (int i = 0; i < length; i++) {
 			Checkpoint checkpoint = checkpoints.get(i);
 			Punch punch = punches.get(i);
+			if (punch == null) {
+				return false;
+			}
 
 			if (checkpoint.getCheckpointNumber() != punch.getCheckpointNumber()
 					|| punch.getSplitTimeMillis() == 0) {
