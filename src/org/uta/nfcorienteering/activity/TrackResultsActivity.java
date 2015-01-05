@@ -15,9 +15,7 @@ import android.graphics.Color;
 import android.graphics.Paint.Style;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
-import android.opengl.Visibility;
 import android.os.Bundle;
-import android.text.method.HideReturnsTransformationMethod;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +26,15 @@ import android.widget.Toast;
 
 public class TrackResultsActivity extends Activity {
 
+	private static final int PADDING_LEFT = 15;
+	private static final int PADDING_TOP = 15;
+	private static final int PADDING_RIGHT = 15;
+	private static final int PADDING_BOTTOM = 15;
+	private static final int PADDING_TOTAL_LEFT = 15;
+	private static final int PADDING_TOTAL_TOP = 15;
+	private static final int PADDING_TOTAL_RIGHT = 15;
+	private static final int PADDING_TOTAL_BOTTOM = 15;
+	
 	Button uploadButton, noUploadButton;
 	OrienteeringEvent event;
 	private Track track;
@@ -102,8 +109,7 @@ public class TrackResultsActivity extends Activity {
 		localStorage.saveToSharedPreference("result_history", histroy);
 	}
 	@Override
-	public void onBackPressed()
-	{
+	public void onBackPressed(){
 		if (histroyMode) {
 			super.onBackPressed();
 		}
@@ -121,6 +127,7 @@ public class TrackResultsActivity extends Activity {
 		finish();
 	}
 
+	@SuppressWarnings("deprecation")
 	public void setResultTable(OrienteeringEvent event) {
 
 		int controlPointCount = track.getCheckpoints().size();
@@ -129,14 +136,14 @@ public class TrackResultsActivity extends Activity {
 		TableLayout tableLayout = (TableLayout) findViewById(R.id.resultTable);
 
 		TableLayout.LayoutParams params = new TableLayout.LayoutParams(
-				TableLayout.LayoutParams.FILL_PARENT,
+				TableLayout.LayoutParams.MATCH_PARENT,
 				TableLayout.LayoutParams.WRAP_CONTENT);
 
 		params.setMargins(5, 10, 5, 10);
 
 		ShapeDrawable border = new ShapeDrawable(new RectShape());
 		border.getPaint().setStyle(Style.STROKE);
-		border.getPaint().setColor(Color.GREEN);
+		border.getPaint().setColor(getResources().getColor(R.color.tableBorderColor));
 
 		for (int i = 1; i < controlPointCount; i++) {
 			TableRow tableRow = new TableRow(this);
@@ -144,9 +151,9 @@ public class TrackResultsActivity extends Activity {
 			TextView controlPointNumber = new TextView(this);
 			TextView controlPointTime = new TextView(this);
 
-			rowNumber.setPadding(15, 15, 15, 15);
-			controlPointNumber.setPadding(15, 15, 15, 15);
-			controlPointTime.setPadding(15, 15, 15, 15);
+			rowNumber.setPadding(PADDING_LEFT, PADDING_TOP, PADDING_RIGHT, PADDING_BOTTOM);
+			controlPointNumber.setPadding(PADDING_LEFT, PADDING_TOP, PADDING_RIGHT, PADDING_BOTTOM);
+			controlPointTime.setPadding(PADDING_LEFT, PADDING_TOP, PADDING_RIGHT, PADDING_BOTTOM);
 
 			rowNumber.setText(String.valueOf(i) + ".");
 			controlPointNumber.setText("Point "
@@ -154,8 +161,7 @@ public class TrackResultsActivity extends Activity {
 
 			if(event.getRecord().getPunches().get(i).getTotalTimestampMillis() == 0){
 				controlPointTime.setText("Not tagged");
-			}
-			else {
+			}else {
 				controlPointTime.setText(Punch.convertMillisToHMmSs(event.getRecord().getPunches().get(i).getTotalTimestampMillis()));
 				taggedPointsCount++;
 			}
@@ -189,9 +195,9 @@ public class TrackResultsActivity extends Activity {
 		totalTime.setText(Punch.convertMillisToHMmSs(event.getRecord().getPunches()
 				.get(event.getRecord().getPunches().size() - 1).getTotalTimestampMillis()));
 
-		total.setPadding(5, 5, 5, 5);
-		controlPointsGot.setPadding(5, 5, 5, 5);
-		totalTime.setPadding(5, 5, 5, 5);
+		total.setPadding(PADDING_TOTAL_LEFT, PADDING_TOTAL_TOP, PADDING_TOTAL_RIGHT, PADDING_TOTAL_BOTTOM);
+		controlPointsGot.setPadding(PADDING_TOTAL_LEFT, PADDING_TOTAL_TOP, PADDING_TOTAL_RIGHT, PADDING_TOTAL_BOTTOM);
+		totalTime.setPadding(PADDING_TOTAL_LEFT, PADDING_TOTAL_TOP, PADDING_TOTAL_RIGHT, PADDING_TOTAL_BOTTOM);
 
 		total.setTextColor(Color.BLACK);
 		total.setGravity(Gravity.CENTER);

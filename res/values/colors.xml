@@ -10,4 +10,5 @@
     <color name="titleTextColor">#fafafa</color>
     <color name="contetnTextColor">#424242</color>
     <color name="greycolor">#212121</color>
+    <color name="tableBorderColor">#BF360C</color>
 </resources>

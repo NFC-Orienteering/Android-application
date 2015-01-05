@@ -22,12 +22,9 @@ import android.widget.Toast;
 
 public class ReadTrackTagActivity extends BaseNfcActivity {
 
-	
-	final Context context = this;
 	TextView tagId;
 	Button nextButton;
 
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,7 +41,6 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 	
 	//This method is here only temporarily just to move to the next Activity via Next-button.
 	public void showTrackInfo(View v){
-
 		postNfcRead("button");
 			
 	}
@@ -60,35 +56,34 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 		}
 
 		
-		Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
+		Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 		 // Vibrate for 500 milliseconds
 		 v.vibrate(500);
 		
 		//Received trackID, result, should be queried to server if there is such event available.
 		nextButton.setEnabled(false);
-		Toast.makeText(context, "Searching for track data. Please wait", Toast.LENGTH_LONG).show();
+		Toast.makeText(this, "Searching for track data. Please wait", Toast.LENGTH_LONG).show();
 		new EventDataDownloader().execute(infoTagId);
 
 	}
 	
 	public void searchTrackDataResults(OrienteeringEvent event) {
 		if(event != null){
-			Toast.makeText(context, "Track found!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Track found!", Toast.LENGTH_SHORT).show();
 			startTrackInfoActivity(event);
-		}
-		else {
-			Toast.makeText(context, "Track could not be found with the ID read from the Tag. Please try reading " +
+			
+		}else {
+			Toast.makeText(this, "Track could not be found with the ID read from the Tag. Please try reading " +
 		             "another Tag.", Toast.LENGTH_LONG).show();
 		}
 	}
 	
 	public  void startTrackInfoActivity(OrienteeringEvent event){
-		Toast.makeText(context, "Track found!", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Track found!", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, TrackInfoActivity.class);
 		intent.putExtra("TRACK_INFO",(Serializable)event);
 		startActivity(intent);
 
-		
 	}
 	
 	class EventDataDownloader extends AsyncTask<String, Void, OrienteeringEvent> {
@@ -101,8 +96,8 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 			
 			if(!trackFound){
 				return null;
-			}
-			else {
+				
+			}else {
 				return DataInstance.getInstace().getEvent();
 			}
 

@@ -11,7 +11,6 @@ import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.event.Track;
 import org.uta.nfcorienteering.utility.DataInstance;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -50,6 +49,7 @@ public class TrackInfoActivity extends BaseNfcActivity {
 		
 		selectOtherTrack = (Button)findViewById(R.id.selectOtherButton);
 		selectThisTrack = (Button)findViewById(R.id.selectThisButton);
+		selectThisTrack.setEnabled(false);
 		
 		event = DataInstance.getInstace().getEvent();
 		track = DataInstance.getInstace().getTrack();
@@ -110,6 +110,7 @@ public class TrackInfoActivity extends BaseNfcActivity {
 			if(image != null){
 				mapImage.setImageBitmap(image);
 				DataInstance.getInstace().setMapImage(image);
+				selectThisTrack.setEnabled(true);
 			}
 		
 			

@@ -2,7 +2,6 @@ package org.uta.nfcorienteering.activity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
@@ -42,15 +41,17 @@ import com.polites.android.GestureImageView;
 
 
 public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
-
-	final private Context context = this;
+	
+	private static final int PADDING_LEFT = 5;
+	private static final int PADDING_TOP = 5;
+	private static final int PADDING_RIGHT = 5;
+	private static final int PADDING_BOTTOM = 5;
 	
 	private Compass compass =  null;
 	boolean compassHidden;
 	boolean compassLarge;
 	
 	Button nextButton;
-
 	ImageView compassImage;
 	
 	//Object which includes event information and where track record should be saved
@@ -213,7 +214,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	
 	public void showResultDialog() {
 		
-		final Dialog dialog = new Dialog(context);
+		final Dialog dialog = new Dialog(this);
 		dialog.setContentView(R.layout.result_dialog);
 		dialog.setTitle("Standings");
 		
@@ -230,7 +231,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		
 	    TableLayout tableLayout = (TableLayout)dialog.findViewById(R.id.eventResultTable);
 	    TableLayout.LayoutParams params = new TableLayout.LayoutParams(TableLayout.
-	    		LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+	    		LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
 	    
 	    params.setMargins(5,10,5,10);
 	    
@@ -241,9 +242,9 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			TextView controlPointNumber = new TextView(this);
 			TextView controlPointTime = new TextView(this);
 			
-			rowNumber.setPadding(5, 5, 5, 5);
-			controlPointNumber.setPadding(5, 5, 5, 5);
-			controlPointTime.setPadding(5,5,5,5);
+			rowNumber.setPadding(PADDING_LEFT, PADDING_TOP, PADDING_RIGHT, PADDING_BOTTOM);
+			controlPointNumber.setPadding(PADDING_LEFT, PADDING_TOP, PADDING_RIGHT, PADDING_BOTTOM);
+			controlPointTime.setPadding(PADDING_LEFT, PADDING_TOP, PADDING_RIGHT, PADDING_BOTTOM);
 			
 			rowNumber.setText(String.valueOf(i+1) + ".");
 			controlPointNumber.setText("Point " + String.valueOf(track.getCheckpoints().get(i).getCheckpointNumber()));
@@ -277,7 +278,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	@Override
 	public void postNfcRead(String result) {
 		
-		 Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
+		 Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 		 v.vibrate(500);
 
 		int checkpointIndex = track.newCheckPointReached(result);
@@ -331,10 +332,8 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 					
 				track.setCurrentCheckPoint(track.getCurrentCheckPoint() + 1);
 				
-			}
-			
 			//The tag that has been correctly read is a finish tag 
-			else if(checkpointIndex == track.getCheckpoints().size() - 1 && track.getCurrentCheckPoint() > 0){
+			}else if(checkpointIndex == track.getCheckpoints().size() - 1 && track.getCurrentCheckPoint() > 0){
 
 				int lastTaggedIndex = 0;
 				for(int i = 1; i < track.getCheckpoints().size()-1; i++) {

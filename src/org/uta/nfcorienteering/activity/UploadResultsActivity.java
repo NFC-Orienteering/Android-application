@@ -31,9 +31,13 @@ import android.widget.Toast;
 
 public class UploadResultsActivity extends Activity {
 
-	final int STATE_NICKNAME = 1;
-	final int STATE_UPLOAD = 2;
-	final int STATE_FINISH = 3;
+	final static int STATE_NICKNAME = 1;
+	final static int STATE_UPLOAD = 2;
+	final static int STATE_FINISH = 3;
+	final static int PADDING_LEFT = 40;
+	final static int PADDING_TOP = 15;
+	final static int PADDING_RIGHT = 10;
+	final static int PADDING_BOTTOM = 15;
 
 	OrienteeringEvent event;
 	private Track track;
@@ -77,7 +81,9 @@ public class UploadResultsActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-
+		/*
+		 * Back-button is disabled.
+		 */
 	}
 
 	public void uploadProgressNext(View v) {
@@ -97,7 +103,7 @@ public class UploadResultsActivity extends Activity {
 			TextView trackName = new TextView(this);
 			TextView totalTimestamp = new TextView(this);
 
-			trackName.setPadding(40, 15, 10, 15);
+			trackName.setPadding(PADDING_LEFT, PADDING_TOP, PADDING_RIGHT, PADDING_BOTTOM);
 			totalTimestamp.setPadding(10, 15, 10, 15);
 
 			trackName
@@ -149,9 +155,9 @@ public class UploadResultsActivity extends Activity {
 			uploadFeedback2.setTextSize(25);
 			uploadFeedback3.setTextSize(25);
 
-			uploadFeedback1.setPadding(40, 15, 10, 15);
-			uploadFeedback2.setPadding(40, 15, 10, 15);
-			uploadFeedback3.setPadding(40, 15, 10, 15);
+			uploadFeedback1.setPadding(PADDING_LEFT, PADDING_TOP, PADDING_RIGHT, PADDING_BOTTOM);
+			uploadFeedback2.setPadding(PADDING_LEFT, PADDING_TOP, PADDING_RIGHT, PADDING_BOTTOM);
+			uploadFeedback3.setPadding(PADDING_LEFT, PADDING_TOP, PADDING_RIGHT, PADDING_BOTTOM);
 
 			uploadFeedback1.setGravity(Gravity.CENTER);
 			uploadFeedback2.setGravity(Gravity.CENTER);
@@ -185,9 +191,8 @@ public class UploadResultsActivity extends Activity {
 
 			nextButton.setText("OK");
 			progressState = STATE_FINISH;
-		}
-
-		else if (progressState == STATE_FINISH) {
+			
+		}else if (progressState == STATE_FINISH) {
 			uploadResults(nextButton);
 		}
 	}
@@ -238,11 +243,6 @@ public class UploadResultsActivity extends Activity {
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 		finish();
-
-		/*
-		 * In this method the process of uploading the results to webserver
-		 * should be implemented. After that, return back to MainActivity.class
-		 */
 	}
 
 	private class UploadResultsTask extends AsyncTask<Track, Long, Boolean> {
