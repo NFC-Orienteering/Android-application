@@ -12,9 +12,11 @@ import org.uta.nfcorienteering.service.TimerService;
 import org.uta.nfcorienteering.service.TimerService.StopwatchBinder;
 import org.uta.nfcorienteering.utility.DataInstance;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
@@ -142,12 +144,29 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			ret = true;
 		}
 		if(item.getItemId() == R.id.menu_quit) {
-			if(timerServiceIntent != null){
-				stopService(timerServiceIntent);
-			}
-			Intent intent = new Intent(this, MainActivity.class);
-			startActivity(intent);
-			finish();
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+			builder.setTitle("Quit active event");
+			builder.setMessage("Do you want to quit the event and return to main menu?"
+					+ " Event data will not be saved.");
+
+			builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			});
+			builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					returnToMainMenu();
+				}
+
+			});
+	
+			AlertDialog alert = builder.create();
+			alert.show();
+		
 			return true;
 			
 		}
@@ -174,6 +193,18 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			ret = super.onOptionsItemSelected(item);
 		}
 		return ret;
+	}
+	
+	public void returnToMainMenu() {
+		
+		if(timerServiceIntent != null){
+			stopService(timerServiceIntent);
+		}
+		Toast.makeText(this, "Active event stopped.",
+				Toast.LENGTH_LONG).show();
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		finish();
 	}
 	
 	@Override

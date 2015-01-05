@@ -11,10 +11,10 @@ public class HttpHelper {
 		String response = "";
 		response = HttpRequest.tryHttpGet(UrlGenerator.searchTrackUrl(infoTagId));
 		
-		if(response.equals("")){
+		if("".equals(response)){
 			return false;
-		}
-		else {
+			
+		}else {
 			Track track = JsonResolver.resolveTrackJson(response);
 
 			DataInstance dataInstance = DataInstance.getInstace();

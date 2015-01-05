@@ -47,7 +47,7 @@ public class JsonBuilder {
 	private JSONArray punchesToJsonArray(List<Punch> punches) {
 		JSONArray jsonArray = new JSONArray();
 		if (punches == null
-			||punches.size() == 0) {
+			||punches.isEmpty()) {
 			return jsonArray;
 		}
 

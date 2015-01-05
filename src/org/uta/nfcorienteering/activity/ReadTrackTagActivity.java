@@ -51,7 +51,7 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 		tagId.setText(result);
 		String infoTagId = result;	
 		
-		if(infoTagId.equals("button")){
+		if("button".equals(infoTagId)){
 			infoTagId = "12";
 		}
 
@@ -90,8 +90,6 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 
 		@Override
 		protected OrienteeringEvent doInBackground(String... params) {
-			
-			System.out.println(params[0]);
 			boolean trackFound = HttpHelper.getTrackAndParentEvent(params[0]);
 			
 			if(!trackFound){

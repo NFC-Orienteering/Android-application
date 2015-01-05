@@ -13,7 +13,7 @@ public class Punch implements Serializable {
 	private long splitTimeMillis = 0;
 
 	public Punch() {
-		;
+		
 	}
 
 	public Punch(int checkpointNumber, long timestamp, long splitTime) {

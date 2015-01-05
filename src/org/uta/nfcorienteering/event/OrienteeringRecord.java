@@ -15,7 +15,7 @@ public class OrienteeringRecord implements Serializable {
 	private boolean recordComplete = false;
 
 	public OrienteeringRecord(){
-		;
+		
 	}
 	
 	public long getTotalTime(){

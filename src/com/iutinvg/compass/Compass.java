@@ -93,9 +93,9 @@ public class Compass implements SensorEventListener {
 
 			}
 
-			float R[] = new float[9];
-			float I[] = new float[9];
-			boolean success = SensorManager.getRotationMatrix(R, I, mGravity,
+			float r[] = new float[9];
+			float i[] = new float[9];
+			boolean success = SensorManager.getRotationMatrix(r, i, mGravity,
 					mGeomagnetic);
 			if (success) {
 				
@@ -107,7 +107,7 @@ public class Compass implements SensorEventListener {
 		         
 				 int mScreenRotation = display.getRotation();
 				 
-				 SensorManager.getOrientation(R, orientation);
+				 SensorManager.getOrientation(r, orientation);
 		         
 				switch (mScreenRotation) {
 			    case Surface.ROTATION_0:
@@ -133,7 +133,7 @@ public class Compass implements SensorEventListener {
 			    default:
 			        break;
 			}
-				boolean remapped = SensorManager.remapCoordinateSystem(R, axisX, axisY, R);
+				SensorManager.remapCoordinateSystem(r, axisX, axisY, r);
 				
 				azimuth = (float) Math.toDegrees(orientation[0]); // orientation
 				azimuth = (azimuth + 360) % 360;

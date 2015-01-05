@@ -14,7 +14,7 @@ public class Track implements Serializable {
 	private String distance = "";
 	private ArrayList<Checkpoint> checkpoints = null;
 	private int currentCheckPoint = 0;
-	private String MapUrl = "";
+	private String mapUrl = "";
 	private String description = "";
 	private OrienteeringEvent parentEvent = null;
 
@@ -67,11 +67,11 @@ public class Track implements Serializable {
 	}
 
 	public String getMapUrl() {
-		return MapUrl;
+		return mapUrl;
 	}
 
 	public void setMapUrl(String mapUrl) {
-		MapUrl = mapUrl;
+		this.mapUrl = mapUrl;
 	}
 
 	public String getDescription() {
