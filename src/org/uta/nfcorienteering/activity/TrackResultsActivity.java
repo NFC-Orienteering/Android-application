@@ -155,6 +155,7 @@ public class TrackResultsActivity extends Activity {
 			controlPointNumber.setPadding(PADDING_LEFT, PADDING_TOP, PADDING_RIGHT, PADDING_BOTTOM);
 			controlPointTime.setPadding(PADDING_LEFT, PADDING_TOP, PADDING_RIGHT, PADDING_BOTTOM);
 
+
 			rowNumber.setText(String.valueOf(i) + ".");
 			controlPointNumber.setText("Point "
 					+ track.getCheckpoints().get(i).getCheckpointNumber());

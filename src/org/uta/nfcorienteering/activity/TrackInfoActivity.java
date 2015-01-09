@@ -87,6 +87,10 @@ public class TrackInfoActivity extends BaseNfcActivity {
 		startActivity(intent);
 		finish();
 	}
+	
+	public void mapImageCouldNotBeDownloaded() {
+		Toast.makeText(this, "Map image could not be retrieved. Please try other track.", Toast.LENGTH_LONG).show();
+	}
 
 	class MapImageDownloader extends AsyncTask<String, Void, Bitmap> {
 
@@ -111,6 +115,9 @@ public class TrackInfoActivity extends BaseNfcActivity {
 				mapImage.setImageBitmap(image);
 				DataInstance.getInstace().setMapImage(image);
 				selectThisTrack.setEnabled(true);
+			}
+			else {
+				mapImageCouldNotBeDownloaded();
 			}
 		
 			
