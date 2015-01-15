@@ -2,36 +2,36 @@ package org.uta.nfcorienteering.http;
 
 public class UrlGenerator {
 
-	static final String domain = "http://nfc-orienteering.sis.uta.fi/api/v1";
-	static final String event = "events";
-	static final String track = "tracks";
-	static final String result = "result";
-	static final String search = "search";
-	static final String postfix = ".json";
+	static final String DOMAIN = "http://nfc-orienteering.sis.uta.fi/api/v1";
+	static final String EVENT = "events";
+	static final String TRACK = "tracks";
+	static final String RESULT = "result";
+	static final String SEARCH = "search";
+	static final String POSTFIX = ".json";
 
 	public static String eventListURL() {
-		return domain + "/" + event + postfix;
+		return DOMAIN + "/" + EVENT + POSTFIX;
 	}
 
 	public static String eventURL(int eventNum) {
-		return domain + "/" + event + "/" + eventNum;
+		return DOMAIN + "/" + EVENT + "/" + eventNum;
 	}
 
 	public static String trackListURL(int eventNum) {
-		return domain + "/" + event + "/" + eventNum + "/" + track;
+		return DOMAIN + "/" + EVENT + "/" + eventNum + "/" + TRACK;
 
 	}
 
 	public static String trackUrl(int trackID) {
-		return domain + "/" + track + "/" + trackID;
+		return DOMAIN + "/" + TRACK + "/" + trackID;
 	}
 
 	public static String uploadResultUrl(String trackNumber) {
-		return domain + "/" + track + "/" + trackNumber + "/" + result;
+		return DOMAIN + "/" + TRACK + "/" + trackNumber + "/" + RESULT;
 	}
 
 	public static String searchTrackUrl(String params) {
-		return domain + "/" + track + "/" + search + "/" + params;
+		return DOMAIN + "/" + TRACK + "/" + SEARCH + "/" + params;
 	}
 
 }

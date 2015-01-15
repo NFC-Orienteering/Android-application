@@ -43,7 +43,7 @@ public class Stopwatch {
 		timerTask = null;
 		timer.cancel();
 
-		// System.gc();
+		System.gc();
 	}
 
 }

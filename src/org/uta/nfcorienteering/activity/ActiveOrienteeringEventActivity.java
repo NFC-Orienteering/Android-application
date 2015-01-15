@@ -2,6 +2,7 @@ package org.uta.nfcorienteering.activity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
@@ -61,7 +62,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	//Object to store the record of the track
 	OrienteeringRecord record = new OrienteeringRecord();
 	//Object to store the punches of control points
-	ArrayList<Punch> punches = new ArrayList<Punch>();
+	List<Punch> punches = new ArrayList<Punch>();
 	
 	GestureImageView gestureMapImage;
 	

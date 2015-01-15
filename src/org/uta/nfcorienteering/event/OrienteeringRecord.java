@@ -1,7 +1,7 @@
 package org.uta.nfcorienteering.event;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 public class OrienteeringRecord implements Serializable {
 	/**
@@ -11,7 +11,7 @@ public class OrienteeringRecord implements Serializable {
 
 	private String nickname = "";
 	private String finishDate = "";
-	private ArrayList<Punch> punches = null;
+	private List<Punch> punches = null;
 	private boolean recordComplete = false;
 
 	public OrienteeringRecord(){
@@ -42,11 +42,11 @@ public class OrienteeringRecord implements Serializable {
 		this.nickname = nickname;
 	}
 
-	public ArrayList<Punch> getPunches() {
+	public List<Punch> getPunches() {
 		return punches;
 	}
 
-	public void setPunches(ArrayList<Punch> punches) {
+	public void setPunches(List<Punch> punches) {
 		this.punches = punches;
 	}
 

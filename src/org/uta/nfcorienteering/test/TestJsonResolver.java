@@ -1,6 +1,6 @@
 package org.uta.nfcorienteering.test;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -24,7 +24,7 @@ public class TestJsonResolver extends TestCase {
 	}
 	
 	public void testResolveTrack() {
-		ArrayList<Checkpoint> checkpoints = track.getCheckpoints();
+		List<Checkpoint> checkpoints = track.getCheckpoints();
 
 		assertEquals(1, track.getTrackNumber());
 		assertEquals("5 km", track.getDistance());

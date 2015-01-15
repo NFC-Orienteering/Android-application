@@ -1,6 +1,5 @@
 package org.uta.nfcorienteering.http;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -23,7 +22,7 @@ public class JsonBuilder {
 
 	public JSONObject recordToJsonObject(Track track) {
 		OrienteeringRecord record = track.getParentEvent().getRecord();
-		ArrayList<Punch> punches = record.getPunches();
+		List<Punch> punches = record.getPunches();
 
 		String nickName = record.getNickname();
 		long totalTime = record.getTotalTime();

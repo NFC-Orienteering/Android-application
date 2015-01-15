@@ -1,7 +1,7 @@
 package org.uta.nfcorienteering.event;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Track implements Serializable {
 	/**
@@ -12,7 +12,7 @@ public class Track implements Serializable {
 	private int trackNumber = 0;
 	private String trackName = "";
 	private String distance = "";
-	private ArrayList<Checkpoint> checkpoints = null;
+	private List<Checkpoint> checkpoints = null;
 	private int currentCheckPoint = 0;
 	private String mapUrl = "";
 	private String description = "";
@@ -20,7 +20,7 @@ public class Track implements Serializable {
 
 	public boolean checkComplete() {
 		OrienteeringRecord record = this.parentEvent.getRecord();
-		ArrayList<Punch> punches = record.getPunches();
+		List<Punch> punches = record.getPunches();
 		if (checkpoints == null
 			||punches == null) {
 			return false;
@@ -58,11 +58,11 @@ public class Track implements Serializable {
 		this.trackName = trackName;
 	}
 
-	public ArrayList<Checkpoint> getCheckpoints() {
+	public List<Checkpoint> getCheckpoints() {
 		return checkpoints;
 	}
 
-	public void setCheckpoints(ArrayList<Checkpoint> checkpoints) {
+	public void setCheckpoints(List<Checkpoint> checkpoints) {
 		this.checkpoints = checkpoints;
 	}
 

@@ -1,11 +1,12 @@
 package org.uta.nfcorienteering.activity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
-import org.uta.nfcorienteering.event.Track;
 import org.uta.nfcorienteering.event.Punch;
+import org.uta.nfcorienteering.event.Track;
 import org.uta.nfcorienteering.utility.DataInstance;
 import org.uta.nfcorienteering.utility.LocalStorage;
 
@@ -101,7 +102,7 @@ public class TrackResultsActivity extends Activity {
 	private void storeResultToLocalHistroy(){
 		LocalStorage localStorage = new LocalStorage(this);
 		Object data = localStorage.readFromSharedPreference("");
-		ArrayList<Track> histroy = (ArrayList<Track>) data;
+		List<Track> histroy = (List<Track>) data;
 		if (histroy == null) {
 			histroy = new ArrayList<Track>();
 		}

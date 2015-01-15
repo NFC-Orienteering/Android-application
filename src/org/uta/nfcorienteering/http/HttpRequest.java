@@ -14,6 +14,7 @@ import android.util.Log;
 public class HttpRequest {
 
 	private static final String TAG = "Http-request";
+	private static final int MAX_INTERNET_RETRY = 3;
 	
 	public static String tryHttpGet(String url) {
 		String webPage = "";
@@ -32,8 +33,8 @@ public class HttpRequest {
 		String result = "";
 		BufferedReader reader = null;
 
-		boolean retry = true;
-		while (retry) {
+		int retryCount = MAX_INTERNET_RETRY;
+		while (retryCount > 0) {
 			try {
 				URL url = new URL(szURL);
 				connection = (HttpURLConnection) url.openConnection();
@@ -52,14 +53,14 @@ public class HttpRequest {
 				while ((lines = reader.readLine()) != null) {
 					result += lines + "\n";
 				}
-				retry = false;
+				retryCount = 0;
 
 			} catch (SocketTimeoutException e) {
 				Log.e(TAG, "" + e);
-				retry = true;
+				retryCount -= 1;
 			} catch (UnknownHostException e) {
 				Log.i(TAG, "" + e);
-				retry = true;
+				retryCount -= 1;
 			}
 		}
 		reader.close();

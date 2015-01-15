@@ -1,6 +1,7 @@
 package org.uta.nfcorienteering.activity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
@@ -23,7 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class ResultHistoryActivity extends Activity {
-	ArrayList<Track> data = null;
+	List<Track> data = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,19 +44,13 @@ public class ResultHistoryActivity extends Activity {
 
 	private void readHistory() {
 		LocalStorage localStorage = new LocalStorage(this);
-		Object object = localStorage.readFromSharedPreference("result_history");
 
-		if (object == null) {
-			// localStorage.saveToSharedPreference("result_history",
-			// initDummyData());
-		}
-
-		data = (ArrayList<Track>) localStorage
+		data = (List<Track>) localStorage
 				.readFromSharedPreference("result_history");
 	}
 
-	private ArrayList<Track> initDummyData() {
-		ArrayList<Track> data = new ArrayList<Track>();
+	private List<Track> initDummyData() {
+		List<Track> data = new ArrayList<Track>();
 
 		int dataAmount = 10;
 		for (int i = 0; i < dataAmount; i++) {
@@ -81,7 +76,7 @@ public class ResultHistoryActivity extends Activity {
 	public class HistoryListAdapter extends BaseAdapter {
 		private LayoutInflater inflater = null;
 
-		private ArrayList<Track> data = null;
+		private List<Track> data = null;
 
 		public HistoryListAdapter(Context context) {
 			this.inflater = LayoutInflater.from(context);
@@ -164,11 +159,11 @@ public class ResultHistoryActivity extends Activity {
 			}
 		}
 
-		public ArrayList<Track> getData() {
+		public List<Track> getData() {
 			return data;
 		}
 
-		public void setData(ArrayList<Track> data) {
+		public void setData(List<Track> data) {
 			this.data = data;
 		}
 

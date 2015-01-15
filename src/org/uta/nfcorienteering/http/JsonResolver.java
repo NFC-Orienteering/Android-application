@@ -1,6 +1,7 @@
 package org.uta.nfcorienteering.http;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,7 +59,7 @@ public class JsonResolver {
 		String mapUrl = "";
 		OrienteeringEvent event = null;
 
-		ArrayList<Checkpoint> controlPoints = new ArrayList<Checkpoint>();
+		List<Checkpoint> controlPoints = new ArrayList<Checkpoint>();
 
 		try {
 			JSONObject jsonObject = new JSONObject(trackJson);
@@ -143,8 +144,8 @@ public class JsonResolver {
 
 	}
 
-	public ArrayList<OrienteeringEvent> jsonArrayToList(String jsonArray) {
-		ArrayList<OrienteeringEvent> events = new ArrayList<OrienteeringEvent>();
+	public List<OrienteeringEvent> jsonArrayToList(String jsonArray) {
+		List<OrienteeringEvent> events = new ArrayList<OrienteeringEvent>();
 
 		JSONArray array = null;
 		try {

@@ -57,7 +57,7 @@ public abstract class BaseNfcActivity extends Activity {
 		 * It's important, that the activity is in the foreground (resumed).
 		 * Otherwise an IllegalStateException is thrown.
 		 */
-		if (AppConfig.isRealDevice) {
+		if (AppConfig.IS_REAL_DEVICE) {
 			setupForegroundDispatch(this, nfcAdapter);
 		}
 	}
@@ -96,7 +96,7 @@ public abstract class BaseNfcActivity extends Activity {
 		 * Call this before onPause, otherwise an IllegalArgumentException is
 		 * thrown as well.
 		 */
-		if (AppConfig.isRealDevice) {
+		if (AppConfig.IS_REAL_DEVICE) {
 			stopForegroundDispatch(this, nfcAdapter);
 		}
 		super.onPause();
@@ -201,10 +201,6 @@ public abstract class BaseNfcActivity extends Activity {
 
 			// Get the Language Code
 			int languageCodeLength = payload[0] & 0063;
-
-			// String languageCode = new String(payload, 1, languageCodeLength,
-			// "US-ASCII");
-			// e.g. "en"
 
 			// Get the Text
 			return new String(payload, languageCodeLength + 1, payload.length
