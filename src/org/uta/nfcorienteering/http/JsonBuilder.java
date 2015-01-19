@@ -26,7 +26,7 @@ public class JsonBuilder {
 
 		String nickName = record.getNickname();
 		long totalTime = record.getTotalTime();
-		boolean completed = track.checkComplete();
+		boolean completed = record.getRecordComplete();
 
 		JSONObject jsonObject = new JSONObject();
 		JSONArray jsonArray = punchesToJsonArray(punches);
