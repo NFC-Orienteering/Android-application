@@ -90,6 +90,7 @@ public class UploadResultsActivity extends Activity {
 
 		if (progressState == STATE_NICKNAME) {
 			nickname = nicknameTextField.getText().toString();
+			event.getRecord().setNickname(nickname);
 			nicknameTextField.setVisibility(View.INVISIBLE);
 			addNameText.setVisibility(View.INVISIBLE);
 			uploadText.setTextColor(Color.GREEN);

@@ -52,7 +52,7 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 		String infoTagId = result;	
 		
 		if("button".equals(infoTagId)){
-			infoTagId = "12";
+			infoTagId = "100";
 		}
 
 		
