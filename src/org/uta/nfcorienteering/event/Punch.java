@@ -11,13 +11,15 @@ public class Punch implements Serializable {
 	private int checkpointNumber = 0;
 	private long totalTimestampMillis = 0;
 	private long splitTimeMillis = 0;
+	private String tagId = "";
 
 	public Punch() {
 		
 	}
 
-	public Punch(int checkpointNumber, long timestamp, long splitTime) {
+	public Punch(int checkpointNumber, String tagId, long timestamp, long splitTime) {
 		this.checkpointNumber = checkpointNumber;
+		this.tagId = tagId;
 		this.totalTimestampMillis = timestamp;
 		this.splitTimeMillis = splitTime;
 	}
@@ -30,6 +32,14 @@ public class Punch implements Serializable {
 		this.checkpointNumber = checkpointNumber;
 	}
 
+	public String getTagId() {
+		return tagId;
+	}
+	
+	public void setTagId(String tagId) {
+		this.tagId = tagId;
+	}
+	
 	public long getTotalTimestampMillis() {
 		return totalTimestampMillis;
 	}

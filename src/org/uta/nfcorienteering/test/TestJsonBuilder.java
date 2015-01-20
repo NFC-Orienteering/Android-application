@@ -28,9 +28,9 @@ public class TestJsonBuilder extends AndroidTestCase {
 		ArrayList<Punch> punches = new ArrayList<Punch>();
 
 		Punch p1, p2, p3;
-		p1 = new Punch(32, 100, 100);
-		p2 = new Punch(21, 150, 50);
-		p3 = new Punch(43, 210, 60);
+		p1 = new Punch(32, "123", 100, 100);
+		p2 = new Punch(21, "231", 150, 50);
+		p3 = new Punch(43, "221",  210, 60);
 		punches.add(p1);
 		punches.add(p2);
 		punches.add(p3);

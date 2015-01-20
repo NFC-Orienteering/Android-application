@@ -62,7 +62,7 @@ public class JsonBuilder {
 		JSONObject jsonObject = new JSONObject();
 
 		try {
-			jsonObject.put("tag_id", punch.getCheckpointNumber());
+			jsonObject.put("tag_id", punch.getTagId());
 			jsonObject.put("time", punch.getSplitTimeMillis());
 		} catch (Exception e) {
 			Log.e(TAG, "" + e);

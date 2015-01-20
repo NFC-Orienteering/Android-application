@@ -42,8 +42,8 @@ public class TestHttpRequet extends TestCase {
 		OrienteeringEvent event = new OrienteeringEvent();
 		
 		Punch p1, p2;
-		p1 = new Punch(1, 100, 100);
-		p2 = new Punch(2, 200, 100);
+		p1 = new Punch(1, "123", 100, 100);
+		p2 = new Punch(2, "231", 200, 100);
 		
 		punches.add(p1);
 		punches.add(p2);

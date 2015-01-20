@@ -115,6 +115,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 			Punch controlPoint = new Punch();
 			
 			controlPoint.setCheckpointNumber(track.getCheckpoints().get(i).getCheckpointNumber());
+			controlPoint.setTagId(track.getCheckpoints().get(i).getRfidTag());
 			controlPoint.setSplitTimeMillis(0);
 			controlPoint.setTotalTimestampMillis(0);
 			punches.add(controlPoint);

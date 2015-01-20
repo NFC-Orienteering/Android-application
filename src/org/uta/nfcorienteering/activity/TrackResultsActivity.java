@@ -1,6 +1,7 @@
 package org.uta.nfcorienteering.activity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.uta.nfcorienteering.R;
@@ -52,6 +53,7 @@ public class TrackResultsActivity extends Activity {
 		noUploadButton = (Button) findViewById(R.id.noUploadButton);
 		eventNameText = (TextView) findViewById(R.id.eventNameText);
 		trackDistanceText = (TextView) findViewById(R.id.trackLengthText);
+		
 
 		initView();
 		
