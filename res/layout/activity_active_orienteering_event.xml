@@ -16,6 +16,7 @@
         gesture-image:strict="false" />
 
     <Button
+   		android:visibility="invisible"
         android:id="@+id/activeEventNextButton"
         style="@style/LowButtons"
         android:layout_width="150dp"

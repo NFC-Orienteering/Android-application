@@ -11,6 +11,7 @@ import org.uta.nfcorienteering.event.Punch;
 import org.uta.nfcorienteering.event.Track;
 import org.uta.nfcorienteering.service.TimerService;
 import org.uta.nfcorienteering.service.TimerService.StopwatchBinder;
+import org.uta.nfcorienteering.utility.AppConfig;
 import org.uta.nfcorienteering.utility.DataInstance;
 
 import android.app.AlertDialog;
@@ -79,8 +80,12 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		
 		compassHidden = false;
 		compassLarge = false;
-		nextButton = (Button)findViewById(R.id.activeEventNextButton);
 
+		nextButton = (Button)findViewById(R.id.activeEventNextButton);
+		if(!AppConfig.IS_REAL_DEVICE) {
+			nextButton.setVisibility(Button.VISIBLE);
+		}
+				
 		compassImage = (ImageView)findViewById(R.id.compassImageView);
 		compassImage.setOnClickListener(new OnClickListener() {
 			public void onClick(View v){

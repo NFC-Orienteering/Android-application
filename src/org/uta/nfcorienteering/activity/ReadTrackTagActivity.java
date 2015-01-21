@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.uta.nfcorienteering.R;
 import org.uta.nfcorienteering.event.OrienteeringEvent;
 import org.uta.nfcorienteering.http.HttpHelper;
+import org.uta.nfcorienteering.utility.AppConfig;
 import org.uta.nfcorienteering.utility.DataInstance;
 
 import android.content.Context;
@@ -30,9 +31,12 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_read_track_tag);
 		
+		tagId = (TextView)findViewById(R.id.tagId);		
 		nextButton = (Button) findViewById(R.id.readTagButton);
-		tagId = (TextView)findViewById(R.id.tagId);
-
+		if(!AppConfig.IS_REAL_DEVICE) {
+			nextButton.setVisibility(Button.VISIBLE);
+		}
+		
 		ImageView nfcAnimation = (ImageView) findViewById(R.id.read_info_tag_nfc_animation);
 		nfcAnimation.setBackgroundResource(R.drawable.nfc_reader_animation);
 		AnimationDrawable anim = (AnimationDrawable) nfcAnimation.getBackground();

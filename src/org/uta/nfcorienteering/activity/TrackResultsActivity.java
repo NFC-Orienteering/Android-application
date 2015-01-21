@@ -1,7 +1,6 @@
 package org.uta.nfcorienteering.activity;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.uta.nfcorienteering.R;

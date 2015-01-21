@@ -36,6 +36,7 @@
         android:contentDescription="@string/read_info_tag_nfc_animation"/>
     
     <Button
+        android:visibility="invisible"
         android:id="@+id/readTagButton"
         style="@style/LowButtons"
         android:layout_width="150dp"
