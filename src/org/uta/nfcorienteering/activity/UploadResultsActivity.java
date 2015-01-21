@@ -262,10 +262,12 @@ public class UploadResultsActivity extends Activity {
 	}
 
 	public void onClick(View v) {
-		Log.d("upload reusult activity", "clicked");
-		((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
-				.hideSoftInputFromWindow(UploadResultsActivity.this
-						.getCurrentFocus().getWindowToken(),
-						InputMethodManager.HIDE_NOT_ALWAYS);
+		Log.d("upload result activity", "clicked");
+		
+		if(null != this.getCurrentFocus()) {
+			((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+					.hideSoftInputFromWindow(this.getCurrentFocus().
+							getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+		}
 	}
 }
