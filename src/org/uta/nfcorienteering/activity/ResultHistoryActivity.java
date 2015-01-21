@@ -1,6 +1,7 @@
 package org.uta.nfcorienteering.activity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.uta.nfcorienteering.R;
@@ -45,8 +46,7 @@ public class ResultHistoryActivity extends Activity {
 	private void readHistory() {
 		LocalStorage localStorage = new LocalStorage(this);
 
-		data = (List<Track>) localStorage
-				.readFromSharedPreference("result_history");
+		data = (List<Track>) localStorage.readFromSharedPreference();
 	}
 
 	private List<Track> initDummyData() {
@@ -62,7 +62,7 @@ public class ResultHistoryActivity extends Activity {
 
 			event.setEventName("Orienteering event" + (i + 1));
 			event.setLocation("Location" + (i + 1));
-			record.setFinishDate((i + 10) + " Nov 2014");
+			record.setFinishDate(new Date());
 
 			track.setParentEvent(event);
 			event.setRecord(record);

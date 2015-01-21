@@ -102,7 +102,7 @@ public class TrackResultsActivity extends Activity {
 	
 	private void storeResultToLocalHistroy(){
 		LocalStorage localStorage = new LocalStorage(this);
-		Object data = localStorage.readFromSharedPreference("");
+		Object data = localStorage.readFromSharedPreference();
 		List<Track> histroy = (List<Track>) data;
 		if (histroy == null) {
 			histroy = new ArrayList<Track>();

@@ -21,7 +21,7 @@ public class TestLocalStorage extends AndroidTestCase {
 
 	public void TestLocalStorage() {
 		ArrayList<String> strings = (ArrayList<String>) localStorage
-				.readFromSharedPreference("test");
+				.readFromSharedPreference();
 
 		ArrayList<String> data = getTestData();
 		for (int i = 0; i < data.size(); i++) {

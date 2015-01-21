@@ -1,7 +1,12 @@
 package org.uta.nfcorienteering.event;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import org.uta.nfcorienteering.utility.AppConfig;
 
 public class OrienteeringRecord implements Serializable {
 	/**
@@ -9,8 +14,8 @@ public class OrienteeringRecord implements Serializable {
 	 */
 	private static final long serialVersionUID = -8382206012435372165L;
 
+	private Date finishDate;
 	private String nickname = "";
-	private String finishDate = "";
 	private List<Punch> punches = null;
 	private boolean recordComplete = false;
 
@@ -51,10 +56,15 @@ public class OrienteeringRecord implements Serializable {
 	}
 
 	public String getFinishDate() {
-		return finishDate;
+		if(null != finishDate) {
+			SimpleDateFormat sdf = 
+					new SimpleDateFormat(AppConfig.DATE_FORMAT, Locale.US);
+			return sdf.format(finishDate);
+		}
+		return "";
 	}
 
-	public void setFinishDate(String finishDate) {
+	public void setFinishDate(Date finishDate) {
 		this.finishDate = finishDate;
 	}
 	

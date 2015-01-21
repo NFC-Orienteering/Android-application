@@ -2,6 +2,7 @@ package org.uta.nfcorienteering.activity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.uta.nfcorienteering.R;
@@ -432,7 +433,9 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 	
 	public void trackFinished(boolean allControlPointsTagged) {
 		
-		stopService(timerServiceIntent);
+		if(null != timerServiceIntent) {
+			stopService(timerServiceIntent);
+		}
 		
 		if(allControlPointsTagged) {
 			Toast.makeText(this, "Track finished successfully!", Toast.LENGTH_LONG).show();
@@ -443,6 +446,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		
 		record.setPunches(punches);
 		record.setRecordComplete(allControlPointsTagged);
+		record.setFinishDate(new Date());
 		Intent intent = new Intent(this, TrackResultsActivity.class);
 		intent.putExtra("EVENT_RECORD", (Serializable)event);
 		startActivity(intent);
@@ -450,13 +454,7 @@ public class ActiveOrienteeringEventActivity extends BaseNfcActivity  {
 		
 	}
 	public void trackFinished(View v){
-		if(timerServiceIntent != null) {
-			stopService(timerServiceIntent);
-		}
-		Intent intent = new Intent(this, TrackResultsActivity.class);
-		intent.putExtra("EVENT_RECORD", (Serializable)event);
-		startActivity(intent);
-		finish();
+		trackFinished(false);
 	}
 	
 	public long getSplitTimeMillis (long lastTimestamp, long totalTimeMillis) {

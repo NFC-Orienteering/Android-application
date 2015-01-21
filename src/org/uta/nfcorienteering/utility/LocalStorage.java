@@ -16,9 +16,10 @@ import android.util.Log;
 public class LocalStorage {
 
 	private static final String TAG = "LocalStorage";
+	private static final String LOCALE_RESULT_KEY = "result_history";
 	
-	Context context;
-	static SharedPreferences sp;
+	private Context context;
+	private static SharedPreferences sp;
 
 	public LocalStorage(Context context) {
 		this.context = context;
@@ -26,7 +27,7 @@ public class LocalStorage {
 
 	private void getSharedPreference() {
 		if (sp == null) {
-			sp = context.getSharedPreferences("reuslt_history", 0);
+			sp = context.getSharedPreferences(LOCALE_RESULT_KEY, 0);
 		}
 	}
 
@@ -37,8 +38,10 @@ public class LocalStorage {
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(baos);
 			oos.writeObject(value);
+			
 			String base64 = new String(Base64.encodeToString(
 					baos.toByteArray(), Base64.DEFAULT));
+			
 			Editor editor = sp.edit();
 			editor.putString(name, base64);
 			editor.commit();
@@ -47,10 +50,10 @@ public class LocalStorage {
 		}
 	}
 
-	public Object readFromSharedPreference(String name) {
+	public Object readFromSharedPreference() {
 		getSharedPreference();
 		
-		String szBase64 = sp.getString(name, "");
+		String szBase64 = sp.getString(LOCALE_RESULT_KEY, "");
 		Object object = null;
 		
 		if (szBase64 == null) {
