@@ -1,102 +1,106 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="org.uta.nfcorienteering.activity.TrackResultsActivity" 
-    android:background="@color/background">
-
-    <TextView
-        style="@style/Title"
-        android:id="@+id/resultsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/results_text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    android:fillViewport="true" >
 
     <RelativeLayout
-        android:id="@+id/RelativeLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/uploadInfoText"
-        android:layout_below="@+id/trackLengthText"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:paddingTop="50dp" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="org.uta.nfcorienteering.activity.TrackResultsActivity" >
 
-        <TableLayout
-            android:id="@+id/resultTable"
+        <TextView
+            android:id="@+id/resultsText"
+            style="@style/Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true" >
-        </TableLayout>
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/results_text"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/uploadInfoText"
+            android:layout_below="@+id/trackLengthText"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="50dp" >
+
+            <TableLayout
+                android:id="@+id/resultTable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true" >
+            </TableLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/uploadInfoText"
+            style="@style/Content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linear"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"
+            android:gravity="center"
+            android:text="@string/uploadInfo_text" />
+
+        <TextView
+            android:id="@+id/eventNameText"
+            style="@style/Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/resultsText"
+            android:layout_marginTop="26dp"
+            android:text="@string/eventName_text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/trackLengthText"
+            style="@style/Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/eventNameText"
+            android:layout_alignBottom="@+id/eventNameText"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/eventNameText"
+            android:text="@string/trackLength_text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/eventNameText"
+            android:layout_alignParentBottom="true"
+            android:gravity="bottom"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/noUploadButton"
+                style="@style/LowButtons"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:onClick="backToStartMenu"
+                android:text="@string/button_n_upload" />
+
+            <Button
+                android:id="@+id/uploadButton"
+                style="@style/LowButtons"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:onClick="uploadResults"
+                android:text="@string/button_upload" />
+        </LinearLayout>
     </RelativeLayout>
 
-    <TextView
-        style="@style/Content"
-        android:id="@+id/uploadInfoText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
-        android:layout_above="@+id/linear"
-        android:gravity="center"
-        android:text="@string/uploadInfo_text" />
-
-    <TextView
-        style="@style/Name"
-        android:id="@+id/eventNameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/resultsText"
-        android:layout_marginTop="26dp"
-        android:text="@string/eventName_text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        style="@style/Name"
-        android:id="@+id/trackLengthText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/eventNameText"
-        android:layout_alignBottom="@+id/eventNameText"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@+id/eventNameText"
-        
-        android:text="@string/trackLength_text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-<LinearLayout
-    android:id="@+id/linear"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignLeft="@+id/eventNameText"
-    android:layout_alignParentBottom="true"
-    
-    android:gravity="bottom"
-    android:orientation="horizontal" >
-
-    <Button
-        android:id="@+id/noUploadButton"
-        style="@style/LowButtons"
-        android:layout_width="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/button"
-        android:onClick="backToStartMenu"
-        android:text="@string/button_n_upload" />
-
-    <Button
-        android:id="@+id/uploadButton"
-        style="@style/LowButtons"
-        android:layout_width="wrap_content"
-        android:layout_weight="1"
-        android:onClick="uploadResults"
-        android:text="@string/button_upload" />
-</LinearLayout>
-
-</RelativeLayout>
+</ScrollView>
