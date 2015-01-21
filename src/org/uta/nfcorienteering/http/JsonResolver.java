@@ -143,35 +143,4 @@ public class JsonResolver {
 		return date + " " + time;
 
 	}
-
-	public List<OrienteeringEvent> jsonArrayToList(String jsonArray) {
-		List<OrienteeringEvent> events = new ArrayList<OrienteeringEvent>();
-
-		JSONArray array = null;
-		try {
-			array = new JSONArray(jsonArray);
-			int size = array.length();
-			for (int i = 0; i < size; i++) {
-				String json = array.getString(i);
-				OrienteeringEvent event = resolveEvent(json);
-				events.add(event);
-			}
-			return events;
-
-		} catch (JSONException e) {
-			Log.e(TAG, "" + e);
-			return null;
-		}
-	}
-
-	private OrienteeringEvent resolveEvent(String json) throws JSONException {
-		OrienteeringEvent event = new OrienteeringEvent();
-		JSONObject jsonObject = new JSONObject(json);
-
-		// TODO
-
-		return event;
-
-	}
-
 }

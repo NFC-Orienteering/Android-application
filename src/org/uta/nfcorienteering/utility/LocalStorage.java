@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
+import java.util.List;
+
+import org.uta.nfcorienteering.event.Track;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -16,7 +19,7 @@ import android.util.Log;
 public class LocalStorage {
 
 	private static final String TAG = "LocalStorage";
-	private static final String LOCALE_RESULT_KEY = "result_history";
+	private static final String ORIENTEERING_HISTORY_KEY = "result_history";
 	
 	private Context context;
 	private static SharedPreferences sp;
@@ -25,13 +28,33 @@ public class LocalStorage {
 		this.context = context;
 	}
 
+	
+	public void saveOrienteeringHistory(List<Track> history) {
+		saveToSharedPreference(ORIENTEERING_HISTORY_KEY, history);
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Track> readOrienteeringHistory() {
+		return (List<Track>) readFromSharedPreference(ORIENTEERING_HISTORY_KEY);
+	}
+	
+
+	public void removeOrienteeringTrackFromHistory(Track track) {
+		List<Track> tracks = readOrienteeringHistory();
+		tracks.remove(track);
+		saveOrienteeringHistory(tracks);
+	}
+	
+	
 	private void getSharedPreference() {
 		if (sp == null) {
-			sp = context.getSharedPreferences(LOCALE_RESULT_KEY, 0);
+			sp = context.getSharedPreferences(ORIENTEERING_HISTORY_KEY, 0);
 		}
 	}
 
-	public void saveToSharedPreference(String name, Object value) {
+	
+	private void saveToSharedPreference(String name, Object value) {
 		getSharedPreference();
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -50,10 +73,10 @@ public class LocalStorage {
 		}
 	}
 
-	public Object readFromSharedPreference() {
+	private Object readFromSharedPreference(String key) {
 		getSharedPreference();
 		
-		String szBase64 = sp.getString(LOCALE_RESULT_KEY, "");
+		String szBase64 = sp.getString(key, "");
 		Object object = null;
 		
 		if (szBase64 == null) {

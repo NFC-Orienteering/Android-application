@@ -1,7 +1,6 @@
 package org.uta.nfcorienteering.activity;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
 
 import org.uta.nfcorienteering.R;
@@ -10,6 +9,7 @@ import org.uta.nfcorienteering.event.OrienteeringRecord;
 import org.uta.nfcorienteering.event.Track;
 import org.uta.nfcorienteering.utility.LocalStorage;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -45,32 +45,11 @@ public class ResultHistoryActivity extends Activity {
 
 	private void readHistory() {
 		LocalStorage localStorage = new LocalStorage(this);
-
-		data = (List<Track>) localStorage.readFromSharedPreference();
-	}
-
-	private List<Track> initDummyData() {
-		List<Track> data = new ArrayList<Track>();
-
-		int dataAmount = 10;
-		for (int i = 0; i < dataAmount; i++) {
-			Track track = new Track();
-			OrienteeringEvent event = new OrienteeringEvent();
-			OrienteeringRecord record = new OrienteeringRecord();
-
-			track.setDistance((i + 2) + " km");
-
-			event.setEventName("Orienteering event" + (i + 1));
-			event.setLocation("Location" + (i + 1));
-			record.setFinishDate(new Date());
-
-			track.setParentEvent(event);
-			event.setRecord(record);
-
-			data.add(track);
+		data = localStorage.readOrienteeringHistory();
+		
+		if(null != data) {
+			Collections.reverse(data);
 		}
-
-		return data;
 	}
 
 	public class HistoryListAdapter extends BaseAdapter {
@@ -100,6 +79,7 @@ public class ResultHistoryActivity extends Activity {
 			return 0;
 		}
 
+		@SuppressLint("InflateParams")
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;

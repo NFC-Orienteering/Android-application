@@ -87,7 +87,7 @@ public class ReadTrackTagActivity extends BaseNfcActivity {
 		Intent intent = new Intent(this, TrackInfoActivity.class);
 		intent.putExtra("TRACK_INFO",(Serializable)event);
 		startActivity(intent);
-
+		finish();
 	}
 	
 	class EventDataDownloader extends AsyncTask<String, Void, OrienteeringEvent> {

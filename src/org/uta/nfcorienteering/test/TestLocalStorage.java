@@ -1,44 +1,38 @@
 package org.uta.nfcorienteering.test;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.uta.nfcorienteering.event.Track;
 import org.uta.nfcorienteering.utility.LocalStorage;
 
 import android.test.AndroidTestCase;
 
 public class TestLocalStorage extends AndroidTestCase {
 
-	LocalStorage localStorage;
 
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
+	public void TestReadOrienteeringHistory() {
+		LocalStorage localStorage = new LocalStorage(getContext());
+		localStorage.saveOrienteeringHistory(getTestData());
+		
+		List<Track> data = localStorage.readOrienteeringHistory();
 
-		localStorage = new LocalStorage(getContext());
-
-		localStorage.saveToSharedPreference("test", getTestData());
+		assertEquals(2, data.size());
+		assertEquals("Track 1", data.get(0).getTrackName());
+		assertEquals("Track 2", data.get(1).getTrackName());		
 	}
 
-	public void TestLocalStorage() {
-		ArrayList<String> strings = (ArrayList<String>) localStorage
-				.readFromSharedPreference();
+	private List<Track> getTestData() {
+		Track track1 = new Track();
+		track1.setTrackName("Track 1");
+		Track track2 = new Track();
+		track2.setTrackName("Track 2");		
 
-		ArrayList<String> data = getTestData();
-		for (int i = 0; i < data.size(); i++) {
-			assertEquals(strings.get(i), data.get(i));
-		}
+		List<Track> tracks = new ArrayList<Track>();
+		tracks.add(track1);
+		tracks.add(track2);
 
-	}
-
-	private ArrayList<String> getTestData() {
-		String s1 = "string1";
-		String s2 = "stirng2";
-
-		ArrayList<String> strings = new ArrayList<String>();
-		strings.add(s1);
-		strings.add(s2);
-
-		return strings;
+		return tracks;
 	}
 
 }

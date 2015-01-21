@@ -131,7 +131,4 @@ public class TrackInfoActivity extends BaseNfcActivity {
 				"go back to read some other track's info tag.", Toast.LENGTH_LONG).show();
 		
 	}
-
-	
-	
 }

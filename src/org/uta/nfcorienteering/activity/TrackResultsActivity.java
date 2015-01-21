@@ -102,13 +102,14 @@ public class TrackResultsActivity extends Activity {
 	
 	private void storeResultToLocalHistroy(){
 		LocalStorage localStorage = new LocalStorage(this);
-		Object data = localStorage.readFromSharedPreference();
-		List<Track> histroy = (List<Track>) data;
+		List<Track> histroy = localStorage.readOrienteeringHistory();
+		
 		if (histroy == null) {
 			histroy = new ArrayList<Track>();
 		}
+		
 		histroy.add(track);
-		localStorage.saveToSharedPreference("result_history", histroy);
+		localStorage.saveOrienteeringHistory(histroy);
 	}
 	@Override
 	public void onBackPressed(){

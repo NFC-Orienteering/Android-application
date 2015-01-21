@@ -1,115 +1,117 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/scrollView1"
+    android:fillViewport="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical"
-    tools:context="org.uta.nfcorienteering.activity.MainActivity"
-    tools:ignore="MergeRootFrame" >
+    android:layout_height="match_parent" >
 
-   <TextView
-        style="@style/Title"
-        android:id="@+id/TextView1"
+    <RelativeLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:paddingBottom="25dp"
-        android:paddingTop="10dp"
-        android:text="@string/welcome_text"
-         />
+        android:background="@color/background"
+        android:orientation="vertical"
+        tools:context="org.uta.nfcorienteering.activity.MainActivity"
+        tools:ignore="MergeRootFrame" >
 
-    <TextView
-        style="@style/Name"
-        android:id="@+id/TextView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextView1"
-        android:gravity="center"
-        android:paddingBottom="25dp"
-        android:text="@string/info_text"
-        android:textSize="10pt" />
+        <TextView
+            android:id="@+id/TextView1"
+            style="@style/Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:paddingBottom="25dp"
+            android:paddingTop="10dp"
+            android:text="@string/welcome_text" />
 
-    <TextView
-        style="@style/Name"
-        android:id="@+id/TextView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextView2"
-        android:gravity="start"
-        android:paddingBottom="10dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="@string/instructions1_text" />
+        <TextView
+            android:id="@+id/TextView2"
+            style="@style/Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TextView1"
+            android:gravity="center"
+            android:paddingBottom="25dp"
+            android:text="@string/info_text"
+            android:textSize="10pt" />
 
-    <TextView
-        style="@style/Name"
-        android:id="@+id/TextView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextView3"
-        android:gravity="start|center"
-        android:paddingBottom="10dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="@string/instructions2_text" />
+        <TextView
+            android:id="@+id/TextView3"
+            style="@style/Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TextView2"
+            android:gravity="start"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="@string/instructions1_text" />
 
-    <TextView
-        style="@style/Name"
-        android:id="@+id/TextView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextView4"
-        android:gravity="left|center"
-        android:paddingBottom="10dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="@string/instructions3_text" />
+        <TextView
+            android:id="@+id/TextView4"
+            style="@style/Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TextView3"
+            android:gravity="start|center"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="@string/instructions2_text" />
 
-    <TextView
-        style="@style/Name"
-        android:id="@+id/TextView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TextView5"
-        android:gravity="left"
-        android:paddingBottom="25dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="@string/instructions4_text" />
+        <TextView
+            android:id="@+id/TextView5"
+            style="@style/Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TextView4"
+            android:gravity="left|center"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="@string/instructions3_text" />
 
-    <LinearLayout
-        style="@style/Name"
-        android:layout_width="fill_parent"
- 		android:layout_height="fill_parent"
- 		android:orientation="horizontal"
-    	android:layout_below="@+id/TextView6"
-        android:layout_centerHorizontal="true"
-        android:gravity="bottom" >
+        <TextView
+            android:id="@+id/TextView6"
+            style="@style/Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TextView5"
+            android:gravity="left"
+            android:paddingBottom="25dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="@string/instructions4_text" />
 
-    <Button
-        style="@style/LowButtons"
-        android:background="@drawable/button"
-        android:id="@+id/history_btn"
-        android:layout_width="wrap_content"
-        android:layout_weight="1"
-        android:onClick="onClick"
-        android:text="@string/history" />
-    <Button
-        style="@style/LowButtons"
-        android:id="@+id/start_button"
-        android:layout_width="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/button"
-        android:text="@string/button_start"
-        android:onClick="selectTrackNFC" />
-</LinearLayout>
+        <LinearLayout
+            style="@style/Name"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/TextView6"
+            android:layout_centerHorizontal="true"
+            android:gravity="bottom"
+            android:layout_margin="5dp"
+            android:orientation="horizontal" >
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/history_btn"
+                style="@style/LowButtons"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:onClick="onClick"
+                android:text="@string/history" />
+
+            <Button
+                android:id="@+id/start_button"
+                style="@style/LowButtons"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:onClick="selectTrackNFC"
+                android:text="@string/button_start" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>
